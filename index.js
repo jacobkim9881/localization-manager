@@ -140,17 +140,19 @@ writeFile(path, cont, function (err) {
 }
 
 async function nameWithLocalize(name, cont, lang) {
- await translate(cont, {to: lang, except: []}).then(res => {
- name = name + res;	 
+ return await translate(cont, {to: lang, except: []}).then(res => {
+ name = name + res;	
+	 console.log(name)
+ return name;	 
  })
   .catch(err => {
   console.log(err);
  })
 }
 
-async function putLocalInMessage(lang, obj, ...cont) {
- translate(cont[1], {to: lang, except: []}).then(res => {
- obj.appName.message = cont[2];
+async function putLocalInMessage(lang, obj, cont1, cont2) {
+ await translate(cont1, {to: lang, except: []}).then(res => {
+ obj.appName.message = cont2;
  obj.appDesc.message = res;
  console.log(obj);	 
 // writeJson(aPath + langs[i] + `/messages.json`, JSON.stringify(messages));  	 
@@ -161,17 +163,6 @@ async function putLocalInMessage(lang, obj, ...cont) {
 
 for (let i = 0; i < 1; i++) {
  let localName = appName;
- nameWithLocalize(localName, appName1, langs[i])
-//  .then(() => putLocalInMessage(langs[i], messages,[appDesc, localName]));	
-  .then(() => {	
- translate(appDesc, {to: langs[i], except: []}).then(res => {
- messages.appName.message = localName;
- messages.appDesc.message = res;
- console.log(messages);	  
-// writeJson(aPath + langs[i] + `/messages.json`, JSON.stringify(messages));  	 
- }).catch(err => {
-  console.log(err);
- })	
-  })
+ nameWithLocalize(localName + ' - ', appName1, langs[i])	
+  .then((res) => putLocalInMessage(langs[i], messages, appDesc, res));
 }
-
