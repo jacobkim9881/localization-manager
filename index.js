@@ -1,6 +1,6 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-
+const path = require('path')
 const langsExplain = {
   af: 'Afrikaans',
   sq: 'Albanian',
@@ -116,10 +116,10 @@ writeFile('foo/bar/baz/qux.txt', 'some contents', function (err) {
   console.log('file is written')
 })
 */
-let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
+let aPath = path.normalize(`../_locales/`)
 
 , appName = "Cursor Tails"
-, appName1 = "Object Animation for mouse cursor"
+, appName1 = "Animations for your mouse"
 , appDesc = "Adding funny effects whenever you move your mouse. This extension make your mouse moving create fun effects." 
 , messages = {
  "appName": {
@@ -155,13 +155,14 @@ async function putLocalInMessage(lang, obj, cont1, cont2) {
  obj.appName.message = cont2;
  obj.appDesc.message = res;
  console.log(obj);	 
-// writeJson(aPath + langs[i] + `/messages.json`, JSON.stringify(messages));  	 
+ let rPath = path.normalize(aPath + lang + `/messages.json`);
+ writeJson(rPath, JSON.stringify(messages));  	 
  }).catch(err => {
   console.log(err);
  })	
 }
 
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < langs.length; i++) {
  let localName = appName;
  nameWithLocalize(localName + ' - ', appName1, langs[i])	
   .then((res) => putLocalInMessage(langs[i], messages, appDesc, res));
