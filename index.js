@@ -132,6 +132,7 @@ let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
  }
 }
 
+let contents = require('./target/en/test.json')
 function writeJson(path, cont) {
 writeFile(path, cont, function (err) {
   if (err) return console.log(err)
@@ -139,30 +140,33 @@ writeFile(path, cont, function (err) {
 })
 }
 
-async function nameWithLocalize(name, cont, lang) {
+async function nameWithLocalize(cont, lang) {
  return await translate(cont, {to: lang, except: []}).then(res => {
- name = name + res;	
-	 console.log(name)
- return name;	 
+//	 console.log('res : ', res)
+  return res
  })
   .catch(err => {
   console.log(err);
  })
 }
 
-async function putLocalInMessage(lang, obj, cont1, cont2) {
- await translate(cont1, {to: lang, except: []}).then(res => {
- obj.appName.message = cont2;
- obj.appDesc.message = res;
- console.log(obj);	 
-// writeJson(aPath + langs[i] + `/messages.json`, JSON.stringify(messages));  	 
- }).catch(err => {
-  console.log(err);
- })	
+async function loopLocalize(i, langs, result, contents) {
+ for (const [key, value] of Object.entries(contents)) {
+  let localized = await nameWithLocalize(value, langs[i])
+
+ result[key] = localized	 
+ }
+return result	
 }
 
-for (let i = 0; i < 1; i++) {
- let localName = appName;
- nameWithLocalize(localName + ' - ', appName1, langs[i])	
-  .then((res) => putLocalInMessage(langs[i], messages, appDesc, res));
+async function localizeByLangs() {
+
+for (let i = 0; i < langs.length; i++) {
+result = loopLocalize(i, langs, result, contents)
+// let localName = appName;
+// nameWithLocalize(localName + ' - ', appName1, langs[i])	
+//  .then((res) => putLocalInMessage(langs[i], messages, appDesc, res));
+console.log(result)	
 }
+}
+localizeByLangs()
