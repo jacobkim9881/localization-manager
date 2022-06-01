@@ -137,7 +137,8 @@ const path = require('path')
 
 let fileName = 'test.json'
 let contents = require('./target/en/' + fileName)
-function writeJson(file, cont) {
+function writeJson(file, data) {
+if (typeof data !== 'string') data = JSON.stringify(data, null, 4)	
 fs.promises.mkdir(path.dirname(file), {recursive: true}).then(x => fs.promises.writeFile(file, data))
 	/*
 writeFile(path, cont, function (err) {
