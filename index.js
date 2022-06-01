@@ -132,12 +132,19 @@ let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
  }
 }
 
-let contents = require('./target/en/test.json')
-function writeJson(path, cont) {
+const fs = require('fs')
+const path = require('path')
+
+let fileName = 'test.json'
+let contents = require('./target/en/' + fileName)
+async function writeJson(dir, file, cont) {
+await fs.promises.mkdir(path.dirname(dir), {recursive: true}).then(x => fs.promises.writeFile(dir + '/' + file, JSON.stringify(cont)))
+	/*
 writeFile(path, cont, function (err) {
   if (err) return console.log(err)
   console.log('file is written');	
 })
+	*/
 }
 
 async function nameWithLocalize(cont, lang) {
@@ -150,23 +157,28 @@ async function nameWithLocalize(cont, lang) {
  })
 }
 
-async function loopLocalize(i, langs, result, contents) {
+async function loopLocalize(i, langs, result, contents, fileName) {
  for (const [key, value] of Object.entries(contents)) {
   let localized = await nameWithLocalize(value, langs[i])
 
- result[key] = localized	 
+ result[key] = localized	
+	
  }
+ let newPath = `./target/${langs[i]}`
+ writeJson(newPath, fileName, result)	
+ console.log(result)	
 return result	
 }
 
 async function localizeByLangs() {
 
 for (let i = 0; i < langs.length; i++) {
-result = loopLocalize(i, langs, result, contents)
+let result = {}	
+result = loopLocalize(i, langs, result, contents, fileName)
 // let localName = appName;
 // nameWithLocalize(localName + ' - ', appName1, langs[i])	
 //  .then((res) => putLocalInMessage(langs[i], messages, appDesc, res));
-console.log(result)	
+//console.log(result)	
 }
 }
 localizeByLangs()
