@@ -137,8 +137,8 @@ const path = require('path')
 
 let fileName = 'test.json'
 let contents = require('./target/en/' + fileName)
-async function writeJson(dir, file, cont) {
-await fs.promises.mkdir(path.dirname(dir), {recursive: true}).then(x => fs.promises.writeFile(dir + '/' + file, JSON.stringify(cont)))
+function writeJson(file, cont) {
+fs.promises.mkdir(path.dirname(file), {recursive: true}).then(x => fs.promises.writeFile(file, data))
 	/*
 writeFile(path, cont, function (err) {
   if (err) return console.log(err)
@@ -164,8 +164,8 @@ async function loopLocalize(i, langs, result, contents, fileName) {
  result[key] = localized	
 	
  }
- let newPath = `./target/${langs[i]}`
- writeJson(newPath, fileName, result)	
+ let newPath = `./target/${langs[i]}/${fileName}`
+ writeJson(newPath, result)	
  console.log(result)	
 return result	
 }
