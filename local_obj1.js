@@ -1,4 +1,4 @@
-const localObj = {
+localObj = {
     "H1": {
         "0": "Nortain VPN"
     },
@@ -92,5 +92,3 @@ const localObj = {
         "14": "<a href=\"./support.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Support</a>"
     }
 } 
-
-module.exports = localObj

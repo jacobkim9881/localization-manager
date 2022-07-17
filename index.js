@@ -59,9 +59,13 @@ async function putLocalInMessage(lang, obj, cont1, cont2) {
 }
 
 async function localizeObj(content, lang) {
+	let except = []
+	let tag = '(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)'
+	, slashs = '\\.'
+	except = [tag, slashs]
 	console.log(content)
-return await translate(content, {to: lang, except: []}).then(res => {
-	console.log(res)
+return await translate(content, {to: lang, except: except}).then(res => {
+	console.log('res: ', res)
 return res
 
 })
@@ -93,7 +97,8 @@ console.log('localized fin : ', localObj)
 
 for (let i = 0; i < 1; i++) {
 let newObj = {}
-	findString(langs[i], localObj)
+//	findString(langs[i], localObj)
+localizeObj(localObj, langs[i])	
 console.log('localized fin : ', localObj)
 	
 setTimeout(() => console.log('localized fin : ', localObj), 5000)
