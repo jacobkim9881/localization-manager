@@ -59,10 +59,14 @@ async function putLocalInMessage(lang, obj, cont1, cont2) {
 }
 
 async function localizeObj(content, lang) {
+	//(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)
+	///(\?:<style\.\+\?>\.\+\?<\/style>\|<script\.\+\?>\.\+\?<\/script>\|<\(\?:!\|\/\?\[a-zA-Z\]\+\)\.\*\?\/\?>)/i
 	let except = []
-	let tag = '(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)'
-	, slashs = '\\.'
-	except = [tag, slashs]
+	let tag = '?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>'
+	, slashs = '(\.'
+	except = []
+		//[tag]
+		//[tag, slashs]
 	console.log(content)
 return await translate(content, {to: lang, except: except}).then(res => {
 	console.log('res: ', res)
@@ -80,7 +84,14 @@ async function findString(lang, localObj) {
 //		console.log( 'localObj[key]: ', localObj[key])
 //			console.log('value: ', value)
  if (typeof value === 'string') {
-  localObj[key] = await localizeObj(value, lang)
+  let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
+		 ///(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)/g
+  let targetStr = value.replace(regx, '').trim()
+		 //value.match(regx) 
+console.log(targetStr)
+	 let resultStr = await localizeObj(targetStr, lang)
+  //localObj[key] = await localizeObj(targetStr, lang)
+  localObj[key] = value.replace(targetStr, resultStr)
  } else if (typeof value === 'object') {
   return localObj[key] = await findString(lang, value)
  } else {
@@ -97,11 +108,9 @@ console.log('localized fin : ', localObj)
 
 for (let i = 0; i < 1; i++) {
 let newObj = {}
-//	findString(langs[i], localObj)
-localizeObj(localObj, langs[i])	
-console.log('localized fin : ', localObj)
+	findString(langs[i], localObj)
+//localizeObj(localObj, langs[i])	
 	
-setTimeout(() => console.log('localized fin : ', localObj), 5000)
 }
 /*
 for (let i = 0; i < 1; i++) {
