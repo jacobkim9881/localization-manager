@@ -70,24 +70,35 @@ return
 }
 
 async function findString(newObj, lang, localObj) {
-Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
+ Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
 	//for (const [key, value, idx] of Object.entries(localObj)) {
- newObj[key] = {}
+ //newObj[key] = {}
 //	console.log('idx: ', idx)
+//	console.log('local Obj: ', localObj)
+//		console.log( 'localObj[key]: ', localObj[key])
+//			console.log('value: ', value)
  if (typeof value === 'string') {
-  newObj[key] = await localizeObj(value, lang, newObj[key])
+  localObj[key] = await localizeObj(value, lang, value)
+  //newObj[key] = await localizeObj(value, lang, value)
  } else if (typeof value === 'object') {
-   findString(newObj, lang, value)
+  return localObj[key] = await findString(newObj, lang, value)
+  //rçeturn newObj[key] = findString(newObj, lang, value)
  } else {
-   newObj[key] = value
+   localObj[key] = value
+   //newObj[key] = value
  }
 //}
 	//
 if (idx === (arr.length - 1)) {
-console.log('localized fin : ', newObj)
+// return localObj[key] = value	
+ //return newObj[key] = value	
+console.log('localized fin : ', localObj)
+	return localObj
+//console.log('localized fin : ', newObj)
 }
 		
 })
+	return localObj
 	return
 }
 
@@ -95,9 +106,11 @@ console.log('localized fin : ', newObj)
 for (let i = 0; i < 1; i++) {
 let newObj = {}
 	findString(newObj, langs[i], localObj)
-	console.log(newObj)
+//	console.log(newObj)
+console.log('localized fin : ', localObj)
 	
-setTimeout(() => console.log(newObj), 5000)
+setTimeout(() => console.log('localized fin : ', localObj), 5000)
+//setTimeout(() => console.log(newObj), 5000)
 }
 /*
 for (let i = 0; i < 1; i++) {
