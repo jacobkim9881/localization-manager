@@ -129,7 +129,16 @@ let aPath = path.normalize(`../_locales/`)
  "appDesc": {                  
    "message": "",
    "description": "The description of the application, displayed in the web store."
- }
+ },
+"stopExtension": {"message": "STOP Extension" , "description": "Button text for stopping the extension." },
+"startExtension": {"message": "START Extension" , "description": "Button text for starting the extension." },
+"askQuestion": {"message": "Have you enjoyed the extension?" , "description": "Asking if the extension was good or not." },
+"ratingQuestion": {"message": "Thanks for enjoying! \nPlease rating the extension!" , "description": "Asking rating the extention if it was good." },
+"popupTitle": {"message": "Choose your mouse effect" , "description": "Title of h4 tag inner text on popup." },
+"ratingBtn": {"message": "Go to rating" , "description": "Inner text of rating button on popup." },
+
+
+
 }
 
 function writeJson(path, cont) {
