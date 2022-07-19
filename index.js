@@ -14,7 +14,7 @@ writeFile('foo/bar/baz/qux.txt', 'some contents', function (err) {
 */
 
 //let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
-let aPath = `Users/mac/localization-manager/_locales/`
+let aPath = `_locales/`
 
 , appName = "Cursor Tails"
 , appName1 = "Object Animation for mouse cursor"
@@ -70,7 +70,7 @@ async function localizeObj(content, lang) {
 		//[tag, slashs]
 	console.log(content)
 return await translate(content, {to: lang, except: except}).then(res => {
-//	console.log('res: ', res)
+	console.log('res: ', res)
 return res
 
 })
@@ -78,7 +78,7 @@ return res
 return
 }
 
-async function findString(lang, localObj) {
+async function findString(lang, localObj, newObj, promiseArr) {
  Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
 //	console.log('idx: ', idx)
 //	console.log('local Obj: ', localObj)
@@ -98,36 +98,47 @@ async function findString(lang, localObj) {
 		 //console.log('empty string')
 	return
 	 }
-	 let aPromise = new Promise((resolve, reject) => {
+	 let aPromise = new Promise(async (resolve, reject) => {
 	 let resultStr = await localizeObj(targetStr, lang)
   //localObj[key] = await localizeObj(targetStr, lang)
-  localObj[key] = value.replace(targetStr, resultStr)
+  //localObj[key] = value.replace(targetStr, resultStr)
+		 console.log('newObj and key : ', newObj, key)
+		 //console.log('resultStr: ', resultStr)
+		 //console.log('targetStr: ', targetStr)
+  newObj[key] = value.replace(targetStr, resultStr)
+		 //console.log('newObj[key] : ', newObj[key])
 		 resolve()
 	 })
 	 promiseArr.push(aPromise)
  } else if (typeof value === 'object') {
-  return localObj[key] = await findString(lang, value)
+//		 console.log('newObj : ', newObj, key)
+	 newObj[key] = {}
+  //return localObj[key] = await findString(lang, value)
+  return newObj[key] = await findString(lang, value, newObj[key], promiseArr)
  } else {
-   localObj[key] = value
+   //localObj[key] = value
+   newObj[key] = value
  }
 if (idx === (arr.length - 1)) {
 //console.log('localized fin : ', localObj)
 }
 		
 })
-	return localObj
+	return newObj
+	//return localObj
 }
 
 
 for (let i = 0; i < 1; i++) {
 	let promiseArr = []
 let newObj = {}
-	findString(langs[i], localObj)
+	findString(langs[i], localObj, newObj, promiseArr)
 
 //localizeObj(localObj, langs[i])	
 	
-PromiseAll(promiseArr).then(() => {
- writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(messages));  	 
+Promise.all(promiseArr).then(() => {
+ writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
+	console.log('after promise all: ', newObj)
 //	return localObj 
 })
 }
