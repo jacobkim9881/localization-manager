@@ -69,7 +69,7 @@ async function localizeObj(content, lang) {
 		//[tag, slashs]
 	console.log(content)
 return await translate(content, {to: lang, except: except}).then(res => {
-	console.log('res: ', res)
+//	console.log('res: ', res)
 return res
 
 })
@@ -84,21 +84,33 @@ async function findString(lang, localObj) {
 //		console.log( 'localObj[key]: ', localObj[key])
 //			console.log('value: ', value)
  if (typeof value === 'string') {
+	 if (value === '') {
+		 console.log('empty string')
+	return
+	 }
   let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
 		 ///(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)/g
   let targetStr = value.replace(regx, '').trim()
 		 //value.match(regx) 
-console.log(targetStr)
+//console.log(targetStr)
+	 if (targetStr === '') {
+		 //console.log('empty string')
+	return
+	 }
+	 let aPromise = new Promise((resolve, reject) => {
 	 let resultStr = await localizeObj(targetStr, lang)
   //localObj[key] = await localizeObj(targetStr, lang)
   localObj[key] = value.replace(targetStr, resultStr)
+		 resolve()
+	 })
+	 promiseArr.push(aPromise)
  } else if (typeof value === 'object') {
   return localObj[key] = await findString(lang, value)
  } else {
    localObj[key] = value
  }
 if (idx === (arr.length - 1)) {
-console.log('localized fin : ', localObj)
+//console.log('localized fin : ', localObj)
 }
 		
 })
@@ -107,11 +119,15 @@ console.log('localized fin : ', localObj)
 
 
 for (let i = 0; i < 1; i++) {
+	let promiseArr = []
 let newObj = {}
 	findString(langs[i], localObj)
+
 //localizeObj(localObj, langs[i])	
 	
+PromiseAll(promiseArr).then(() => {return localObj })
 }
+
 /*
 for (let i = 0; i < 1; i++) {
  let localName = appName;
