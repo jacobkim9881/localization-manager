@@ -13,7 +13,8 @@ writeFile('foo/bar/baz/qux.txt', 'some contents', function (err) {
 })
 */
 
-let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
+//let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
+let aPath = `Users/mac/localization-manager/_locales/`
 
 , appName = "Cursor Tails"
 , appName1 = "Object Animation for mouse cursor"
@@ -52,7 +53,7 @@ async function putLocalInMessage(lang, obj, cont1, cont2) {
  obj.appName.message = cont2;
  obj.appDesc.message = res;
  console.log(obj);	 
-// writeJson(aPath + langs[i] + `/messages.json`, JSON.stringify(messages));  	 
+ writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(messages));  	 
  }).catch(err => {
   console.log(err);
  })	
@@ -125,7 +126,10 @@ let newObj = {}
 
 //localizeObj(localObj, langs[i])	
 	
-PromiseAll(promiseArr).then(() => {return localObj })
+PromiseAll(promiseArr).then(() => {
+ writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(messages));  	 
+//	return localObj 
+})
 }
 
 /*
