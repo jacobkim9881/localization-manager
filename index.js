@@ -21,6 +21,7 @@ async function localizeObj(content, lang) {
     //	console.log('res: ', res)
     return res
   })
+	return
 }
 
 async function findString(lang, localObj, newObj, promiseArr) {
@@ -63,7 +64,7 @@ async function findString(lang, localObj, newObj, promiseArr) {
   return newObj
 }
 
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < 2; i++) {
   let promiseArr = []
   let newObj = {}
   findString(langs[i], localObj, newObj, promiseArr)
