@@ -8,70 +8,70 @@ console.log(langs)
 let aPath = `_locales/`
 
 function writeJson(path, cont) {
-writeFile(path, cont, function (err) {
-  if (err) return console.log(err)
-  console.log('file is written');	
-})
+  writeFile(path, cont, function (err) {
+    if (err) return console.log(err)
+    console.log('file is written');	
+  })
 }
 
 async function localizeObj(content, lang) {
-	let except = []
-	//console.log(content)
-return await translate(content, {to: lang, except: except}).then(res => {
-//	console.log('res: ', res)
-return res
-})
+  let except = []
+  //console.log(content)
+  return await translate(content, {to: lang, except: except}).then(res => {
+    //	console.log('res: ', res)
+    return res
+  })
 }
 
 async function findString(lang, localObj, newObj, promiseArr) {
- Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
-//	console.log('idx: ', idx)
-//	console.log('local Obj: ', localObj)
-//		console.log( 'localObj[key]: ', localObj[key])
-//			console.log('value: ', value)
- if (typeof value === 'string') {
+  Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
+    //	console.log('idx: ', idx)
+    //	console.log('local Obj: ', localObj)
+    //		console.log( 'localObj[key]: ', localObj[key])
+    //			console.log('value: ', value)
+    if (typeof value === 'string') {
 	 if (value === '') {
 		 console.log('empty string')
-	return
+        return
 	 }
-  let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-  let targetStr = value.replace(regx, '').trim()
-//console.log(targetStr)
+      let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
+      let targetStr = value.replace(regx, '').trim()
+      //console.log(targetStr)
 	 if (targetStr === '') {
 		 //console.log('empty string')
-	return
+        return
 	 }
 	 let aPromise = new Promise(async (resolve, reject) => {
 	 let resultStr = await localizeObj(targetStr, lang)
 		 console.log('newObj and key : ', newObj, key)
 		 //console.log('resultStr: ', resultStr)
 		 //console.log('targetStr: ', targetStr)
-  newObj[key] = value.replace(targetStr, resultStr)
+        newObj[key] = value.replace(targetStr, resultStr)
 		 //console.log('newObj[key] : ', newObj[key])
 		 resolve()
 	 })
 	 promiseArr.push(aPromise)
- } else if (typeof value === 'object') {
-//		 console.log('newObj : ', newObj, key)
+    } else if (typeof value === 'object') {
+      //		 console.log('newObj : ', newObj, key)
 	 newObj[key] = {}
-  return newObj[key] = await findString(lang, value, newObj[key], promiseArr)
- } else {
-   newObj[key] = value
- }
+      return newObj[key] = await findString(lang, value, newObj[key], promiseArr)
+    } else {
+      newObj[key] = value
+    }
 		
-})
-	return newObj
+  })
+  return newObj
 }
 
 for (let i = 0; i < 1; i++) {
-	let promiseArr = []
-let newObj = {}
-	findString(langs[i], localObj, newObj, promiseArr)
+  let promiseArr = []
+  let newObj = {}
+  findString(langs[i], localObj, newObj, promiseArr)
 	
-Promise.all(promiseArr).then(() => {
- writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
-	console.log('after promise all: ', newObj)
-	return
-})
+  Promise.all(promiseArr).then(() => {
+    writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
+    console.log('after promise all: ', newObj)
+    return
+  })
 }
 
