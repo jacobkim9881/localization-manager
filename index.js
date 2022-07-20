@@ -5,30 +5,7 @@ const langs = Object.keys(langsExplain);
 const localObj = require('./local_obj')
 
 console.log(langs)
-///home/kim/tailing-mouse-footprint/_locales/en
-/*
-writeFile('foo/bar/baz/qux.txt', 'some contents', function (err) {
-  if (err) return console.log(err)
-  console.log('file is written')
-})
-*/
-
-//let aPath = `/home/kim/tailing-mouse-footprint/_locales/`
 let aPath = `_locales/`
-
-, appName = "Cursor Tails"
-, appName1 = "Object Animation for mouse cursor"
-, appDesc = "Adding funny effects whenever you move your mouse. This extension make your mouse moving create fun effects." 
-, messages = {
- "appName": {
-   "message": "",
-   "description": "The title of the application, displayed in the web store."
- },
- "appDesc": {                  
-   "message": "",
-   "description": "The description of the application, displayed in the web store."
- }
-}
 
 function writeJson(path, cont) {
 writeFile(path, cont, function (err) {
@@ -37,45 +14,13 @@ writeFile(path, cont, function (err) {
 })
 }
 
-async function nameWithLocalize(name, cont, lang) {
- return await translate(cont, {to: lang, except: []}).then(res => {
- name = name + res;	
-	 console.log(name)
- return name;	 
- })
-  .catch(err => {
-  console.log(err);
- })
-}
-
-async function putLocalInMessage(lang, obj, cont1, cont2) {
- await translate(cont1, {to: lang, except: []}).then(res => {
- obj.appName.message = cont2;
- obj.appDesc.message = res;
- console.log(obj);	 
- writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(messages));  	 
- }).catch(err => {
-  console.log(err);
- })	
-}
-
 async function localizeObj(content, lang) {
-	//(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)
-	///(\?:<style\.\+\?>\.\+\?<\/style>\|<script\.\+\?>\.\+\?<\/script>\|<\(\?:!\|\/\?\[a-zA-Z\]\+\)\.\*\?\/\?>)/i
 	let except = []
-	let tag = '?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>'
-	, slashs = '(\.'
-	except = []
-		//[tag]
-		//[tag, slashs]
-	console.log(content)
+	//console.log(content)
 return await translate(content, {to: lang, except: except}).then(res => {
-	console.log('res: ', res)
+//	console.log('res: ', res)
 return res
-
 })
-
-return
 }
 
 async function findString(lang, localObj, newObj, promiseArr) {
@@ -90,9 +35,7 @@ async function findString(lang, localObj, newObj, promiseArr) {
 	return
 	 }
   let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-		 ///(?:<style.+?>.+?</style>|<script.+?>.+?</script>|<(?:!|/?[a-zA-Z]+).*?/?>)/g
   let targetStr = value.replace(regx, '').trim()
-		 //value.match(regx) 
 //console.log(targetStr)
 	 if (targetStr === '') {
 		 //console.log('empty string')
@@ -100,8 +43,6 @@ async function findString(lang, localObj, newObj, promiseArr) {
 	 }
 	 let aPromise = new Promise(async (resolve, reject) => {
 	 let resultStr = await localizeObj(targetStr, lang)
-  //localObj[key] = await localizeObj(targetStr, lang)
-  //localObj[key] = value.replace(targetStr, resultStr)
 		 console.log('newObj and key : ', newObj, key)
 		 //console.log('resultStr: ', resultStr)
 		 //console.log('targetStr: ', targetStr)
@@ -113,40 +54,24 @@ async function findString(lang, localObj, newObj, promiseArr) {
  } else if (typeof value === 'object') {
 //		 console.log('newObj : ', newObj, key)
 	 newObj[key] = {}
-  //return localObj[key] = await findString(lang, value)
   return newObj[key] = await findString(lang, value, newObj[key], promiseArr)
  } else {
-   //localObj[key] = value
    newObj[key] = value
  }
-if (idx === (arr.length - 1)) {
-//console.log('localized fin : ', localObj)
-}
 		
 })
 	return newObj
-	//return localObj
 }
-
 
 for (let i = 0; i < 1; i++) {
 	let promiseArr = []
 let newObj = {}
 	findString(langs[i], localObj, newObj, promiseArr)
-
-//localizeObj(localObj, langs[i])	
 	
 Promise.all(promiseArr).then(() => {
  writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
 	console.log('after promise all: ', newObj)
-//	return localObj 
+	return
 })
 }
 
-/*
-for (let i = 0; i < 1; i++) {
- let localName = appName;
- nameWithLocalize(localName + ' - ', appName1, langs[i])	
-  .then((res) => putLocalInMessage(langs[i], messages, appDesc, res));
-}
-*/
