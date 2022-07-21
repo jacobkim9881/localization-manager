@@ -4,11 +4,6 @@ const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
 const localObj = require('./local_obj')
 
-process.argv.forEach(function (val, index, array) {
-
-console.log(langs)
-let aPath = `_locales/`
-
 function writeJson(path, cont) {
   writeFile(path, cont, function (err) {
     if (err) return console.log(err)
@@ -72,22 +67,19 @@ async function findString(lang, localObj, newObj, promiseArr) {
   return newObj
 }
 
+process.argv.forEach(function (valArg, indexArg, arrayArg) {
+
+if (indexArg !== 2) return;
+
+console.log(langs)
+let aPath = `_locales/`
+
 let srcToLocalize = {}
   let promiseArr = []
-for (let i = 0; i < 2; i++) {
-  srcToLocalize[langs[i]] = {}
-  //let newObj = {} 
-  let newObj = srcToLocalize[langs[i]] 
-//findString(langs[i], localObj, newObj, promiseArr)
-/*/	  setTimeout(() =>
-		  Promise.all(promiseArr).then(() => {
-    writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
-    console.log('after promise all: ', newObj)
-console.log('srcToLozalize: ', srcToLocalize)
-    return
-  })
-	  , 100 * i)
-*/
+for (let i = 0; i < 1; i++) {
+  srcToLocalize[langs[valArg]] = {}
+  let newObj = srcToLocalize[langs[valArg]] 
+findString(langs[valArg], localObj, newObj, promiseArr)
 }
 
 Promise.all(promiseArr).then((lang) => {
@@ -98,9 +90,9 @@ Promise.all(promiseArr).then((lang) => {
 	}
     return
   })
-
+//console.log('langs length: ', langs.length)
 console.log('srcToLozalize: ', srcToLocalize)
 
-  console.log('process argv', index + ': ' + val);
+  console.log('process argv', indexArg + ': ' + valArg);
 
-}
+})
