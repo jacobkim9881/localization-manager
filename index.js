@@ -4,6 +4,8 @@ const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
 const localObj = require('./local_obj')
 
+process.argv.forEach(function (val, index, array) {
+
 console.log(langs)
 let aPath = `_locales/`
 
@@ -72,11 +74,11 @@ async function findString(lang, localObj, newObj, promiseArr) {
 
 let srcToLocalize = {}
   let promiseArr = []
-for (let i = 0; i < langs.length; i++) {
+for (let i = 0; i < 2; i++) {
   srcToLocalize[langs[i]] = {}
   //let newObj = {} 
   let newObj = srcToLocalize[langs[i]] 
-findString(langs[i], localObj, newObj, promiseArr)
+//findString(langs[i], localObj, newObj, promiseArr)
 /*/	  setTimeout(() =>
 		  Promise.all(promiseArr).then(() => {
     writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
@@ -98,3 +100,7 @@ Promise.all(promiseArr).then((lang) => {
   })
 
 console.log('srcToLozalize: ', srcToLocalize)
+
+  console.log('process argv', index + ': ' + val);
+
+}
