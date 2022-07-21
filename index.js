@@ -21,6 +21,11 @@ async function localizeObj(content, lang) {
     //	console.log('res: ', res)
     return res
   })
+  .catch(async err => {
+  console.log('error while localize: ', err)
+	 // localizeObj(content, lang)
+  return undefined
+  })
 	return
 }
 
@@ -67,20 +72,22 @@ async function findString(lang, localObj, newObj, promiseArr) {
 
 let srcToLocalize = {}
   let promiseArr = []
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < langs.length; i++) {
   srcToLocalize[langs[i]] = {}
+  //let newObj = {} 
   let newObj = srcToLocalize[langs[i]] 
-  findString(langs[i], localObj, newObj, promiseArr)
-/*
-	Promise.all(promiseArr).then((lang) => {
-	  console.log('language at promise all: ', lang)
+findString(langs[i], localObj, newObj, promiseArr)
+/*/	  setTimeout(() =>
+		  Promise.all(promiseArr).then(() => {
     writeJson(aPath + langs[i] + `/local_obj.js`, JSON.stringify(newObj));  	
     console.log('after promise all: ', newObj)
 console.log('srcToLozalize: ', srcToLocalize)
     return
   })
-	*/
+	  , 100 * i)
+*/
 }
+
 Promise.all(promiseArr).then((lang) => {
 	for ( const [lang, json] of Object.entries(srcToLocalize)) {
 	  console.log('language at promise all: ', lang)
