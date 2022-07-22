@@ -26,15 +26,16 @@ async function localizeObj(content, lang) {
 	return
 }
 
-async function findString(lang, localObj, newObj, promiseArr) {
+async function findString(lang, localObj, newObj, promiseArr, newObjKey) {
   Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
     //	console.log('idx: ', idx)
     //	console.log('local Obj: ', localObj)
     //		console.log( 'localObj[key]: ', localObj[key])
     //			console.log('value: ', value)
+	 let strPath = newObjKey ? newObjKey + '/' + key : key
     if (typeof value === 'string') {
 	 if (value === '') {
-		 console.log('empty string')
+		 //console.log('empty string')
         return
 	 }
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
@@ -44,9 +45,11 @@ async function findString(lang, localObj, newObj, promiseArr) {
 		 //console.log('empty string')
         return
 	 }
+	    console.log('current path: ', strPath)
 	 let aPromise = new Promise(async (resolve, reject) => {
-	 let resultStr = await localizeObj(targetStr, lang)
-		 console.log('newObj and key : ', newObj, key)
+	 let resultStr = ''
+			 //await localizeObj(targetStr, lang)
+		 //console.log('newObj and key : ', newObj, key)
 		 //console.log('resultStr: ', resultStr)
 		 //console.log('targetStr: ', targetStr)
         newObj[key] = value.replace(targetStr, resultStr)
@@ -58,7 +61,7 @@ async function findString(lang, localObj, newObj, promiseArr) {
     } else if (typeof value === 'object') {
       //		 console.log('newObj : ', newObj, key)
 	 newObj[key] = {}
-      return newObj[key] = await findString(lang, value, newObj[key], promiseArr)
+      return newObj[key] = await findString(lang, value, newObj[key], promiseArr, strPath)
     } else {
       newObj[key] = value
     }
@@ -71,7 +74,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
 if (indexArg !== 2) return;
 
-console.log(langs)
+//console.log(langs)
 let aPath = `_locales/`
 
 let srcToLocalize = {}
@@ -84,15 +87,15 @@ findString(langs[valArg], localObj, newObj, promiseArr)
 
 Promise.all(promiseArr).then((lang) => {
 	for ( const [lang, json] of Object.entries(srcToLocalize)) {
-	  console.log('language at promise all: ', lang)
+	  //console.log('language at promise all: ', lang)
     writeJson(aPath + lang + `/local_obj.js`, JSON.stringify(json));  	
-    console.log('after promise all: ', json)
+    //console.log('after promise all: ', json)
 	}
     return
   })
 //console.log('langs length: ', langs.length)
-console.log('srcToLozalize: ', srcToLocalize)
+//console.log('srcToLozalize: ', srcToLocalize)
 
-  console.log('process argv', indexArg + ': ' + valArg);
+  //console.log('process argv', indexArg + ': ' + valArg);
 
 })
