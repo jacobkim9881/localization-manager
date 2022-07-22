@@ -2,7 +2,7 @@
 
 num=0
 
-while [[ "$num" -le 102 ]]; do
+while [[ "$num" -le 1 ]]; do
 
 /usr/bin/expect <<- EOF
 
