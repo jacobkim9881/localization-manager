@@ -26,7 +26,7 @@ async function localizeObj(content, lang) {
 	return
 }
 
-async function findString(lang, localObj, newObj, promiseArr, newObjKey) {
+async function findString(lang, localObj, newObj, promiseArr, newObjKey, localStr) {
   Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
     //	console.log('idx: ', idx)
     //	console.log('local Obj: ', localObj)
@@ -45,7 +45,9 @@ async function findString(lang, localObj, newObj, promiseArr, newObjKey) {
 		 //console.log('empty string')
         return
 	 }
-	    console.log('current path: ', strPath)
+	   // console.log('current path: ', strPath)
+	    localStr = localStr ? localStr + '\r' + strPath + '\t' + value : strPath + '\t' + value
+	    console.log('local str: ', localStr)
 	 let aPromise = new Promise(async (resolve, reject) => {
 	 let resultStr = ''
 			 //await localizeObj(targetStr, lang)
@@ -61,7 +63,7 @@ async function findString(lang, localObj, newObj, promiseArr, newObjKey) {
     } else if (typeof value === 'object') {
       //		 console.log('newObj : ', newObj, key)
 	 newObj[key] = {}
-      return newObj[key] = await findString(lang, value, newObj[key], promiseArr, strPath)
+      return newObj[key] = await findString(lang, value, newObj[key], promiseArr, strPath, localStr)
     } else {
       newObj[key] = value
     }
@@ -74,6 +76,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
 if (indexArg !== 2) return;
 
+let localStr = ''
 //console.log(langs)
 let aPath = `_locales/`
 
@@ -82,7 +85,7 @@ let srcToLocalize = {}
 for (let i = 0; i < 1; i++) {
   srcToLocalize[langs[valArg]] = {}
   let newObj = srcToLocalize[langs[valArg]] 
-findString(langs[valArg], localObj, newObj, promiseArr)
+findString(langs[valArg], localObj, newObj, promiseArr, localStr)
 }
 
 Promise.all(promiseArr).then((lang) => {
