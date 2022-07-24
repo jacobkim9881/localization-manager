@@ -31,3 +31,12 @@ return
 test2(txt)
 //expecting : txt11
 console.log(txt)
+
+function test3(arr) {
+txt = txt + 1
+return
+}
+
+test3(arr)
+//expecting : txt111
+console.log(txt)
