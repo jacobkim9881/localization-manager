@@ -178,26 +178,38 @@ console.log('src key : ', keyArr)
 let targetStr = srcStr.split('\n')
 , valAsOne = ''
 
+function readObj(obj, keyIdx, keys) {
+if(!keys[keyIdx + 1]) return obj	
+return readObj(obj[keys[keyIdx + 1]], keyIdx + 1, keys)
+}
+
 targetStr.forEach((val, idx) => {
 console.log('val at targetStr each: ', val)
 //console.log('key arr[idx] : ', keyArr[idx])
 let keys = keyArr[idx].split('/')	
 , keyPath = newObj
-//newObj['H']['1']
+//newObj['H1']['1']
 //console.log('src obj: ', newObj)
 //console.log('splited keys: ', keys)
-keys.forEach((key) => {
+keys.forEach((key, keyIdx) => {
 //console.log('splited each key: ', key)
 if(key.includes('tag')) return;
 	//valAsOne = valAsOne + val
+console.log('key paths: ', keyPath)
+console.log('key of paths: ', key)
 keyPath =   keyPath[key]
+// newObj['H1']['1']
+	console.log('read obj: ', readObj(newObj[keys[keyIdx]], keyIdx, keys))
 
+//newObj[readObj(keyPath]
+//if (!key[keyIdx + 1]) newObj[keyPath[key]] = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
 
 return
 })
 //console.log('key path', keyPath)
-keyPath = keyPath + val
+keyPath = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
 
+console.log('key path value', keyPath)
 return	
 })
 
