@@ -78,54 +78,6 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 return newObj
 }
 
-function findString(lang, localObj, newObj, promiseArr, newObjKey, localStr) {
-	//console.log('local str between finstring and entries : ', localStr)
-  Object.entries(localObj).forEach(async ([key, value], idx, arr) => {
-    //	console.log('idx: ', idx)
-    //	console.log('local Obj: ', localObj)
-    //		console.log( 'localObj[key]: ', localObj[key])
-    //			console.log('value: ', value)
-	 let strPath = newObjKey ? newObjKey + '/' + key : key
-    if (typeof value === 'string') {
-	 if (value === '') {
-		 //console.log('empty string')
-        return
-	 }
-      let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-      let targetStr = value.replace(regx, '').trim()
-      //console.log(targetStr)
-	 if (targetStr === '') {
-		 //console.log('empty string')
-        return
-	 }
-	   // console.log('current path: ', strPath)
-//	    localStr = localStr ? localStr + '\r' + strPath + '\t' + value : strPath + '\t' + value
-	    let keyValue = strPath + '\t' + value
-	    localStr.push(keyValue)
-	   // console.log('local str: ', localStr)
-	 let aPromise = new Promise(async (resolve, reject) => {
-	 let resultStr = ''
-			 //await localizeObj(targetStr, lang)
-		 //console.log('newObj and key : ', newObj, key)
-		 //console.log('resultStr: ', resultStr)
-		 //console.log('targetStr: ', targetStr)
-        newObj[key] = value.replace(targetStr, resultStr)
-		 //console.log('newObj[key] : ', newObj[key])
-		 resolve(1)
-		 resolve(lang)
-	 })
-	 promiseArr.push(aPromise)
-    } else if (typeof value === 'object') {
-      //		 console.log('newObj : ', newObj, key)
-	 newObj[key] = {}
-      return newObj[key] = await findString(lang, value, newObj[key], promiseArr, strPath, localStr)
-    } else {
-      newObj[key] = value
-    }
-		
-  })
-  return newObj
-}
 
 process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
@@ -199,7 +151,7 @@ console.log('key paths: ', keyPath)
 console.log('key of paths: ', key)
 keyPath =   keyPath[key]
 // newObj['H1']['1']
-	console.log('read obj: ', readObj(newObj[keys[keyIdx]], keyIdx, keys))
+//	console.log('read obj: ', readObj(newObj[keys[keyIdx]], keyIdx, keys))
 
 //newObj[readObj(keyPath]
 //if (!key[keyIdx + 1]) newObj[keyPath[key]] = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
