@@ -166,9 +166,9 @@ console.log('src key : ', keyArr)
 //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
 //splited:  [ 'LI/0', 'What is VPN' ]
 
-//localizeObj(srcStr, langs[valArg])
-
-let targetStr = srcStr.split('\n')
+localizeObj(srcStr, langs[valArg])
+.then((localizedStr) => {
+let targetStr = localizedStr.split('\n')
 , valAsOne = ''
 
 objValWithKeyPath(targetStr, keyObj, keyArr)
@@ -177,14 +177,9 @@ newObj = putStrIn(newObj, undefined, keyObj)
 
 console.log('localized source: ', newObj)
 
-Promise.all(promiseArr).then((lang) => {
-	for ( const [lang, json] of Object.entries(srcToLocalize)) {
-	  //console.log('language at promise all: ', lang)
-    writeJson(aPath + lang + `/local_obj.js`, JSON.stringify(json));  	
-    //console.log('after promise all: ', json)
-	}
-    return
-  })
+	return
+})
+
 //console.log('langs length: ', langs.length)
 //console.log('srcToLozalize: ', srcToLocalize)
 
