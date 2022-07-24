@@ -65,7 +65,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 	    		//console.log('multiple value: ', multipleValue)
 	    //console.log('local str: ', localStr)
 		//console.log('key value: ', value)
-	 newObj[key] = {}
+	 newObj[key] = ''
 		return
     } else if (typeof value === 'object') {
       //		 console.log('newObj : ', newObj, key)
@@ -78,6 +78,26 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 return newObj
 }
 
+function putStrIn(newObj, newObjKey, keyObj) {
+  Object.entries(newObj).forEach(([key, value], idx, arr) => {
+	 let strPath = newObjKey ? newObjKey + '/' + key : key
+	if (typeof value === 'string') {
+//   console.log(' value: ', value)
+		//console.log('str path : ', strPath)
+		//console.log('found value: ', keyObj[strPath])
+		newObj[key] = keyObj[strPath]
+	    return
+    } else if (typeof value === 'object') {
+      //		 console.log('newObj : ', newObj, key)
+	 newObj[key] = {}
+//	    console.log('after recursive: ', putStrIn(value, strPath, keyObj))
+      return newObj[key] = putStrIn(value, strPath, keyObj)
+    } 
+		return
+
+})
+	return newObj
+}
 
 process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
@@ -105,6 +125,7 @@ newObj = addStr(localObj, newObj, undefined, localStr)
 let keysStr = "" 
 	,srcStr = ""
 , keyArr = []
+, keyObj = {}
 localStr.forEach((val, idx) => {
 
 //	console.log(idx, val)
@@ -112,14 +133,15 @@ let splited = val.split('\t')
 splited[1] = splited[1].replace('\n', '')
 //keysStr = keysStr + splited[0] + '\n'
 keyArr.push(splited[0])
-console.log('splited at localStr: ', splited)
+//keyObj[splited[0]] = ''
+//console.log('splited at localStr: ', splited)
 srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1] 
 //console.log('splited: ', splited)
 })
 
 //console.log('src Str : ', srcStr)
 //console.log('src key : ', keysStr)
-console.log('src key : ', keyArr)
+//console.log('src key : ', keyArr)
 
 //ex
 //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
@@ -136,20 +158,21 @@ return readObj(obj[keys[keyIdx + 1]], keyIdx + 1, keys)
 }
 
 targetStr.forEach((val, idx) => {
-console.log('val at targetStr each: ', val)
+//console.log('val at targetStr each: ', val)
 //console.log('key arr[idx] : ', keyArr[idx])
-let keys = keyArr[idx].split('/')	
-, keyPath = newObj
+//let keys = keyArr[idx].split('/')	
+//, keyPath = newObj
 //newObj['H1']['1']
 //console.log('src obj: ', newObj)
 //console.log('splited keys: ', keys)
+	/*
 keys.forEach((key, keyIdx) => {
 //console.log('splited each key: ', key)
 if(key.includes('tag')) return;
 	//valAsOne = valAsOne + val
-console.log('key paths: ', keyPath)
-console.log('key of paths: ', key)
-keyPath =   keyPath[key]
+//console.log('key paths: ', keyPath)
+//console.log('key of paths: ', key)
+//keyPath =   keyPath[key]
 // newObj['H1']['1']
 //	console.log('read obj: ', readObj(newObj[keys[keyIdx]], keyIdx, keys))
 
@@ -158,15 +181,18 @@ keyPath =   keyPath[key]
 
 return
 })
+	*/
 //console.log('key path', keyPath)
-keyPath = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
+//keyPath = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
 
-console.log('key path value', keyPath)
+//console.log('key path value', keyPath)
+keyObj[keyArr[idx]] = val	
 return	
 })
 
-console.log('localized source: ', newObj)
+newObj = putStrIn(newObj, undefined, keyObj)
 
+console.log('localized source: ', newObj)
 
 Promise.all(promiseArr).then((lang) => {
 	for ( const [lang, json] of Object.entries(srcToLocalize)) {
