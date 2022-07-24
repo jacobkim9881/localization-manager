@@ -94,6 +94,42 @@ srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1]
 return srcStr	
 }
 
+function objValWithKeyPath(targetStr, keyObj, keyArr) {
+//	console.log('keyObj before function: ', keyObj)
+targetStr.forEach((val, idx) => {
+//console.log('val at targetStr each: ', val)
+//console.log('key arr[idx] : ', keyArr[idx])
+//let keys = keyArr[idx].split('/')	
+//, keyPath = newObj
+//newObj['H1']['1']
+//console.log('src obj: ', newObj)
+//console.log('splited keys: ', keys)
+	/*
+keys.forEach((key, keyIdx) => {
+//console.log('splited each key: ', key)
+if(key.includes('tag')) return;
+	//valAsOne = valAsOne + val
+//console.log('key paths: ', keyPath)
+//console.log('key of paths: ', key)
+//keyPath =   keyPath[key]
+// newObj['H1']['1']
+
+//if (!key[keyIdx + 1]) newObj[keyPath[key]] = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
+
+return
+})
+	*/
+//console.log('key path', keyPath)
+//keyPath = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
+
+//console.log('key path value', keyPath)
+keyObj[keyArr[idx]] = val	
+return	
+})
+	console.log('keyObj after function: ', keyObj)
+return
+}
+
 function putStrIn(newObj, newObjKey, keyObj) {
   Object.entries(newObj).forEach(([key, value], idx, arr) => {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
@@ -159,36 +195,7 @@ console.log('src key : ', keyArr)
 let targetStr = srcStr.split('\n')
 , valAsOne = ''
 
-targetStr.forEach((val, idx) => {
-//console.log('val at targetStr each: ', val)
-//console.log('key arr[idx] : ', keyArr[idx])
-//let keys = keyArr[idx].split('/')	
-//, keyPath = newObj
-//newObj['H1']['1']
-//console.log('src obj: ', newObj)
-//console.log('splited keys: ', keys)
-	/*
-keys.forEach((key, keyIdx) => {
-//console.log('splited each key: ', key)
-if(key.includes('tag')) return;
-	//valAsOne = valAsOne + val
-//console.log('key paths: ', keyPath)
-//console.log('key of paths: ', key)
-//keyPath =   keyPath[key]
-// newObj['H1']['1']
-
-//if (!key[keyIdx + 1]) newObj[keyPath[key]] = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
-
-return
-})
-	*/
-//console.log('key path', keyPath)
-//keyPath = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
-
-//console.log('key path value', keyPath)
-keyObj[keyArr[idx]] = val	
-return	
-})
+objValWithKeyPath(targetStr, keyObj, keyArr)
 
 newObj = putStrIn(newObj, undefined, keyObj)
 
