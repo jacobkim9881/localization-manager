@@ -78,6 +78,23 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 return newObj
 }
 
+function makeKeyPath(localStr, srcStr, keyArr) {
+localStr.forEach((val, idx) => {
+
+//	console.log(idx, val)
+let splited = val.split('\t')
+splited[1] = splited[1].replace('\n', '')
+//keysStr = keysStr + splited[0] + '\n'
+keyArr.push(splited[0])
+//keyObj[splited[0]] = ''
+//console.log('splited at localStr: ', splited)
+srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1] 
+//console.log('splited: ', splited)
+})
+console.log('src Str : ', srcStr)
+return	
+}
+
 function putStrIn(newObj, newObjKey, keyObj) {
   Object.entries(newObj).forEach(([key, value], idx, arr) => {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
@@ -109,12 +126,7 @@ let aPath = `_locales/`
 
 let srcToLocalize = {}
   let promiseArr = []
-for (let i = 0; i < 1; i++) {
   srcToLocalize[langs[valArg]] = {}
-  let newObj = srcToLocalize[langs[valArg]] 
-//	console.log('local str at for loop: ', localStr)
-//findString(langs[valArg], localObj, newObj, promiseArr, undefined, localStr)
-}
 
   let newObj = srcToLocalize[langs[valArg]] 
 //console.log('newObj srcTOlocalize: ', newObj)
@@ -122,26 +134,22 @@ newObj = addStr(localObj, newObj, undefined, localStr)
 
 //console.log('after loop local str: ', localStr)
 
-let keysStr = "" 
-	,srcStr = ""
+let 	srcStr = ""
 , keyArr = []
 , keyObj = {}
-localStr.forEach((val, idx) => {
 
-//	console.log(idx, val)
-let splited = val.split('\t')
-splited[1] = splited[1].replace('\n', '')
-//keysStr = keysStr + splited[0] + '\n'
-keyArr.push(splited[0])
-//keyObj[splited[0]] = ''
-//console.log('splited at localStr: ', splited)
-srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1] 
-//console.log('splited: ', splited)
-})
+makeKeyPath(localStr, srcStr, keyArr)
 
 //console.log('src Str : ', srcStr)
+//
+
+//srcStr = writeJson(aPath + langs[valArg], srcStr)
+//localizeObj(srcStr, langs[valArg])
+
+//console.log('src Str : ', srcStr)
+
 //console.log('src key : ', keysStr)
-//console.log('src key : ', keyArr)
+console.log('src key : ', keyArr)
 
 //ex
 //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
