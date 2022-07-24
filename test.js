@@ -1,42 +1,37 @@
 //
-let arr = [1, 2]
-, txt = 'txt'
+let txt = 'txt'
 
-arr.forEach((val) => {
 txt = txt + 1
-})
 
-//expecting : txt11
+//expecting : txt1
 console.log(txt)
 
-function test(arr, txt) {
-arr.forEach((val) => {
+function test(txt) {
 txt = txt + 1
-})
 return
 }
 
-test(arr, txt)
-//expecting : txt11
+test(txt)
+//expecting : txt1
 console.log(txt)
 
 function test2(txt) {
 txt = txt + 2
 
-//expecting : txt112
+//expecting : txt12
 console.log(txt)
 return
 }
 
 test2(txt)
-//expecting : txt11
+//expecting : txt1
 console.log(txt)
 
-function test3(arr) {
+function test3() {
 txt = txt + 1
 return
 }
 
-test3(arr)
-//expecting : txt111
+test3()
+//expecting : txt11
 console.log(txt)
