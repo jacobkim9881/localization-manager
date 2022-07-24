@@ -14,6 +14,7 @@ function writeJson(path, cont) {
 async function localizeObj(content, lang) {
   let except = []
   //console.log(content)
+return content
   return await translate(content, {to: lang, except: except}).then(res => {
     	console.log('res: ', res)
     return res
@@ -98,7 +99,7 @@ function objValWithKeyPath(targetStr, keyObj, keyArr) {
 //	console.log('keyObj before function: ', keyObj)
 targetStr.forEach((val, idx) => {
 //console.log('val at targetStr each: ', val)
-//console.log('key arr[idx] : ', keyArr[idx])
+console.log('key arr[idx] : ', keyArr[idx])
 keyObj[keyArr[idx]] = val	
 return	
 })
@@ -165,7 +166,9 @@ console.log('src key : ', keyArr)
 //ex
 //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
 //splited:  [ 'LI/0', 'What is VPN' ]
-
+	//
+	//
+	
 localizeObj(srcStr, langs[valArg])
 .then((localizedStr) => {
 let targetStr = localizedStr.split('\n')
@@ -176,7 +179,7 @@ objValWithKeyPath(targetStr, keyObj, keyArr)
 newObj = putStrIn(newObj, undefined, keyObj)
 
 console.log('localized source: ', newObj)
-
+    writeJson(aPath + langs[valArg]  + `/local_obj.js`, JSON.stringify(newObj));  	
 	return
 })
 
