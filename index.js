@@ -91,8 +91,7 @@ keyArr.push(splited[0])
 srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1] 
 //console.log('splited: ', splited)
 })
-console.log('src Str : ', srcStr)
-return	
+return srcStr	
 }
 
 function putStrIn(newObj, newObjKey, keyObj) {
@@ -138,7 +137,7 @@ let 	srcStr = ""
 , keyArr = []
 , keyObj = {}
 
-makeKeyPath(localStr, srcStr, keyArr)
+srcStr = makeKeyPath(localStr, srcStr, keyArr)
 
 //console.log('src Str : ', srcStr)
 //
@@ -160,11 +159,6 @@ console.log('src key : ', keyArr)
 let targetStr = srcStr.split('\n')
 , valAsOne = ''
 
-function readObj(obj, keyIdx, keys) {
-if(!keys[keyIdx + 1]) return obj	
-return readObj(obj[keys[keyIdx + 1]], keyIdx + 1, keys)
-}
-
 targetStr.forEach((val, idx) => {
 //console.log('val at targetStr each: ', val)
 //console.log('key arr[idx] : ', keyArr[idx])
@@ -182,9 +176,7 @@ if(key.includes('tag')) return;
 //console.log('key of paths: ', key)
 //keyPath =   keyPath[key]
 // newObj['H1']['1']
-//	console.log('read obj: ', readObj(newObj[keys[keyIdx]], keyIdx, keys))
 
-//newObj[readObj(keyPath]
 //if (!key[keyIdx + 1]) newObj[keyPath[key]] = Object.values(keyPath).length === 0 ? val : JSON.stringify(keyPath) + val
 
 return
