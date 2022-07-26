@@ -277,7 +277,7 @@ console.log('targetStr length after localize: ', targetStr.length)
       newObj = putStrIn(newObj, undefined, keyObj, srcObj)
 
       console.log('localized source: ', newObj)
-      writeJson(aPath + langs[valArg]  + `/local_obj.js`, JSON.stringify(newObj));  	
+      writeJson(aPath + langs[valArg]  + `/local_obj.js`, JSON.stringify(newObj, null, 4));  	
       return
     })
 
