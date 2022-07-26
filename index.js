@@ -32,10 +32,23 @@ function addStr(localObj, newObj, newObjKey, localStr) {
   Object.entries(localObj).forEach(([key, value], idx, arr) => {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
     if (typeof value === 'string') {
+	  /*
+	 if (value === '') {
+		 console.log('empty string')
+		console.log('strPath: ', strPath)
+        return
+	 }
+	    */
       //console.log('key value: ', value)
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
       let targetStr = value.replace(regx, '\t').trim()
-      //console.log(targetStr)
+      console.log('targetStr: ', targetStr)
+	    /*
+	if (val === '' ) {
+		 //console.log('empty string')
+        return
+	 }
+*/
       // /H1\tabc
       let multipleValue = targetStr.split('\t')
 //		console.log('strPath: ', strPath)
@@ -55,7 +68,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
         let keyValue = strPath + '\t' + targetStr
 	    localStr.push(keyValue)
 
-        //		console.log('key value: ', keyValue)
+        		console.log('key value: ', keyValue)
       }
       //console.log('targetStr: ', targetStr)
 	    		//console.log('multiple value: ', multipleValue)
@@ -81,8 +94,8 @@ function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
 
     //	console.log(idx, val)
     let splited = val.split('\t')
-    splited[1] = splited[1].trim()
-	  //    splited[1] = splited[1].replace('\n', '')
+    //splited[1] = splited[1].trim()
+	  splited[1] = splited[1].replace('\n', '()')
 	  //console.log('val :', val)
 	  //console.log('splited : ', splited[1])
 	  //console.log('typeof splited : ', typeof splited[1])
@@ -128,7 +141,8 @@ function objValWithKeyPath(targetStr, keyObj, keyArr) {
 console.log('targetStr after poping empty str: ', targetStr)
 console.log('targetStr length after poping empty str: ', targetStr.length)
   targetStr.forEach((val, idx) => {
-    //console.log('val at targetStr each: ', val)
+    console.log('idx at targetStr each: ', idx)
+    console.log('val at targetStr each: ', val)
     //console.log('key arr[idx] : ', keyArr[idx])
 	  if (keyArr[idx].includes('tag0')) { 
 	lastNonTag = keyArr[idx].replace('/tag0', '')
@@ -156,7 +170,8 @@ console.log('targetStr length after poping empty str: ', targetStr.length)
 function putStrIn(newObj, newObjKey, keyObj, srcObj) {
   Object.entries(newObj).forEach(([key, value], idx, arr) => {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
-    if (typeof value === 'string') { 
+    if (typeof value === 'string') {
+	    let replaceTarget = ''
       //   console.log(' value: ', value)
       console.log('str path : ', strPath)
       //console.log('found value: ', keyObj[strPath])
@@ -172,15 +187,22 @@ function putStrIn(newObj, newObjKey, keyObj, srcObj) {
 //		console.log('target str arr: ', srcObj[strPath])
 		console.log('target str : ', srcObj[strPath][keyObjIdx])
 //		console.log('src str: ', value)
- 	if(keyObjIdx === 0) {newObj[key] = value.replace(srcObj[strPath][keyObjIdx], eachStr)
+ 	if(keyObjIdx === 0) {
+	replaceTarget = 	srcObj[strPath][keyObjIdx]
+	if (replaceTarget.includes('()')) replaceTarget = replaceTarget.replace('()', '\n');
+	newObj[key] = value.replace(replaceTarget, eachStr)
 	} else {
-newObj[key] = newObj[key].replace(srcObj[strPath][keyObjIdx], eachStr)
+	replaceTarget = srcObj[strPath][keyObjIdx]
+	if (replaceTarget.includes('()')) replaceTarget = replaceTarget.replace('()', '\n');
+newObj[key] = newObj[key].replace(replaceTarget, eachStr)
 	}
 	    console.log('put newObj[key]: ', newObj[key])
 
 	})
 	} else {
-	newObj[key] = value.replace(srcObj[strPath], keyObj[strPath])
+	replaceTarget = srcObj[strPath]
+	if (replaceTarget.includes('()')) replaceTarget = replaceTarget.replace('()', '\n');
+	newObj[key] = value.replace(replaceTarget, keyObj[strPath])
 console.log('srcObj[strPath]: ', srcObj[strPath])		
 	}
       //newObj[key] = keyObj[strPath]
