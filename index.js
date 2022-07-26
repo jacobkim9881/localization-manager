@@ -32,19 +32,10 @@ function addStr(localObj, newObj, newObjKey, localStr) {
   Object.entries(localObj).forEach(([key, value], idx, arr) => {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
     if (typeof value === 'string') {
-	 if (value === '') {
-		 console.log('empty string')
-		console.log('strPath: ', strPath)
-        return
-	 }
       //console.log('key value: ', value)
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
       let targetStr = value.replace(regx, '\t').trim()
       //console.log(targetStr)
-	 if (targetStr === '') {
-		 //console.log('empty string')
-        return
-	 }
       // /H1\tabc
       let multipleValue = targetStr.split('\t')
 //		console.log('strPath: ', strPath)
