@@ -52,7 +52,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 */
       // /H1\tabc
       let multipleValue = targetStr.split('\t')
-//		console.log('strPath: ', strPath)
+      //		console.log('strPath: ', strPath)
       if (multipleValue.length > 1) {
         let tempVal = ''
         let onlySpace = /[^\s|^\n|^\t]/g
@@ -60,7 +60,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
           //	console.log( 'is empty: ', val.match(onlySpace))
           if (val.match(onlySpace) === null) return
           tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
-//		console.log('tempVal : ', tempVal)
+          //		console.log('tempVal : ', tempVal)
           localStr.push(tempVal)
         })
         //	multipleValue = tempVal	
@@ -89,7 +89,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 }
 
 function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
-	let lastNonTag = ''
+  let lastNonTag = ''
   
   localStr.forEach((val, idx) => {
 
@@ -106,61 +106,61 @@ function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
     srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1] 
     //console.log('splited: ', splited)
     localStr[idx] = splited[1]
-	if(splited[0].includes('tag0')) {
-	lastNonTag = splited[0].replace('/tag0', '')
-	keyObj[lastNonTag] = [splited[1]]
-	} else if (splited[0].includes('tag') && !splited[0].includes('tag0')) {
-	//push value
-		if (typeof keyObj[lastNonTag] === 'object') { 
-		keyObj[lastNonTag] = [...keyObj[lastNonTag], splited[1]]
-		} else {
-		//console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-		keyObj[lastNonTag] = [keyObj[lastNonTag], splited[1]]
-		}
-		//console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-		//console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
-	//console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-//console.log('lastNonTag: ', lastNonTag)
-	}  else {
-    keyObj[splited[0]] = splited[1] 
-	}
-  return	  
+    if(splited[0].includes('tag0')) {
+      lastNonTag = splited[0].replace('/tag0', '')
+      keyObj[lastNonTag] = [splited[1]]
+    } else if (splited[0].includes('tag') && !splited[0].includes('tag0')) {
+      //push value
+      if (typeof keyObj[lastNonTag] === 'object') { 
+        keyObj[lastNonTag] = [...keyObj[lastNonTag], splited[1]]
+      } else {
+        //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
+        keyObj[lastNonTag] = [keyObj[lastNonTag], splited[1]]
+      }
+      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
+      //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
+      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
+      //console.log('lastNonTag: ', lastNonTag)
+    }  else {
+      keyObj[splited[0]] = splited[1] 
+    }
+    return	  
   })
   return srcStr	
 }
 
 function objValWithKeyPath(targetStr, keyObj, keyArr) {
 //	console.log('keyObj before function: ', keyObj)
-	let lastNonTag = ''
-	/*
+  let lastNonTag = ''
+  /*
   for (let i = targetStr.length; i > 0; i--) {
   if (targetStr[i] === '') {
     targetStr.splice(i, 1)
   }
   }
 	*/
-//console.log('targetStr after poping empty str: ', targetStr)
-//console.log('targetStr length after poping empty str: ', targetStr.length)
+  //console.log('targetStr after poping empty str: ', targetStr)
+  //console.log('targetStr length after poping empty str: ', targetStr.length)
   targetStr.forEach((val, idx) => {
     //console.log('idx at targetStr each: ', idx)
     //console.log('val at targetStr each: ', val)
     //console.log('key arr[idx] : ', keyArr[idx])
 	  if (keyArr[idx].includes('tag0')) { 
-	lastNonTag = keyArr[idx].replace('/tag0', '')
-		keyObj[lastNonTag] = [val]
+      lastNonTag = keyArr[idx].replace('/tag0', '')
+      keyObj[lastNonTag] = [val]
 	  } else if (keyArr[idx].includes('tag') && !keyArr[idx].includes('tag0')) {
-	//push value
-		if (typeof keyObj[lastNonTag] === 'object') { 
-		keyObj[lastNonTag] = [...keyObj[lastNonTag], val]
-		} else {
-		keyObj[lastNonTag] = [keyObj[lastNonTag], val]
-		}
-		//console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-		//console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
-		//console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
+      //push value
+      if (typeof keyObj[lastNonTag] === 'object') { 
+        keyObj[lastNonTag] = [...keyObj[lastNonTag], val]
+      } else {
+        keyObj[lastNonTag] = [keyObj[lastNonTag], val]
+      }
+      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
+      //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
+      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
 
-	} else {
-	}
+    } else {
+    }
     keyObj[keyArr[idx]] = val	
     return	
   })
@@ -176,38 +176,47 @@ function putStrIn(newObj, newObjKey, keyObj, srcObj) {
       //   console.log(' value: ', value)
       //console.log('str path : ', strPath)
       //console.log('found value: ', keyObj[strPath])
-//	 console.log('each localObj: ', localObj)
+      //	 console.log('each localObj: ', localObj)
 
-//	  localObj[key].replace(
+      //	  localObj[key].replace(
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
-//	   console.log('scrObj: ', srcObj)
+      //	   console.log('scrObj: ', srcObj)
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
-	if(typeof keyObj[strPath] === 'object') {
-	keyObj[strPath].forEach((eachStr, keyObjIdx) => {
-		//console.log('localized eachStr: ', eachStr)
-//		console.log('target str arr: ', srcObj[strPath])
-		//console.log('target str : ', srcObj[strPath][keyObjIdx])
-//		console.log('src str: ', value)
+      if(typeof keyObj[strPath] === 'object') {
+        keyObj[strPath].forEach((eachStr, keyObjIdx) => {
+          //console.log('localized eachStr: ', eachStr)
+          //		console.log('target str arr: ', srcObj[strPath])
+          //console.log('target str : ', srcObj[strPath][keyObjIdx])
+          //		console.log('src str: ', value)
  	if(keyObjIdx === 0) {
-	replaceTarget = 	srcObj[strPath][keyObjIdx]
-	if (replaceTarget.includes('()')) replaceTarget = replaceTarget.replace('()', '\n');
-	newObj[key] = value.replace(replaceTarget, eachStr)
-	} else {
-	replaceTarget = srcObj[strPath][keyObjIdx]
-	if (replaceTarget.includes('()')) replaceTarget = replaceTarget.replace('()', '\n');
-newObj[key] = newObj[key].replace(replaceTarget, eachStr)
-	}
+            replaceTarget = 	srcObj[strPath][keyObjIdx]
+            if (replaceTarget.includes('()')) {
+              replaceTarget = replaceTarget.replace('()', '\n');
+              eachStr = eachStr.replace('()', '\n')
+            }
+            newObj[key] = value.replace(replaceTarget, eachStr)
+          } else {
+            replaceTarget = srcObj[strPath][keyObjIdx]
+            if (replaceTarget.includes('()')) {
+              replaceTarget = replaceTarget.replace('()', '\n');
+              eachStr = eachStr.replace('()', '\n')
+            }
+            newObj[key] = newObj[key].replace(replaceTarget, eachStr)
+          }
 	    //console.log('put newObj[key]: ', newObj[key])
 
-	})
-	} else {
-	replaceTarget = srcObj[strPath]
-	if (replaceTarget.includes('()')) replaceTarget = replaceTarget.replace('()', '\n');
-	newObj[key] = value.replace(replaceTarget, keyObj[strPath])
-//console.log('srcObj[strPath]: ', srcObj[strPath])		
-	}
+        })
+      } else {
+        replaceTarget = srcObj[strPath]
+        if (replaceTarget.includes('()')) {
+          replaceTarget = replaceTarget.replace('()', '\n');
+          keyObj[strPath] = keyObj[strPath].replace('()', '\n')
+        }
+        newObj[key] = value.replace(replaceTarget, keyObj[strPath])
+        //console.log('srcObj[strPath]: ', srcObj[strPath])		
+      }
       //newObj[key] = keyObj[strPath]
-//	    console.log('put newObj[key]: ', newObj[key])
+      //	    console.log('put newObj[key]: ', newObj[key])
 	    return
     } else if (typeof value === 'object') {
       //		 console.log('newObj : ', newObj, key)
@@ -239,7 +248,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   //console.log('newObj srcTOlocalize: ', newObj)
   newObj = addStr(localObj, newObj, undefined, localStr)
 
- //console.log('after loop local str: ', localStr)
+  //console.log('after loop local str: ', localStr)
 
   let 	srcStr = ""
     , keyArr = []
@@ -248,7 +257,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
   srcStr = makeKeyPathReturnSrc(localStr, srcStr, keyArr, srcObj)
 
-//	console.log('localStr after makeKeyPath... func: ', localStr)
+  //	console.log('localStr after makeKeyPath... func: ', localStr)
   //console.log('src Str : ', srcStr)
   //
 
@@ -271,8 +280,8 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
     .then((localizedStr) => {
       let targetStr = localizedStr.split('\n')
         , valAsOne = ''
-//console.log('targetStr after localize: ', targetStr)
-//console.log('targetStr length after localize: ', targetStr.length)
+      //console.log('targetStr after localize: ', targetStr)
+      //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
       newObj = putStrIn(newObj, undefined, keyObj, srcObj)
