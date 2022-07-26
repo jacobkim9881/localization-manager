@@ -95,7 +95,7 @@ function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
     //	console.log(idx, val)
     let splited = val.split('\t')
     //splited[1] = splited[1].trim()
-	  splited[1] = splited[1].replace('\n', '()')
+	  splited[1] = splited[1].trim().replace('\n', '()')
 	  //console.log('val :', val)
 	  //console.log('splited : ', splited[1])
 	  //console.log('typeof splited : ', typeof splited[1])
