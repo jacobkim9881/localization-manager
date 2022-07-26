@@ -2,6 +2,7 @@
 
 num=0
 #language num: 102
+#korean 49
 while [[ "$num" -le 0 ]]; do
 
 /usr/bin/expect <<- EOF
