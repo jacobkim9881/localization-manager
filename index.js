@@ -33,7 +33,8 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
     if (typeof value === 'string') {
 	 if (value === '') {
-		 //console.log('empty string')
+		 console.log('empty string')
+		console.log('strPath: ', strPath)
         return
 	 }
       //console.log('key value: ', value)
@@ -46,6 +47,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 	 }
       // /H1\tabc
       let multipleValue = targetStr.split('\t')
+//		console.log('strPath: ', strPath)
       if (multipleValue.length > 1) {
         let tempVal = ''
         let onlySpace = /[^\s|^\n|^\t]/g
@@ -53,6 +55,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
           //	console.log( 'is empty: ', val.match(onlySpace))
           if (val.match(onlySpace) === null) return
           tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
+//		console.log('tempVal : ', tempVal)
           localStr.push(tempVal)
         })
         //	multipleValue = tempVal	
@@ -82,12 +85,16 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 
 function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
 	let lastNonTag = ''
+  
   localStr.forEach((val, idx) => {
 
     //	console.log(idx, val)
     let splited = val.split('\t')
-    splited[1] = splited[1].replace('\n', '')
-	  console.log('splited : ', splited[1])
+    splited[1] = splited[1].trim()
+	  //    splited[1] = splited[1].replace('\n', '')
+	  //console.log('val :', val)
+	  //console.log('splited : ', splited[1])
+	  //console.log('typeof splited : ', typeof splited[1])
     //keysStr = keysStr + splited[0] + '\n'
     keyArr.push(splited[0])
     //console.log('splited at localStr: ', splited)
@@ -120,9 +127,18 @@ console.log('lastNonTag: ', lastNonTag)
 function objValWithKeyPath(targetStr, keyObj, keyArr) {
 //	console.log('keyObj before function: ', keyObj)
 	let lastNonTag = ''
+	/*
+  for (let i = targetStr.length; i > 0; i--) {
+  if (targetStr[i] === '') {
+    targetStr.splice(i, 1)
+  }
+  }
+	*/
+console.log('targetStr after poping empty str: ', targetStr)
+console.log('targetStr length after poping empty str: ', targetStr.length)
   targetStr.forEach((val, idx) => {
     //console.log('val at targetStr each: ', val)
-    console.log('key arr[idx] : ', keyArr[idx])
+    //console.log('key arr[idx] : ', keyArr[idx])
 	  if (keyArr[idx].includes('tag0')) { 
 	lastNonTag = keyArr[idx].replace('/tag0', '')
 		keyObj[lastNonTag] = [val]
@@ -209,7 +225,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   //console.log('newObj srcTOlocalize: ', newObj)
   newObj = addStr(localObj, newObj, undefined, localStr)
 
-  //console.log('after loop local str: ', localStr)
+ //console.log('after loop local str: ', localStr)
 
   let 	srcStr = ""
     , keyArr = []
@@ -228,7 +244,8 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   //console.log('src Str : ', srcStr)
 
   //console.log('src key : ', keysStr)
-  //console.log('src key : ', keyArr)
+  console.log('src key : ', keyArr)
+  console.log('src keys length : ', keyArr.length)
 
   //ex
   //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
@@ -241,6 +258,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
       let targetStr = localizedStr.split('\n')
         , valAsOne = ''
 console.log('targetStr after localize: ', targetStr)
+console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
       newObj = putStrIn(newObj, undefined, keyObj, srcObj)
