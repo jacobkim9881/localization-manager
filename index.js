@@ -287,7 +287,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
       newObj = putStrIn(newObj, undefined, keyObj, srcObj)
 
       //console.log('localized source: ', newObj)
-      writeJson(aPath + langs[valArg]  + `/local_obj.js`, JSON.stringify(newObj, null, 4));  	
+      writeJson(aPath + langs[valArg]  + `/local_obj.json`, JSON.stringify(newObj, null, 4));  	
       return
     })
 
