@@ -3,5 +3,10 @@ This repository helps users to make localized json file(to 102 countries languag
 
 Countries list which can be with localizing json are in `lang_code.js`.
 
+### Quick Start
+- Put json file into `local_obj.js` to localize which will be exported by `module.exports` into `index.js`.
+- Change number at line 6 of `exe.sh` file which are number of countries to localize.  
+- Then execute `exe.sh` file by typing `./exe.sh` on current directory on terminal.
+
 ### Localize json files which contains html tags
 It localize texts without html tag files. Also texts inside of more than 2 tags can be localized.  
