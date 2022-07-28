@@ -238,7 +238,7 @@ let languageIdx
 
 process.argv.forEach(function (valArg, indexArg, arrayArg) {
 console.log(indexArg, ': ' , valArg)
-  if (indexArg == 2) languageIdx = valArg return;
+  if (indexArg == 2) languageIdx = valArg
   if (indexArg !== 3) return;
 
 localObj = fs.readFileSync(valArg)

@@ -1,27 +1,33 @@
 #!/bin/bash
 
-num=0
 #language num: 102
 #korean 49
-while [[ "$num" -le 0 ]]; do
+for var in "$@"
+	do
+	
+	num=0
+	
+	while [[ "$num" -le 0 ]];
 
-/usr/bin/expect <<- EOF
+	do /usr/bin/expect <<- EOF
 
-spawn node index.js $num 
+		spawn node index.js $num $var
 
-expect {file is written} {
+		expect {file is written} {
 
-sleep 1
+		sleep 1
 
-send "echo A laguage is finished.\r"
+		send "echo A laguage is finished.\r"
 
-}
+		}		
 
-expect eof
+	EOF
 
-EOF
+	num=$((num + 1))
 
-num=$((num + 1))
+	done
+
+	sleep 1
 
 done
 echo "Script done."
