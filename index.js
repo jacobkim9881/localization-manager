@@ -15,6 +15,7 @@ function writeJson(path, cont) {
 async function localizeObj(content, lang) {
   let except = []
   //console.log(content)
+  //should split content if content length is too many to execute translate
   return content
   console.log('Target language: ', lang)
   return await translate(content, {to: lang, except: except}).then(res => {
@@ -23,67 +24,52 @@ async function localizeObj(content, lang) {
   })
     .catch(async err => {
       console.log('error while localize: ', err)
-	 // localizeObj(content, lang)
       return undefined
     })
   return
 }
 
 function addStr(localObj, newObj, newObjKey, localStr) {
-
   Object.entries(localObj).forEach(([key, value], idx, arr) => {
-	 let strPath = newObjKey ? newObjKey + '/' + key : key
+
+    let strPath = newObjKey ? newObjKey + '/' + key : key
     if (typeof value === 'string') {
-	  /*
-	 if (value === '') {
-		 console.log('empty string')
-		console.log('strPath: ', strPath)
-        return
-	 }
-	    */
       //console.log('key value: ', value)
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-      let targetStr = value.replace(regx, '\t').trim()
+      , targetStr = value.replace(regx, '\t').trim()
+      , multipleValue = targetStr.split('\t')
       //console.log('targetStr: ', targetStr)
-	    /*
-	if (val === '' ) {
-		 //console.log('empty string')
-        return
-	 }
-*/
       // /H1\tabc
-      let multipleValue = targetStr.split('\t')
-      //		console.log('strPath: ', strPath)
+      //console.log('strPath: ', strPath)
       if (multipleValue.length > 1) {
         let tempVal = ''
-        let onlySpace = /[^\s|^\n|^\t]/g
+        , onlySpace = /[^\s|^\n|^\t]/g
         multipleValue.forEach((val, idx) => {
-          //	console.log( 'is empty: ', val.match(onlySpace))
+          //console.log( 'is empty: ', val.match(onlySpace))
           if (val.match(onlySpace) === null) return
           tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
-          //		console.log('tempVal : ', tempVal)
+          //console.log('tempVal : ', tempVal)
           localStr.push(tempVal)
         })
-        //	multipleValue = tempVal	
+        //multipleValue = tempVal	
         //targetStr = multipleValue	
       } else if (multipleValue.length === 1) {
         let keyValue = strPath + '\t' + targetStr
-	    localStr.push(keyValue)
-
-        		//console.log('key value: ', keyValue)
+	localStr.push(keyValue)
+        //console.log('key value: ', keyValue)
       }
       //console.log('targetStr: ', targetStr)
-	    		//console.log('multiple value: ', multipleValue)
-	    //console.log('local str: ', localStr)
+      //console.log('multiple value: ', multipleValue)
+      //console.log('local str: ', localStr)
       //console.log('key value: ', value)
-	 newObj[key] = value 
+      newObj[key] = value 
       return
     } else if (typeof value === 'object') {
-      //		 console.log('newObj : ', newObj, key)
-	 newObj[key] = {}
+      //console.log('newObj : ', newObj, key)
+      newObj[key] = {}
       return newObj[key] = addStr(value, newObj[key], strPath, localStr)
     } 
-	  return
+    return
   })
   //console.log('newObj in func: ', newObj, newObjKey, localObj)
   return newObj
@@ -91,16 +77,14 @@ function addStr(localObj, newObj, newObjKey, localStr) {
 
 function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
   let lastNonTag = ''
-  
   localStr.forEach((val, idx) => {
-
-    //	console.log(idx, val)
+    //console.log(idx, val)
     let splited = val.split('\t')
     //splited[1] = splited[1].trim()
-	  splited[1] = splited[1].trim().replace('\n', '()')
-	  //console.log('val :', val)
-	  //console.log('splited : ', splited[1])
-	  //console.log('typeof splited : ', typeof splited[1])
+    splited[1] = splited[1].trim().replace('\n', '()')
+  //console.log('val :', val)
+  //console.log('splited : ', splited[1])
+  //console.log('typeof splited : ', typeof splited[1])
     //keysStr = keysStr + splited[0] + '\n'
     keyArr.push(splited[0])
     //console.log('splited at localStr: ', splited)
@@ -179,7 +163,6 @@ function putStrIn(newObj, newObjKey, keyObj, srcObj) {
       //console.log('found value: ', keyObj[strPath])
       //	 console.log('each localObj: ', localObj)
 
-      //	  localObj[key].replace(
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
       //	   console.log('scrObj: ', srcObj)
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
@@ -224,33 +207,28 @@ function putStrIn(newObj, newObjKey, keyObj, srcObj) {
 	 newObj[key] = {}
       //	    console.log('after recursive: ', putStrIn(value, strPath, keyObj))
       return newObj[key] = putStrIn(value, strPath, keyObj, srcObj)
-    } else if (typeof value === 'array') {
-
-    }
+    } 
     return
-
   })
   return newObj
 }
 
 let localObj
-let languageIdx
+, languageIdx
 
 process.argv.forEach(function (valArg, indexArg, arrayArg) {
-console.log(indexArg, ': ' , valArg)
+  console.log(indexArg, ': ' , valArg)
   if (indexArg == 2) languageIdx = valArg
   if (indexArg !== 3) return;
 
-localObj = fs.readFileSync(valArg)
+  localObj = JSON.parse(fs.readFileSync(valArg))
 
-localObj = JSON.parse(localObj)
-
-  let localStr = [] 
+  //console.log(localObj)
   //console.log(langs)
-  let aPath = `_locales/`
-
-  let srcToLocalize = {}
-  let promiseArr = []
+  let localStr = [] 
+  , aPath = `_locales/`
+  , srcToLocalize = {}
+  , promiseArr = []
   srcToLocalize[langs[languageIdx]] = {}
 
   let newObj = srcToLocalize[langs[languageIdx]] 
@@ -259,7 +237,7 @@ localObj = JSON.parse(localObj)
 
   //console.log('after loop local str: ', localStr)
 
-  let 	srcStr = ""
+  let srcStr = ""
     , keyArr = []
     , keyObj = {}
     , srcObj = {}
@@ -268,10 +246,6 @@ localObj = JSON.parse(localObj)
 
   //	console.log('localStr after makeKeyPath... func: ', localStr)
   //console.log('src Str : ', srcStr)
-  //
-
-  //srcStr = writeJson(aPath + langs[languageIdx], srcStr)
-  //localizeObj(srcStr, langs[languageIdx])
 
   //console.log('src Str : ', srcStr)
 
@@ -282,7 +256,6 @@ localObj = JSON.parse(localObj)
   //ex
   //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
   //splited:  [ 'LI/0', 'What is VPN' ]
-  //
   //
 	
   localizeObj(srcStr, langs[languageIdx])
@@ -302,7 +275,6 @@ localObj = JSON.parse(localObj)
 
   //console.log('langs length: ', langs.length)
   //console.log('srcToLozalize: ', srcToLocalize)
-
   //console.log('process argv', indexArg + ': ' + valArg);
 
 })
