@@ -296,7 +296,7 @@ localObj = JSON.parse(localObj)
       newObj = putStrIn(newObj, undefined, keyObj, srcObj)
 
       //console.log('localized source: ', newObj)
-      writeJson(aPath + langs[languageIdx]  + `/local_obj.json`, JSON.stringify(newObj, null, 4));  	
+      writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(newObj, null, 4));  	
       return
     })
 
