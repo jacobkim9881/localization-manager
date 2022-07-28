@@ -38,22 +38,25 @@ function addStr(localObj, newObj, newObjKey, localStr) {
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
       , targetStr = value.replace(regx, '\t').trim()
       , multipleValue = targetStr.split('\t')
+      , isMultipleValue	= multipleValue.length > 1 ? true : false   
       //console.log('targetStr: ', targetStr)
       // /H1\tabc
       //console.log('strPath: ', strPath)
-      if (multipleValue.length > 1) {
+      console.log('multiple value: ', multipleValue)
+      if (isMultipleValue) {
         let tempVal = ''
         , onlySpace = /[^\s|^\n|^\t]/g
         multipleValue.forEach((val, idx) => {
+	  let hasOnlySpace = val.match(onlySpace) === null ? true : false
           //console.log( 'is empty: ', val.match(onlySpace))
-          if (val.match(onlySpace) === null) return
+          if (hasOnlySpace) return
           tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
           //console.log('tempVal : ', tempVal)
           localStr.push(tempVal)
         })
         //multipleValue = tempVal	
         //targetStr = multipleValue	
-      } else if (multipleValue.length === 1) {
+      } else if (isMultipleValue) {
         let keyValue = strPath + '\t' + targetStr
 	localStr.push(keyValue)
         //console.log('key value: ', keyValue)
