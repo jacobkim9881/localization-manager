@@ -1,8 +1,9 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
+const fs = require('fs');
 const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
-const localObj = require('./local_obj')
+
 
 function writeJson(path, cont) {
   writeFile(path, cont, function (err) {
@@ -14,7 +15,7 @@ function writeJson(path, cont) {
 async function localizeObj(content, lang) {
   let except = []
   //console.log(content)
-  //return content
+  return content
   console.log('Target language: ', lang)
   return await translate(content, {to: lang, except: except}).then(res => {
     	//console.log('res: ', res)
@@ -232,9 +233,17 @@ function putStrIn(newObj, newObjKey, keyObj, srcObj) {
   return newObj
 }
 
-process.argv.forEach(function (valArg, indexArg, arrayArg) {
+let localObj
+let languageIdx
 
-  if (indexArg !== 2) return;
+process.argv.forEach(function (valArg, indexArg, arrayArg) {
+console.log(indexArg, ': ' , valArg)
+  if (indexArg == 2) languageIdx = valArg return;
+  if (indexArg !== 3) return;
+
+localObj = fs.readFileSync(valArg)
+
+localObj = JSON.parse(localObj)
 
   let localStr = [] 
   //console.log(langs)
@@ -242,9 +251,9 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
   let srcToLocalize = {}
   let promiseArr = []
-  srcToLocalize[langs[valArg]] = {}
+  srcToLocalize[langs[languageIdx]] = {}
 
-  let newObj = srcToLocalize[langs[valArg]] 
+  let newObj = srcToLocalize[langs[languageIdx]] 
   //console.log('newObj srcTOlocalize: ', newObj)
   newObj = addStr(localObj, newObj, undefined, localStr)
 
@@ -261,8 +270,8 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   //console.log('src Str : ', srcStr)
   //
 
-  //srcStr = writeJson(aPath + langs[valArg], srcStr)
-  //localizeObj(srcStr, langs[valArg])
+  //srcStr = writeJson(aPath + langs[languageIdx], srcStr)
+  //localizeObj(srcStr, langs[languageIdx])
 
   //console.log('src Str : ', srcStr)
 
@@ -276,7 +285,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   //
   //
 	
-  localizeObj(srcStr, langs[valArg])
+  localizeObj(srcStr, langs[languageIdx])
     .then((localizedStr) => {
       let targetStr = localizedStr.split('\n')
         , valAsOne = ''
@@ -287,7 +296,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
       newObj = putStrIn(newObj, undefined, keyObj, srcObj)
 
       //console.log('localized source: ', newObj)
-      writeJson(aPath + langs[valArg]  + `/local_obj.json`, JSON.stringify(newObj, null, 4));  	
+      writeJson(aPath + langs[languageIdx]  + `/local_obj.json`, JSON.stringify(newObj, null, 4));  	
       return
     })
 
