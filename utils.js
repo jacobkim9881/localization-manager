@@ -37,8 +37,8 @@ localizeObj: async function localizeObj(content, lang) {
   return
 }
 ,
-addStr: function addStr(localObj, targetObj, targetObjKey, localStr) {
-  Object.entries(localObj).forEach(([key, value], idx, arr) => {
+addStr: function addStr(targetObj, targetObjKey, localStr) {
+  Object.entries(targetObj).forEach(([key, value], idx, arr) => {
 
     let strPath = targetObjKey ? targetObjKey + '/' + key : key
     if (typeof value === 'string') {
@@ -79,7 +79,7 @@ addStr: function addStr(localObj, targetObj, targetObjKey, localStr) {
     } else if (typeof value === 'object') {
       //console.log('targetObj : ', targetObj, key)
       targetObj[key] = {}
-      return targetObj[key] = addStr(value, targetObj[key], strPath, localStr)
+      return targetObj[key] = addStr(value, strPath, localStr)
     } 
     return
   })

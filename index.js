@@ -24,10 +24,8 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   , promiseArr = []
   srcToLocalize[langs[languageIdx]] = {}
 
-  let targetObj = srcToLocalize[langs[languageIdx]] 
-  //console.log('targetObj srcTOlocalize: ', targetObj)
-  targetObj = addStr(localObj, localObj, undefined, localStr)
-//console.log('targetObj after recursive: ', targetObj)
+  localObj = addStr(localObj, undefined, localStr)
+//console.log('localObj after recursive: ', localObj)
   //console.log('after loop local str: ', localStr)
 
   console.log('localObj : ', localObj)
@@ -60,10 +58,10 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
-      targetObj = putStrIn(targetObj, undefined, keyObj, srcObj)
+      localObj = putStrIn(localObj, undefined, keyObj, srcObj)
 
-      //console.log('localized source: ', targetObj)
-      writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(targetObj, null, 4));  	
+      //console.log('localized source: ', localObj)
+      writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return
     })
 
