@@ -37,10 +37,10 @@ localizeObj: async function localizeObj(content, lang) {
   return
 }
 ,
-addStr: function addStr(localObj, newObj, newObjKey, localStr) {
+addStr: function addStr(localObj, targetObj, targetObjKey, localStr) {
   Object.entries(localObj).forEach(([key, value], idx, arr) => {
 
-    let strPath = newObjKey ? newObjKey + '/' + key : key
+    let strPath = targetObjKey ? targetObjKey + '/' + key : key
     if (typeof value === 'string') {
       //console.log('key value: ', value)
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
@@ -74,17 +74,17 @@ addStr: function addStr(localObj, newObj, newObjKey, localStr) {
       //console.log('multiple value: ', multipleValue)
       //console.log('local str: ', localStr)
       //console.log('key value: ', value)
-      newObj[key] = value 
+      targetObj[key] = value 
       return
     } else if (typeof value === 'object') {
-      //console.log('newObj : ', newObj, key)
-      newObj[key] = {}
-      return newObj[key] = addStr(value, newObj[key], strPath, localStr)
+      //console.log('targetObj : ', targetObj, key)
+      targetObj[key] = {}
+      return targetObj[key] = addStr(value, targetObj[key], strPath, localStr)
     } 
     return
   })
-  //console.log('newObj in func: ', newObj, newObjKey, localObj)
-  return newObj
+  //console.log('targetObj in func: ', targetObj, targetObjKey, localObj)
+  return targetObj
 }
 ,
 makeKeyPathReturnSrc: function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
@@ -160,16 +160,15 @@ objValWithKeyPath: function objValWithKeyPath(targetStr, keyObj, keyArr) {
 }
 
 ,
-putStrIn: function putStrIn(newObj, newObjKey, keyObj, srcObj) {
-  Object.entries(newObj).forEach(([key, value], idx, arr) => {
-	 let strPath = newObjKey ? newObjKey + '/' + key : key
+putStrIn: function putStrIn(targetObj, targetObjKey, keyObj, srcObj) {
+  Object.entries(targetObj).forEach(([key, value], idx, arr) => {
+	 let strPath = targetObjKey ? targetObjKey + '/' + key : key
     if (typeof value === 'string') {
 	    let replaceTarget = ''
 	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
       // console.log(' value: ', value)
       //console.log('str path : ', strPath)
       //console.log('found value: ', keyObj[strPath])
-      //console.log('each localObj: ', localObj)
 
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
       //console.log('scrObj: ', srcObj)
@@ -179,33 +178,33 @@ putStrIn: function putStrIn(newObj, newObjKey, keyObj, srcObj) {
           //console.log('localized eachStr: ', eachStr)
           //	console.log('target str arr: ', srcObj[strPath])
           //console.log('target str : ', srcObj[strPath][keyObjIdx])
-          	console.log('src str: ', value)
+          	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
 	    let tempArr = lineFeedChange(replaceTarget, eachStr)
 		replaceTarget = tempArr[0]
 		eachStr = tempArr[1]
-            newObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : newObj[key].replace(replaceTarget, eachStr)
- 	    //console.log('put newObj[key]: ', newObj[key])
+            targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
+ 	    //console.log('put targetObj[key]: ', targetObj[key])
         })
       } else {
         replaceTarget = srcObj[strPath]
 	let tempArr = lineFeedChange(replaceTarget, keyObj[strPath])	 
 	replaceTarget = tempArr[0]
 	keyObj[strPath] = tempArr[1]
-        newObj[key] = value.replace(replaceTarget, keyObj[strPath])
+        targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
       }
-       //console.log('put newObj[key]: ', newObj[key])
+       //console.log('put targetObj[key]: ', targetObj[key])
     return
     } else if (typeof value === 'object') {
-      // console.log('newObj : ', newObj, key)
-	 newObj[key] = {}
+      // console.log('targetObj : ', targetObj, key)
+	 targetObj[key] = {}
       // console.log('after recursive: ', putStrIn(value, strPath, keyObj))
-      return newObj[key] = putStrIn(value, strPath, keyObj, srcObj)
+      return targetObj[key] = putStrIn(value, strPath, keyObj, srcObj)
     } 
     return
   })
-  return newObj
+  return targetObj
 }
 
 

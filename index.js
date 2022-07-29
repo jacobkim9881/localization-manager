@@ -16,7 +16,7 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
 
   localObj = JSON.parse(fs.readFileSync(valArg))
 
-  //console.log(localObj)
+  console.log('localObj : ', localObj)
   //console.log(langs)
   let localStr = [] 
   , aPath = `_locales/`
@@ -24,12 +24,13 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   , promiseArr = []
   srcToLocalize[langs[languageIdx]] = {}
 
-  let newObj = srcToLocalize[langs[languageIdx]] 
-  //console.log('newObj srcTOlocalize: ', newObj)
-  newObj = addStr(localObj, newObj, undefined, localStr)
-
+  let targetObj = srcToLocalize[langs[languageIdx]] 
+  //console.log('targetObj srcTOlocalize: ', targetObj)
+  targetObj = addStr(localObj, localObj, undefined, localStr)
+//console.log('targetObj after recursive: ', targetObj)
   //console.log('after loop local str: ', localStr)
 
+  console.log('localObj : ', localObj)
   let srcStr = ""
     , keyArr = []
     , keyObj = {}
@@ -59,10 +60,10 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
-      newObj = putStrIn(newObj, undefined, keyObj, srcObj)
+      targetObj = putStrIn(targetObj, undefined, keyObj, srcObj)
 
-      //console.log('localized source: ', newObj)
-      writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(newObj, null, 4));  	
+      //console.log('localized source: ', targetObj)
+      writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(targetObj, null, 4));  	
       return
     })
 
