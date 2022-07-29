@@ -16,7 +16,7 @@ async function localizeObj(content, lang) {
   let except = []
   //console.log(content)
   //should split content if content length is too many to execute translate
-  return content
+  //return content
   console.log('Target language: ', lang)
   return await translate(content, {to: lang, except: except}).then(res => {
     	//console.log('res: ', res)
@@ -38,12 +38,14 @@ function addStr(localObj, newObj, newObjKey, localStr) {
       let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
       , targetStr = value.replace(regx, '\t').trim()
       , multipleValue = targetStr.split('\t')
-      , isMultipleValue	= multipleValue.length > 1 ? true : false   
+      , isValueArray	= multipleValue.length > 1 ? true : false   
+      , isValueStr	= multipleValue.length === 1 ? true : false   
       //console.log('targetStr: ', targetStr)
       // /H1\tabc
       //console.log('strPath: ', strPath)
-      console.log('multiple value: ', multipleValue)
-      if (isMultipleValue) {
+      //console.log('multiple value: ', multipleValue)
+      //console.log('check multiple value: ', isValueArray)
+      if (isValueArray) {
         let tempVal = ''
         , onlySpace = /[^\s|^\n|^\t]/g
         multipleValue.forEach((val, idx) => {
@@ -55,8 +57,7 @@ function addStr(localObj, newObj, newObjKey, localStr) {
           localStr.push(tempVal)
         })
         //multipleValue = tempVal	
-        //targetStr = multipleValue	
-      } else if (isMultipleValue) {
+      } else if (isValueStr) {
         let keyValue = strPath + '\t' + targetStr
 	localStr.push(keyValue)
         //console.log('key value: ', keyValue)
@@ -99,7 +100,9 @@ function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
       keyObj[lastNonTag] = [splited[1]]
     } else if (splited[0].includes('tag') && !splited[0].includes('tag0')) {
       //push value
-      if (typeof keyObj[lastNonTag] === 'object') { 
+      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
+	let isLastNonTagArray = typeof keyObj[lastNonTag] === 'object' ? true : false
+      if (isLastNonTagArray) { 
         keyObj[lastNonTag] = [...keyObj[lastNonTag], splited[1]]
       } else {
         //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
@@ -120,13 +123,6 @@ function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
 function objValWithKeyPath(targetStr, keyObj, keyArr) {
 //	console.log('keyObj before function: ', keyObj)
   let lastNonTag = ''
-  /*
-  for (let i = targetStr.length; i > 0; i--) {
-  if (targetStr[i] === '') {
-    targetStr.splice(i, 1)
-  }
-  }
-	*/
   //console.log('targetStr after poping empty str: ', targetStr)
   //console.log('targetStr length after poping empty str: ', targetStr.length)
   targetStr.forEach((val, idx) => {
@@ -146,7 +142,6 @@ function objValWithKeyPath(targetStr, keyObj, keyArr) {
       //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
       //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
       //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-
     } else {
     }
     keyObj[keyArr[idx]] = val	
@@ -156,49 +151,42 @@ function objValWithKeyPath(targetStr, keyObj, keyArr) {
   return
 }
 
+function lineFeedChange(value, otherVal) {
+if (value.includes('()')) {
+          value = value.replace('()', '\n');
+          otherVal = otherVal.replace('()', '\n')
+  }
+return
+}
+
 function putStrIn(newObj, newObjKey, keyObj, srcObj) {
   Object.entries(newObj).forEach(([key, value], idx, arr) => {
 	 let strPath = newObjKey ? newObjKey + '/' + key : key
     if (typeof value === 'string') {
 	    let replaceTarget = ''
-      //   console.log(' value: ', value)
+	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
+      // console.log(' value: ', value)
       //console.log('str path : ', strPath)
       //console.log('found value: ', keyObj[strPath])
-      //	 console.log('each localObj: ', localObj)
+      //console.log('each localObj: ', localObj)
 
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
-      //	   console.log('scrObj: ', srcObj)
+      //console.log('scrObj: ', srcObj)
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
-      if(typeof keyObj[strPath] === 'object') {
+      if(isKeyObjArray) {
         keyObj[strPath].forEach((eachStr, keyObjIdx) => {
           //console.log('localized eachStr: ', eachStr)
           //		console.log('target str arr: ', srcObj[strPath])
           //console.log('target str : ', srcObj[strPath][keyObjIdx])
           //		console.log('src str: ', value)
- 	if(keyObjIdx === 0) {
-            replaceTarget = 	srcObj[strPath][keyObjIdx]
-            if (replaceTarget.includes('()')) {
-              replaceTarget = replaceTarget.replace('()', '\n');
-              eachStr = eachStr.replace('()', '\n')
-            }
-            newObj[key] = value.replace(replaceTarget, eachStr)
-          } else {
-            replaceTarget = srcObj[strPath][keyObjIdx]
-            if (replaceTarget.includes('()')) {
-              replaceTarget = replaceTarget.replace('()', '\n');
-              eachStr = eachStr.replace('()', '\n')
-            }
-            newObj[key] = newObj[key].replace(replaceTarget, eachStr)
-          }
-	    //console.log('put newObj[key]: ', newObj[key])
-
+  	    replaceTarget = srcObj[strPath][keyObjIdx]
+	    lineFeedChange(replaceTarget, eachStr)
+            newObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : newObj[key].replace(replaceTarget, eachStr)
+ 	    //console.log('put newObj[key]: ', newObj[key])
         })
       } else {
         replaceTarget = srcObj[strPath]
-        if (replaceTarget.includes('()')) {
-          replaceTarget = replaceTarget.replace('()', '\n');
-          keyObj[strPath] = keyObj[strPath].replace('()', '\n')
-        }
+	lineFeedChange(replaceTarget, keyObj[strPath])
         newObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
       }
