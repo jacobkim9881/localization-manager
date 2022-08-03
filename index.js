@@ -1,15 +1,13 @@
-const translate = require('translate-google')
-const writeFile = require('write-file')
 const fs = require('fs');
 const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
-const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath, lineFeedChange, putStrIn } = require('./utils')
+const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath, putStrIn } = require('./utils')
 
 
 let localObj
 , languageIdx
 
-process.argv.forEach(function (valArg, indexArg, arrayArg) {
+process.argv.forEach(function (valArg, indexArg) {
   console.log(indexArg, ': ' , valArg)
   if (indexArg == 2) languageIdx = valArg
   if (indexArg !== 3) return;
@@ -21,7 +19,6 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   let localStr = [] 
   , aPath = `_locales/`
   , srcToLocalize = {}
-  , promiseArr = []
   srcToLocalize[langs[languageIdx]] = {}
 
   localObj = addStr(localObj, undefined, localStr)
@@ -53,7 +50,6 @@ process.argv.forEach(function (valArg, indexArg, arrayArg) {
   localizeObj(srcStr, langs[languageIdx])
     .then((localizedStr) => {
       let targetStr = localizedStr.split('\n')
-        , valAsOne = ''
       //console.log('targetStr after localize: ', targetStr)
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)

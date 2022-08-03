@@ -1,8 +1,5 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-const fs = require('fs');
-const langsExplain = require('./lang_code')
-const langs = Object.keys(langsExplain);
 
 function lineFeedChange(value, otherVal) {
 if (value.includes('()')) {
@@ -34,11 +31,10 @@ localizeObj: async function localizeObj(content, lang) {
       console.log('error while localize: ', err)
       return undefined
     })
-  return
 }
 ,
 addStr: function addStr(targetObj, targetObjKey, localStr) {
-  Object.entries(targetObj).forEach(([key, value], idx, arr) => {
+  Object.entries(targetObj).forEach(([key, value]) => {
 
     let strPath = targetObjKey ? targetObjKey + '/' + key : key
     if (typeof value === 'string') {
@@ -161,7 +157,7 @@ objValWithKeyPath: function objValWithKeyPath(targetStr, keyObj, keyArr) {
 
 ,
 putStrIn: function putStrIn(targetObj, targetObjKey, keyObj, srcObj) {
-  Object.entries(targetObj).forEach(([key, value], idx, arr) => {
+  Object.entries(targetObj).forEach(([key, value]) => {
 	 let strPath = targetObjKey ? targetObjKey + '/' + key : key
     if (typeof value === 'string') {
 	    let replaceTarget = ''
