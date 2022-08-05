@@ -15,7 +15,7 @@ for var in "$@"
 
 		expect {file is written} {
 
-		sleep 1
+		sleep 0.3 
 
 		send "echo A laguage is finished.\r"
 

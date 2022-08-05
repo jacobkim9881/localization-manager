@@ -9,6 +9,25 @@ if (value.includes('()')) {
 return [value, otherVal]
 }
 
+function removeTagsInStr(value) {
+let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
+      , targetStr = value.replace(regx, '\t').trim()
+      , multipleValue = targetStr.split('\t')
+      , isValueArray	= multipleValue.length > 1 ? true : false   
+      , isValueStr	= multipleValue.length === 1 ? true : false   
+      //console.log('targetStr: ', targetStr)
+      // /H1\tabc
+      //console.log('multiple value: ', multipleValue)
+      //console.log('check multiple value: ', isValueArray)
+
+return {
+  targetStr,
+  multipleValue,
+  isValueArray,
+  isValueStr	
+}
+}
+
 module.exports = {
 	writeJson: function writeJson(path, cont) {
   writeFile(path, cont, function (err) {
@@ -39,16 +58,9 @@ addStr: function addStr(targetObj, targetObjKey, localStr) {
     let strPath = targetObjKey ? targetObjKey + '/' + key : key
     if (typeof value === 'string') {
       //console.log('key value: ', value)
-      let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-      , targetStr = value.replace(regx, '\t').trim()
-      , multipleValue = targetStr.split('\t')
-      , isValueArray	= multipleValue.length > 1 ? true : false   
-      , isValueStr	= multipleValue.length === 1 ? true : false   
-      //console.log('targetStr: ', targetStr)
-      // /H1\tabc
+      //const objRemovedTag = removeTagsInStr(value)   
+	const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
       //console.log('strPath: ', strPath)
-      //console.log('multiple value: ', multipleValue)
-      //console.log('check multiple value: ', isValueArray)
       if (isValueArray) {
         let tempVal = ''
         , onlySpace = /[^\s|^\n|^\t]/g
