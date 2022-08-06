@@ -40,6 +40,23 @@ function putPathTagToValue(val, idx, strPath, localStr) {
 	return tempVal
 }
 
+function splitValueAsTag(val) {
+    let splited = val.split('\t')
+    //splited[1] = splited[1].trim()
+    splited[1] = splited[1].trim().replace('\n', '()')
+  //console.log('val :', val)
+  //console.log('splited : ', splited[1])
+  //console.log('typeof splited : ', typeof splited[1])
+    //keysStr = keysStr + splited[0] + '\n'
+    //console.log('splited at localStr: ', splited)
+    //console.log('splited: ', splited)
+  let splitedTag = splited[0]
+  , splitedVal = splited[1]
+	return {
+  splitedTag, splitedVal
+	}
+}
+
 module.exports = {
 	writeJson: function writeJson(path, cont) {
   writeFile(path, cont, function (err) {
@@ -108,37 +125,30 @@ makeKeyPathReturnSrc: function makeKeyPathReturnSrc(localStr, srcStr, keyArr, ke
   let lastNonTag = ''
   localStr.forEach((val, idx) => {
     //console.log(idx, val)
-    let splited = val.split('\t')
-    //splited[1] = splited[1].trim()
-    splited[1] = splited[1].trim().replace('\n', '()')
-  //console.log('val :', val)
-  //console.log('splited : ', splited[1])
-  //console.log('typeof splited : ', typeof splited[1])
-    //keysStr = keysStr + splited[0] + '\n'
-    keyArr.push(splited[0])
-    //console.log('splited at localStr: ', splited)
-    srcStr = localStr[idx +1] ? srcStr + splited[1] + '\n' : srcStr + splited[1] 
-    //console.log('splited: ', splited)
-    localStr[idx] = splited[1]
-    if(splited[0].includes('tag0')) {
-      lastNonTag = splited[0].replace('/tag0', '')
-      keyObj[lastNonTag] = [splited[1]]
-    } else if (splited[0].includes('tag') && !splited[0].includes('tag0')) {
+	 let {splitedTag, splitedVal} = splitValueAsTag(val)
+    //splitedVal = splitedVal.trim()
+    keyArr.push(splitedTag)
+    srcStr = localStr[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
+    localStr[idx] = splitedVal
+    if(splitedTag.includes('tag0')) {
+      lastNonTag = splitedTag.replace('/tag0', '')
+      keyObj[lastNonTag] = [splitedVal]
+    } else if (splitedTag.includes('tag') && !splitedTag.includes('tag0')) {
       //push value
       //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
 	let isLastNonTagArray = typeof keyObj[lastNonTag] === 'object' ? true : false
       if (isLastNonTagArray) { 
-        keyObj[lastNonTag] = [...keyObj[lastNonTag], splited[1]]
+        keyObj[lastNonTag] = [...keyObj[lastNonTag], splitedVal]
       } else {
         //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-        keyObj[lastNonTag] = [keyObj[lastNonTag], splited[1]]
+        keyObj[lastNonTag] = [keyObj[lastNonTag], splitedVal]
       }
       //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
       //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
       //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
       //console.log('lastNonTag: ', lastNonTag)
     }  else {
-      keyObj[splited[0]] = splited[1] 
+      keyObj[splitedTag] = splitedVal 
     }
     return	  
   })
