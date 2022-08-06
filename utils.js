@@ -28,6 +28,18 @@ return {
 }
 }
 
+function isOnlySpace(val) {
+        const onlySpace = /[^\s|^\n|^\t]/g
+	return val.match(onlySpace) === null ? true : false
+}
+
+function putPathTagToValue(val, idx, strPath, localStr) {
+	let tempVal = ''
+          tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
+          console.log('tempVal : ', tempVal)
+	return tempVal
+}
+
 module.exports = {
 	writeJson: function writeJson(path, cont) {
   writeFile(path, cont, function (err) {
@@ -62,17 +74,14 @@ addStr: function addStr(targetObj, targetObjKey, localStr) {
 	const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
       //console.log('strPath: ', strPath)
       if (isValueArray) {
-        let tempVal = ''
-        , onlySpace = /[^\s|^\n|^\t]/g
-        multipleValue.forEach((val, idx) => {
-	  let hasOnlySpace = val.match(onlySpace) === null ? true : false
-          //console.log( 'is empty: ', val.match(onlySpace))
+       multipleValue.forEach((val, idx) => {
+	       let hasOnlySpace = isOnlySpace(val)          
+		//console.log( 'is empty: ', val.match(onlySpace))
           if (hasOnlySpace) return
-          tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
-          //console.log('tempVal : ', tempVal)
-          localStr.push(tempVal)
+
+	let valueWithPathTag = putPathTagToValue(val, idx, strPath, localStr)
+          localStr.push(valueWithPathTag)
         })
-        //multipleValue = tempVal	
       } else if (isValueStr) {
         let keyValue = strPath + '\t' + targetStr
 	localStr.push(keyValue)
