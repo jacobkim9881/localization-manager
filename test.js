@@ -7,8 +7,8 @@ txt = txt + 1
 console.log(txt)
 
 function test(txt) {
-txt = txt + 1
-return
+  txt = txt + 1
+  return
 }
 
 test(txt)
@@ -16,11 +16,11 @@ test(txt)
 console.log(txt)
 
 function test2(txt) {
-txt = txt + 2
+  txt = txt + 2
 
-//expecting : txt12
-console.log(txt)
-return
+  //expecting : txt12
+  console.log(txt)
+  return
 }
 
 test2(txt)
@@ -28,8 +28,8 @@ test2(txt)
 console.log(txt)
 
 function test3() {
-txt = txt + 1
-return
+  txt = txt + 1
+  return
 }
 
 test3()

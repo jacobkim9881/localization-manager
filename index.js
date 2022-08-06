@@ -5,7 +5,7 @@ const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath,
 
 
 let localObj
-, languageIdx
+  , languageIdx
 
 process.argv.forEach(function (valArg, indexArg) {
   console.log(indexArg, ': ' , valArg)
@@ -17,12 +17,12 @@ process.argv.forEach(function (valArg, indexArg) {
   console.log('localObj : ', localObj)
   //console.log(langs)
   let localStr = [] 
-  , aPath = `_locales/`
-  , srcToLocalize = {}
+    , aPath = `_locales/`
+    , srcToLocalize = {}
   srcToLocalize[langs[languageIdx]] = {}
 
   localObj = addStr(localObj, undefined, localStr)
-//console.log('localObj after recursive: ', localObj)
+  //console.log('localObj after recursive: ', localObj)
   //console.log('after loop local str: ', localStr)
 
   console.log('localObj : ', localObj)

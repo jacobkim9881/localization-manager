@@ -22,18 +22,18 @@ function checkSame(v, maps) {
 
 function enMap(obj, except = [], path = '', map = []) {
 //console.log('except: ', except)
-	if (_.isObject(obj) == true) {
-//console.log('except obj: ', except)
+  if (_.isObject(obj) == true) {
+    //console.log('except obj: ', except)
     _.forEach(obj, (v, k) => {
       const furKeyStr = _.isNumber(k) ? `[${k}]` : (path && '.') + k
       const curPath = path + furKeyStr
       if (_.isObject(v) == true) {
         enMap(v, except, curPath, map)
       } else {
-//console.log('except else: ', except)
+        //console.log('except else: ', except)
         const exceptReg = except.length > 0 ? new RegExp('(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)', 'g') : false
         //const exceptReg = except.length > 0 ? new RegExp(`(^|\\.)(${_.map(except, _.escapeRegExp).join('|')})(\\.|\\[|$)`, 'i') : false
-//	      console.log('exceptReg: ', exceptReg)
+        //	      console.log('exceptReg: ', exceptReg)
         if (
           _.isString(v) &&
           !isNumber(v) &&
@@ -65,7 +65,7 @@ function enMap(obj, except = [], path = '', map = []) {
       }
     })
   } else {
-//console.log('except bot: ', except)
+    //console.log('except bot: ', except)
     map.push({
       p: '',
       v: obj,
@@ -144,7 +144,7 @@ function translate(text, opts, gotopts) {
   }).then(function (data) {
     const strMap = enMap(text, opts.except)
     text = _.map(_.differenceBy(strMap, [{ s: true }], 's'), 'v').join(br)
-//console.log('text: ', text)
+    //console.log('text: ', text)
     url = url + '/_/TranslateWebserverUi/data/batchexecute?' + querystring.stringify(data)
     gotopts.body = 'f.req=' + encodeURIComponent(JSON.stringify([[['MkEWBc', JSON.stringify([[text, opts.from, opts.to, true], [null]]), null, 'generic']]])) + '&'
     gotopts.headers = {
@@ -154,7 +154,7 @@ function translate(text, opts, gotopts) {
     return got.post(url, gotopts).then(function (res) {
 	   // console.log('res : ', res)
       let json = res.body.slice(6)
-console.log('gotopts: ', gotopts)
+      console.log('gotopts: ', gotopts)
 	    console.log('sliced json: ', json)
       let length = ''
 
@@ -184,11 +184,11 @@ console.log('gotopts: ', gotopts)
         return result
       }
 	    console.log('res body: ', res.body)
-console.log('result raw: ', json)
-	if (json === null) {
-		console.log('String is empty')
-		return ''
-	}
+      console.log('result raw: ', json)
+      if (json === null) {
+        console.log('String is empty')
+        return ''
+      }
       if (json[1][0][0][5] === undefined || json[1][0][0][5] === null) {
         // translation not found, could be a hyperlink or gender-specific translation?
         result.text = json[1][0][0][0]
