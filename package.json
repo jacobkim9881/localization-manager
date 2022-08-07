@@ -12,5 +12,8 @@
   "dependencies": {
     "translate-google": "^1.5.0",
     "write-file": "^1.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0"
   }
 }
