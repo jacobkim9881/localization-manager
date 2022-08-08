@@ -2,6 +2,8 @@ const translate = require('translate-google')
 const writeFile = require('write-file')
 const {lineFeedChange, removeTagsInStr, isOnlySpace, putPathTagToValue, splitValueAsTag} = require('./utils-misc')
 
+const assert = require('mocha')
+
 module.exports = {
   writeJson: function writeJson(path, cont) {
     writeFile(path, cont, function (err) {
@@ -17,7 +19,16 @@ module.exports = {
     //return content
     console.log('Target language: ', lang)
     return await translate(content, {to: lang, except: except}).then(res => {
-    	//console.log('res: ', res)
+	logTranslateResult(res)    
+	function logTranslateResult(res) {    
+	try {
+	console.log(typeof res === 'string')	
+	assert.equal(typeof res, 'string')
+	} catch(err) {
+	console.log('Translate result err: is not string: ', err)
+	}
+    	return console.log('res: ', res)
+	}
       return res
     })
       .catch(async err => {
