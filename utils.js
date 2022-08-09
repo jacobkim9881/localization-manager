@@ -19,15 +19,9 @@ module.exports = {
     //return content
     console.log('Target language: ', lang)
     return await translate(content, {to: lang, except: except}).then(res => {
-	logTranslateResult(res)    
+	//logTranslateResult(res)    
 	function logTranslateResult(res) {    
-	try {
-	console.log(typeof res === 'string')	
-	assert.equal(typeof res, 'string')
-	} catch(err) {
-	console.log('Translate result err: is not string: ', err)
-	}
-    	return console.log('res: ', res)
+    	return console.log('Translate result: ', res)
 	}
       return res
     })

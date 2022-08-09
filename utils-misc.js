@@ -1,4 +1,5 @@
-//
+const assert = require('mocha')
+
 module.exports= {
 	lineFeedChange: function lineFeedChange(value, otherVal) {
   if (value.includes('()')) {
