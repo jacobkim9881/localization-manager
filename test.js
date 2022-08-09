@@ -35,3 +35,13 @@ function test3() {
 test3()
 //expecting : txt11
 console.log(txt)
+
+function test4(txt) {
+  txt = txt + 2
+  return txt
+}
+
+txt = test4(txt)
+//expecting : txt112
+console.log(txt)
+
