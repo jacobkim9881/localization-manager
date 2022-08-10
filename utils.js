@@ -152,7 +152,10 @@ module.exports = {
           //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
-	    let tempArr = lineFeedChange(replaceTarget, eachStr)
+	    //let tempArr = lineFeedChange(replaceTarget, eachStr)
+		 let tempArr= []
+	    tempArr[0] = replaceTarget.includes('()') ? lineFeedChange(replaceTarget) : replaceTarget 
+	    tempArr[1] = replaceTarget.includes('()') ? lineFeedChange(eachStr) : eachStr
             replaceTarget = tempArr[0]
             eachStr = tempArr[1]
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
@@ -160,7 +163,11 @@ module.exports = {
           })
         } else {
           replaceTarget = srcObj[strPath]
-          let tempArr = lineFeedChange(replaceTarget, keyObj[strPath])	 
+          //let tempArr = lineFeedChange(replaceTarget, keyObj[strPath])	 
+		let tempArr= []
+	    tempArr[0] = replaceTarget.includes('()') ? lineFeedChange(replaceTarget) : replaceTarget 
+	    tempArr[1] = replaceTarget.includes('()') ? lineFeedChange(keyObj[strPath]) : keyObj[strPath]
+
           replaceTarget = tempArr[0]
           keyObj[strPath] = tempArr[1]
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])

@@ -1,6 +1,9 @@
 //
 module.exports= {
-	lineFeedChange: function lineFeedChange(value, otherVal) {
+		lineFeedChange: function lineFeedChange(value) {
+    return value.replace('()', '\n');
+},
+lineFeedChange1: function lineFeedChange(value, otherVal) {
   if (value.includes('()')) {
     value = value.replace('()', '\n');
     otherVal = otherVal.replace('()', '\n')
