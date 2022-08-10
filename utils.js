@@ -33,10 +33,10 @@ module.exports = {
       if (typeof value === 'string') {
       //console.log('key value: ', value)
       //const objRemovedTag = removeTagsInStr(value)  
-	const targetStr =  removeTagsInStr(value)    
-	, multipleValue = targetStr.split('\t')
-        , isValueArray	= multipleValue.length > 1 ? true : false   
-        , isValueStr	= multipleValue.length === 1 ? true : false   
+        const targetStr =  removeTagsInStr(value)    
+          , multipleValue = targetStr.split('\t')
+          , isValueArray	= multipleValue.length > 1 ? true : false   
+          , isValueStr	= multipleValue.length === 1 ? true : false   
         //const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
         //console.log('strPath: ', strPath)
         if (isValueArray) {
@@ -46,7 +46,7 @@ module.exports = {
             if (hasOnlySpace) return
 
             let valueWithPathTag = putPathTagToValue(val, idx, strPath, localStr)
-		 console.log('value with path tag: ', valueWithPathTag)
+		 //console.log('value with path tag: ', valueWithPathTag)
             localStr.push(valueWithPathTag)
           })
         } else if (isValueStr) {
@@ -75,12 +75,12 @@ module.exports = {
     let lastNonTag = ''
     localStr.forEach((val, idx) => {
     //console.log(idx, val)
-    let [splitedTag, splitedVal] = val.split('\t')
-	function logSplitedTag(splitedTag, splitedVal) {    
-	console.log('splited Tag:', splitedTag)    
-	console.log('splited value:', splitedVal)    
-	}
-	//logSplitedTag(splitedTag, splitedVal)    
+      let [splitedTag, splitedVal] = val.split('\t')
+      function logSplitedTag(splitedTag, splitedVal) {    
+        console.log('splited Tag:', splitedTag)    
+        console.log('splited value:', splitedVal)    
+      }
+      //logSplitedTag(splitedTag, splitedVal)    
 	    splitedVal = lineFeedToMark(splitedVal)
       keyArr.push(splitedTag)
       srcStr = localStr[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
