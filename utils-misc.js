@@ -14,6 +14,10 @@ putPathTagToValue: function putPathTagToValue(val, idx, strPath, localStr) {
   return strPath + '/tag' + idx + '\t' + val + '\n'
 },
 
+lineFeedToMark: function(value) {
+    return value.trim().replace('\n', '()');
+}, 
+
 splitValueAsTag: function splitValueAsTag(val) {
   let splited = val.split('\t')
   //splited[1] = splited[1].trim()
