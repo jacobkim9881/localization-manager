@@ -3,14 +3,6 @@ module.exports= {
 		lineFeedChange: function lineFeedChange(value) {
     return value.replace('()', '\n');
 },
-lineFeedChange1: function lineFeedChange(value, otherVal) {
-  if (value.includes('()')) {
-    value = value.replace('()', '\n');
-    otherVal = otherVal.replace('()', '\n')
-  }
-  return [value, otherVal]
-},
-
 removeTagsInStr: function removeTagsInStr(value) {
   let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
     , targetStr = value.replace(regx, '\t').trim()
