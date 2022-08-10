@@ -1,6 +1,6 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, splitValueAsTag} = require('./utils-misc')
+const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue} = require('./utils-misc')
 
 module.exports = {
   writeJson: function writeJson(path, cont) {
@@ -75,12 +75,13 @@ module.exports = {
     let lastNonTag = ''
     localStr.forEach((val, idx) => {
     //console.log(idx, val)
-	 //let {splitedTag, splitedVal} = splitValueAsTag(val)
-	 let [splitedTag, splitedVal] = val.split('\t')
+    let [splitedTag, splitedVal] = val.split('\t')
+	function logSplitedTag(splitedTag, splitedVal) {    
 	console.log('splited Tag:', splitedTag)    
 	console.log('splited value:', splitedVal)    
+	}
+	//logSplitedTag(splitedTag, splitedVal)    
 	    splitedVal = lineFeedToMark(splitedVal)
-      //splitedVal = splitedVal.trim()
       keyArr.push(splitedTag)
       srcStr = localStr[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
       localStr[idx] = splitedVal
