@@ -26,11 +26,11 @@ module.exports = {
       })
   }
   ,
-  addStr: function addStr(targetObj, targetObjKey, arrayOfStringsWithTagPath) {
+  addStr: function addStr(targetObj, tagName, arrayOfStringsWithTagPath) {
 	  //arrayOfStringsWithTagPath
-    Object.entries(targetObj).forEach(([key, value]) => {
+    Object.entries(targetObj).forEach(([tagNumber, value]) => {
 
-      let strPath = targetObjKey ? targetObjKey + '/' + key : key
+      let strPath = tagName ? tagName + '/' + tagNumber : tagNumber
       if (typeof value === 'string') {
       //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
@@ -58,12 +58,12 @@ module.exports = {
         //console.log('array of html tags text without tag: ', arrayOfTags)
         //console.log('array which have strings added each tag path: ', arrayOfStringsWithTagPath)
         //console.log('key value: ', value)
-        targetObj[key] = value 
+        targetObj[tagNumber] = value 
         return
       } else if (typeof value === 'object') {
-      //console.log('targetObj : ', targetObj, key)
-        targetObj[key] = {}
-        return targetObj[key] = addStr(value, strPath, arrayOfStringsWithTagPath)
+      //console.log('targetObj : ', targetObj, tagNumber)
+        targetObj[tagNumber] = {}
+        return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
       } 
       return
     })
