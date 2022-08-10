@@ -4,12 +4,10 @@ module.exports= {
     return value.replace('()', '\n');
 },
 removeTagsInStr: function removeTagsInStr(value) {
-  let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-    return value.replace(regx, '\t').trim()
+    return value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t').trim()
 },
 isOnlySpace: function isOnlySpace(val) {
-  const onlySpace = /[^\s|^\n|^\t]/g
-  return val.match(onlySpace) === null ? true : false
+  return val.match(/[^\s|^\n|^\t]/g) === null ? true : false
 },
 
 putPathTagToValue: function putPathTagToValue(val, idx, strPath, localStr) {
