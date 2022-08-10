@@ -5,23 +5,8 @@ module.exports= {
 },
 removeTagsInStr: function removeTagsInStr(value) {
   let regx = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g
-    , targetStr = value.replace(regx, '\t').trim()
-    , multipleValue = targetStr.split('\t')
-    , isValueArray	= multipleValue.length > 1 ? true : false   
-    , isValueStr	= multipleValue.length === 1 ? true : false   
-  //console.log('targetStr: ', targetStr)
-  // /H1\tabc
-  //console.log('multiple value: ', multipleValue)
-  //console.log('check multiple value: ', isValueArray)
-
-  return {
-    targetStr,
-    multipleValue,
-    isValueArray,
-    isValueStr	
-  }
+    return value.replace(regx, '\t').trim()
 },
-
 isOnlySpace: function isOnlySpace(val) {
   const onlySpace = /[^\s|^\n|^\t]/g
   return val.match(onlySpace) === null ? true : false

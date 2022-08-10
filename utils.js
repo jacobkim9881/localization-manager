@@ -32,8 +32,12 @@ module.exports = {
       let strPath = targetObjKey ? targetObjKey + '/' + key : key
       if (typeof value === 'string') {
       //console.log('key value: ', value)
-      //const objRemovedTag = removeTagsInStr(value)   
-        const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
+      //const objRemovedTag = removeTagsInStr(value)  
+	const targetStr =  removeTagsInStr(value)    
+	, multipleValue = targetStr.split('\t')
+        , isValueArray	= multipleValue.length > 1 ? true : false   
+        , isValueStr	= multipleValue.length === 1 ? true : false   
+        //const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
         //console.log('strPath: ', strPath)
         if (isValueArray) {
           multipleValue.forEach((val, idx) => {
