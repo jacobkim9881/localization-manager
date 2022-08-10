@@ -11,10 +11,7 @@ isOnlySpace: function isOnlySpace(val) {
 },
 
 putPathTagToValue: function putPathTagToValue(val, idx, strPath, localStr) {
-  let tempVal = ''
-  tempVal = strPath + '/tag' + idx + '\t' + val	+ '\n'
-  console.log('tempVal : ', tempVal)
-  return tempVal
+  return strPath + '/tag' + idx + '\t' + val + '\n'
 },
 
 splitValueAsTag: function splitValueAsTag(val) {

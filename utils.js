@@ -46,6 +46,7 @@ module.exports = {
             if (hasOnlySpace) return
 
             let valueWithPathTag = putPathTagToValue(val, idx, strPath, localStr)
+		 console.log('value with path tag: ', valueWithPathTag)
             localStr.push(valueWithPathTag)
           })
         } else if (isValueStr) {
