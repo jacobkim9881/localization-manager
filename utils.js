@@ -26,43 +26,44 @@ module.exports = {
       })
   }
   ,
-  addStr: function addStr(targetObj, targetObjKey, localStr) {
+  addStr: function addStr(targetObj, targetObjKey, arrayOfStringsWithTagPath) {
+	  //arrayOfStringsWithTagPath
     Object.entries(targetObj).forEach(([key, value]) => {
 
       let strPath = targetObjKey ? targetObjKey + '/' + key : key
       if (typeof value === 'string') {
       //console.log('key value: ', value)
-        const targetStr =  removeTagsInStr(value)    
-          , multipleValue = targetStr.split('\t')
-          , isValueArray	= multipleValue.length > 1 ? true : false   
-          , isValueStr	= multipleValue.length === 1 ? true : false   
+        const strRemovedTag = removeTagsInStr(value)    
+          , arrayOfTags = strRemovedTag.split('\t')
+          , isValueArray= arrayOfTags.length > 1 ? true : false   
+          , isValueStr	= arrayOfTags.length === 1 ? true : false   
         //const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
         //console.log('strPath: ', strPath)
         if (isValueArray) {
-          multipleValue.forEach((val, idx) => {
+          arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
             //console.log( 'is empty: ', val.match(onlySpace))
             if (hasOnlySpace) return
 
-            let valueWithPathTag = putPathTagToValue(val, idx, strPath, localStr)
+            let valueWithPathTag = putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath)
 		 //console.log('value with path tag: ', valueWithPathTag)
-            localStr.push(valueWithPathTag)
+            arrayOfStringsWithTagPath.push(valueWithPathTag)
           })
         } else if (isValueStr) {
-          let keyValue = strPath + '\t' + targetStr
-          localStr.push(keyValue)
+          let keyValue = strPath + '\t' + strRemovedTag
+          arrayOfStringsWithTagPath.push(keyValue)
         //console.log('key value: ', keyValue)
         }
-        //console.log('targetStr: ', targetStr)
-        //console.log('multiple value: ', multipleValue)
-        //console.log('local str: ', localStr)
+        //console.log('strRemovedTag: ', strRemovedTag)
+        //console.log('array of html tags text without tag: ', arrayOfTags)
+        //console.log('array which have strings added each tag path: ', arrayOfStringsWithTagPath)
         //console.log('key value: ', value)
         targetObj[key] = value 
         return
       } else if (typeof value === 'object') {
       //console.log('targetObj : ', targetObj, key)
         targetObj[key] = {}
-        return targetObj[key] = addStr(value, strPath, localStr)
+        return targetObj[key] = addStr(value, strPath, arrayOfStringsWithTagPath)
       } 
       return
     })

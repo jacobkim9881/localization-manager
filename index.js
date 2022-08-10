@@ -16,14 +16,14 @@ process.argv.forEach(function (valArg, indexArg) {
 
   console.log('localObj : ', localObj)
   //console.log(langs)
-  let localStr = [] 
+  let arrayOfStringsWithTagPath = [] 
     , aPath = `_locales/`
     , srcToLocalize = {}
   srcToLocalize[langs[languageIdx]] = {}
 
-  localObj = addStr(localObj, undefined, localStr)
+  localObj = addStr(localObj, undefined, arrayOfStringsWithTagPath)
   //console.log('localObj after recursive: ', localObj)
-  //console.log('after loop local str: ', localStr)
+  //console.log('after loop arrayOfStringsWithTagPath: ', arrayOfStringsWithTagPath)
 
   console.log('localObj : ', localObj)
   let srcStr = ""
@@ -31,9 +31,9 @@ process.argv.forEach(function (valArg, indexArg) {
     , keyObj = {}
     , srcObj = {}
 
-  srcStr = makeKeyPathReturnSrc(localStr, srcStr, keyArr, srcObj)
+  srcStr = makeKeyPathReturnSrc(arrayOfStringsWithTagPath, srcStr, keyArr, srcObj)
 
-  //	console.log('localStr after makeKeyPath... func: ', localStr)
+  //	console.log('arrayOfStringsWithTagPath after makeKeyPath... func: ', arrayOfStringsWithTagPath)
   //console.log('src Str : ', srcStr)
 
   //console.log('src Str : ', srcStr)
