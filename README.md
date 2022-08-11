@@ -1,11 +1,12 @@
 ## Localization Manager
 This repository helps users to make localized json file(to 102 countries language based on google translator API) from a json file.
 
-Countries list which can be with localizing json are in `lang_code.js`.
+Countries list which can be with localizing json are in `lang_code.js`. This countries list is referenced [here](https://github.com/shikar/NODE_GOOGLE_TRANSLATE/blob/master/languages.js). 
 
 ### Environment
 - Linux like OS
 - Node.js
+
 This repo is only working on Linux os based machine. On Windows with terminal it may not work because some bash commands will not work on Windows OS which don't have. Node.js should be installed before to run. 
 
 ### Setup repository
