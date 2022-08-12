@@ -14,8 +14,9 @@ process.argv.forEach(function (valArg, indexArg) {
   if (indexArg !== 3) return;
 
   testTargetObj(fs.readFileSync(valArg))
+
   localObj = JSON.parse(fs.readFileSync(valArg))
-//  console.log('localObj : ', localObj)
+  //  console.log('localObj : ', localObj)
   //console.log(langs)
   let arrayOfStringsWithTagPath = [] 
     , aPath = `_locales/`
