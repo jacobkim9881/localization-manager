@@ -14,7 +14,7 @@ module.exports = {
     let except = []
     //console.log(content)
     //should split content if content length is too many to execute translate
-    //return content
+    return content
     console.log('Target language: ', lang)
     return await translate(content, {to: lang, except: except}).then(res => {
     	//console.log('res: ', res)
