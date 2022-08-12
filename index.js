@@ -2,7 +2,8 @@ const fs = require('fs');
 const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
 const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath, putStrIn } = require('./utils')
-
+const {testTargetObj} = require('./test-index')
+var assert = require('assert');
 
 let localObj
   , languageIdx
@@ -12,9 +13,9 @@ process.argv.forEach(function (valArg, indexArg) {
   if (indexArg == 2) languageIdx = valArg
   if (indexArg !== 3) return;
 
+  testTargetObj(fs.readFileSync(valArg))
   localObj = JSON.parse(fs.readFileSync(valArg))
-
-  console.log('localObj : ', localObj)
+//  console.log('localObj : ', localObj)
   //console.log(langs)
   let arrayOfStringsWithTagPath = [] 
     , aPath = `_locales/`
