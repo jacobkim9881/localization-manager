@@ -2,7 +2,7 @@ const fs = require('fs');
 const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
 const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath, putStrIn } = require('./utils')
-const {testLanguageIdx, testJsonData, testTargetObj, testStr} = require('./test-index')
+const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr} = require('./test-index')
 var assert = require('assert');
 
 let localObj
@@ -53,6 +53,7 @@ process.argv.forEach(function (valArg, indexArg) {
     .then((localizedStr) => {
 	testStr(localizedStr)    
       let targetStr = localizedStr.split('\n')
+	testArr(targetStr)    
       //console.log('targetStr after localize: ', targetStr)
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)

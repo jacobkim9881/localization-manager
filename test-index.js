@@ -41,6 +41,19 @@ module.exports = {
       console.log('Target variable\'s type should be string: ', err)
     }
     return
+  },
+  testArr: function(value) {
+    try {
+      const typeOfValue = typeof value
+	    , valueLength = value.length
+	    , hasLength = value.length > 0 ? true : false
+//	console.log(value.length)
+      assert.equal(typeOfValue, 'object')
+      assert.equal(hasLength, true)
+    } catch(err) {
+      console.log('Target variable\'s type should be array: ', err)
+    }
+    return
   }
 
 
