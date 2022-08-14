@@ -59,7 +59,7 @@ process.argv.forEach(function (valArg, indexArg) {
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
       localObj = putStrIn(localObj, undefined, keyObj, srcObj)
-
+	testTargetObj(localObj)
       //console.log('localized source: ', localObj)
       writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return
