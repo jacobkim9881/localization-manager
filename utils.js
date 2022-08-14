@@ -1,12 +1,13 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
 const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue} = require('./utils-misc')
-const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr} = require('./test-utils')
+const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('./test-utils')
 
 module.exports = {
-  writeJson: function writeJson(path, cont) {
-    testStr(cont)	  
-    writeFile(path, cont, function (err) {	    
+  writeJson: function writeJson(path, content) {
+    testStr(path)	  
+    testStr(content)	  
+    writeFile(path, content, function (err) {	    
       if (err) return console.log(err)
       console.log('file is written');	
     })
@@ -14,11 +15,14 @@ module.exports = {
   ,
   localizeObj: async function localizeObj(content, lang) {
     let except = []
+    testStr(content)	  
+    testStr(lang)	  
     //console.log(content)
     //should split content if content length is too many to execute translate
     return content
     console.log('Target language: ', lang)
     return await translate(content, {to: lang, except: except}).then(res => {
+    testStr(res)	  
     	//console.log('res: ', res)
       return res
     })
@@ -29,6 +33,9 @@ module.exports = {
   }
   ,
   addStr: function addStr(targetObj, tagName, arrayOfStringsWithTagPath) {
+	  testTargetObj(targetObj)
+	  testTagName(tagName, arrayOfStringsWithTagPath)
+	  testArr(arrayOfStringsWithTagPath)
 	  //arrayOfStringsWithTagPath
     Object.entries(targetObj).forEach(([tagNumber, value]) => {
 
@@ -37,6 +44,8 @@ module.exports = {
       //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
+	      // change to Array.isArray(val) 
+	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
           , isValueStr	= arrayOfTags.length === 1 ? true : false   
         //const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
@@ -73,9 +82,13 @@ module.exports = {
     return targetObj
   }
   ,
-  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(localStr, srcStr, keyArr, keyObj) {
+  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
+	  testTargetObj(targetObj)
+	  testTargetObj(keyObj)
+	  testArr(keyArr)
+	  testStr(srcStr)
     let lastNonTag = ''
-    localStr.forEach((val, idx) => {
+    targetObj.forEach((val, idx) => {
     //console.log(idx, val)
       let [splitedTag, splitedVal] = val.split('\t')
       function logSplitedTag(splitedTag, splitedVal) {    
@@ -85,8 +98,8 @@ module.exports = {
       //logSplitedTag(splitedTag, splitedVal)    
 	    splitedVal = lineFeedToMark(splitedVal)
       keyArr.push(splitedTag)
-      srcStr = localStr[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
-      localStr[idx] = splitedVal
+      srcStr = targetObj[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
+      targetObj[idx] = splitedVal
       if(splitedTag.includes('tag0')) {
         lastNonTag = splitedTag.replace('/tag0', '')
         keyObj[lastNonTag] = [splitedVal]

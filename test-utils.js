@@ -44,17 +44,30 @@ module.exports = {
   },
   testArr: function(value) {
     try {
-      const typeOfValue = typeof value
-	    , valueLength = value.length
-	    , hasLength = value.length > 0 ? true : false
-//	console.log(value.length)
-      assert.equal(typeOfValue, 'object')
-      assert.equal(hasLength, true)
+      const isArray = Array.isArray(value) 
+      assert.equal(isArray, true)
     } catch(err) {
       console.log('\x1b[31m%s\x1b[0m','Target variable\'s type should be array: ', err)
     }
     return
-  }
+  },
+testTagName: function(value, path) {
+    try {
+      const typeOfValue = typeof value	
+	, isString = typeOfValue === 'string' ? true : false
+	, isUndefined = value === undefined ? true : false
 
+	   if (isUndefined) {
+		   console.log('Tag name is undefined at: ', path)
+		   console.log('Tag name chould be undefined at first recursive function or it could be err.')
+	   }
+	    else {
+      assert.equal(typeOfValue, 'string')
+	    }
+    } catch(err) {
+      console.log('\x1b[31m%s\x1b[0m','Target variable\'s type should be string: ', err)
+    }
+    return
+  },
 
 }
