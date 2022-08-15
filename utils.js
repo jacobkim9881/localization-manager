@@ -99,9 +99,11 @@ module.exports = {
 	    splitedVal = lineFeedToMark(splitedVal)
       keyArr.push(splitedTag)
       srcStr = targetObj[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
+      testStr(srcStr)	    
       targetObj[idx] = splitedVal
       if(splitedTag.includes('tag0')) {
         lastNonTag = splitedTag.replace('/tag0', '')
+	      testStr(lastNonTag)
         keyObj[lastNonTag] = [splitedVal]
       } else if (splitedTag.includes('tag') && !splitedTag.includes('tag0')) {
       //push value
@@ -125,14 +127,17 @@ module.exports = {
     return srcStr	
   }
   ,
-  objValWithKeyPath: function objValWithKeyPath(targetStr, keyObj, keyArr) {
+  objValWithKeyPath: function objValWithKeyPath(targetArr, keyObj, keyArr) {
+	  testArr(targetArr)
+	  testTargetObj(keyObj)
+	  testArr(keyArr)
     //	console.log('keyObj before function: ', keyObj)
     let lastNonTag = ''
-    //console.log('targetStr after poping empty str: ', targetStr)
-    //console.log('targetStr length after poping empty str: ', targetStr.length)
-    targetStr.forEach((val, idx) => {
-    //console.log('idx at targetStr each: ', idx)
-    //console.log('val at targetStr each: ', val)
+    //console.log('targetArr after poping empty str: ', targetArr)
+    //console.log('targetArr length after poping empty str: ', targetArr.length)
+    targetArr.forEach((val, idx) => {
+    //console.log('idx at targetArr each: ', idx)
+    //console.log('val at targetArr each: ', val)
     //console.log('key arr[idx] : ', keyArr[idx])
 	  if (keyArr[idx].includes('tag0')) { 
         lastNonTag = keyArr[idx].replace('/tag0', '')
@@ -158,8 +163,14 @@ module.exports = {
 
   ,
   putStrIn: function putStrIn(targetObj, targetObjKey, keyObj, srcObj) {
+	  testTargetObj(targetObj)
+	  testTagName(targetObjKey)
+	  testTargetObj(keyObj)
+	  testTargetObj(srcObj)
+
     Object.entries(targetObj).forEach(([key, value]) => {
 	 let strPath = targetObjKey ? targetObjKey + '/' + key : key
+	 testStr(strPath)   
       if (typeof value === 'string') {
 	    let replaceTarget = ''
 	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
@@ -172,6 +183,7 @@ module.exports = {
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
         if(isKeyObjArray) {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
+	testStr(eachStr)	  
           //console.log('localized eachStr: ', eachStr)
           //	console.log('target str arr: ', srcObj[strPath])
           //console.log('target str : ', srcObj[strPath][keyObjIdx])
@@ -189,6 +201,7 @@ module.exports = {
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
+	testStr(replaceTarget)      
         //console.log('put targetObj[key]: ', targetObj[key])
         return
       } else if (typeof value === 'object') {

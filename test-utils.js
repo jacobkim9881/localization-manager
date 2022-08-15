@@ -59,7 +59,7 @@ testTagName: function(value, path) {
 
 	   if (isUndefined) {
 		   console.log('Tag name is undefined at: ', path)
-		   console.log('Tag name chould be undefined at first recursive function or it could be err.')
+		  // console.log('Tag name chould be undefined at first recursive function or it could be err.')
 	   }
 	    else {
       assert.equal(typeOfValue, 'string')
