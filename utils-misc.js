@@ -1,9 +1,9 @@
 const {testStr, testIdx } = require('./test-misc')
 
 module.exports= {
-  lineFeedChange: function lineFeedChange(value) {
+  lineFeedChange: function lineFeedChange(value, mark) {
     testStr(value)	  
-    return value.replace('()', '\n');
+    return value.replace(mark, '\n');
   },
   removeTagsInStr: function removeTagsInStr(value) {
     testStr(value)	  
@@ -21,8 +21,8 @@ module.exports= {
     return strPath + '/tag' + idx + '\t' + value + '\n'
   },
 
-  lineFeedToMark: function(value) {
+  lineFeedToMark: function(value, mark) {
     testStr(value)	  
-    return value.trim().replace('\n', '()');
+    return value.trim().replace('\n', mark);
   } 
 }

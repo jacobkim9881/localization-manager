@@ -91,12 +91,13 @@ module.exports = {
     targetObj.forEach((val, idx) => {
     //console.log(idx, val)
       let [splitedTag, splitedVal] = val.split('\t')
+	    , mark = '()'
       function logSplitedTag(splitedTag, splitedVal) {    
         console.log('splited Tag:', splitedTag)    
         console.log('splited value:', splitedVal)    
       }
       //logSplitedTag(splitedTag, splitedVal)    
-	    splitedVal = lineFeedToMark(splitedVal)
+	    splitedVal = lineFeedToMark(splitedVal, mark)
       keyArr.push(splitedTag)
       srcStr = targetObj[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
       testStr(srcStr)	    
@@ -173,6 +174,7 @@ module.exports = {
 	 testStr(strPath)   
       if (typeof value === 'string') {
 	    let replaceTarget = ''
+	      , mark = '()'
 	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
         // console.log(' value: ', value)
         //console.log('str path : ', strPath)
@@ -189,15 +191,15 @@ module.exports = {
           //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
-	    replaceTarget = replaceTarget.includes('()') ? lineFeedChange(replaceTarget) : replaceTarget 
-	    eachStr = replaceTarget.includes('()') ? lineFeedChange(eachStr) : eachStr
+	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
+	    eachStr = replaceTarget.includes(mark) ? lineFeedChange(eachStr, mark) : eachStr
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
  	    //console.log('put targetObj[key]: ', targetObj[key])
           })
         } else {
           replaceTarget = srcObj[strPath]
-	    replaceTarget = replaceTarget.includes('()') ? lineFeedChange(replaceTarget) : replaceTarget 
-	    keyObj[strPath] = replaceTarget.includes('()') ? lineFeedChange(keyObj[strPath]) : keyObj[strPath]
+	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
+	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
