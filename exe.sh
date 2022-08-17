@@ -2,9 +2,18 @@
 
 #language num: 102
 #korean 49
+
 for var in "$@"
 	do
 	
+	echo $var
+
+	if [[ $var == *".json"* ]]; then
+	  echo $var exists.
+	else
+	      echo "$var does not exist"  
+	fi
+
 	num=0
 	
 	while [[ "$num" -le 0 ]];

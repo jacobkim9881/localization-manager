@@ -9,3 +9,26 @@ do
 done
 
 ```
+
+### "too many arguments" while executing if condition in shell script
+You ran script but got an error `line x: [: too many arguments`,
+
+```
+
+if [ "$var" == *".json"*]]; then
+  echo $var exists.
+fi
+
+
+```
+
+this should work but not worked for my script, so I found a solution like,
+
+
+```
+
+if [[ $var == *".json"* ]]; then
+  echo $var exists.
+fi
+
+```
