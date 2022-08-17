@@ -7,10 +7,19 @@ RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NC=$(tput sgr0)
 
+if [[ -e $@ ]]; then
+	  echo "${GREEN}Script started.${NC}" 
+	else
+          echo "${RED}File should be put.${NC} You can not execute this program without putting json file after .exe.sh." 
+	  echo "Example: ${RED}./exe.sh translate.json${NC}" 
+
+	  exit
+
+fi
+
+
 for var in "$@"
 	do
-	
-	echo $var
 
 	if [[ $var == *".json"* ]]; then
 	  echo $var will be translated into other language version $var.
