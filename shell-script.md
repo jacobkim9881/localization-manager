@@ -32,3 +32,15 @@ if [[ $var == *".json"* ]]; then
 fi
 
 ```
+
+### How to color output in shell script
+You can use tput to color output in shell script.
+
+```
+
+RED=$(tput setaf 1)
+NC=$(tput sgr0)
+
+echo "color ${RED}this${NC}." 
+
+```
