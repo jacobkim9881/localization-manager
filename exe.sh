@@ -4,6 +4,7 @@
 #korean 49
 
 RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
 NC=$(tput sgr0)
 
 for var in "$@"
@@ -22,7 +23,7 @@ for var in "$@"
 
 	num=0
 	
-	while [[ "$num" -le 0 ]];
+	while [[ "$num" -le 1 ]];
 
 	do /usr/bin/expect <<- EOF
 
@@ -32,7 +33,7 @@ for var in "$@"
 
 		sleep 0.3 
 
-		send "echo A language is finished.\r"
+		send {echo ${GREEN}A language is finished.${NC}\r}
 
 		}		
 
