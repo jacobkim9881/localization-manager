@@ -32,6 +32,7 @@ for var in "$@"
 	num=0
 	
 	while [[ "$num" -le $LangNumber ]];
+	# $num is the number of countries to translate
 
 	do /usr/bin/expect <<- EOF
 
