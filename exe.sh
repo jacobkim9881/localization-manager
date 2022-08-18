@@ -3,6 +3,8 @@
 #language num: 102
 #korean 49
 
+# source src.sh
+
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NC=$(tput sgr0)
