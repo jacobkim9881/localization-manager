@@ -23,7 +23,37 @@ npm install
 - Add or delete countries of `langsExplain` object in `lang_code.js` for deciding which countries you want to target for translating.
 - Then execute `exe.sh <json_file_you_to_localize>` file by typing `./exe.sh test.json` on current directory on terminal.
 
-## Localize multiple json file
+### Example adding / deleting countries of `langsExplain` object in `lang_code.js` 
+ The file is at `./`. You can add,
+
+```js
+
+// lang_code.js
+
+const langsExplain = {
+  af: 'Afrikaans',
+  sq: 'Albanian',
+// add countries
+  nl: 'Dutch',
+)
+
+```
+
+or you can delete countries in the list,
+
+```js
+
+// lang_code.js
+
+const langsExplain = {
+  af: 'Afrikaans',
+// delete countries
+)
+
+```
+
+
+### Localize multiple json file
 You can localize multiple josn files. 
 
 - Execute `exe.sh <json_file_you_to_localize1> <json_file_you_to_localize2>` file by typing `./exe.sh test1.json test2.json` on current directory on terminal.
