@@ -3,7 +3,7 @@
 #language num: 102
 #korean 49
 
-# source src.sh
+source src.sh
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -34,7 +34,7 @@ for var in "$@"
 
 	num=0
 	
-	while [[ "$num" -le 1 ]];
+	while [[ "$num" -le $LangNumber ]];
 
 	do /usr/bin/expect <<- EOF
 
