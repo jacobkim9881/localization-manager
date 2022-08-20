@@ -1,7 +1,7 @@
 ## Localization Manager
 This repository helps users to make localized json file(to 102 countries language based on google translator API) from a json file.
 
-Countries list which can be with localizing json are in `lang_code.js`. This countries list is referenced [here](https://github.com/shikar/NODE_GOOGLE_TRANSLATE/blob/master/languages.js). 
+Countries list which can be with localizing json are in `lang_code.js`. You can decide which countries you want to translate in the file by deleting or adding countries of `langsExplain object`. This countries list is referenced [here](https://github.com/shikar/NODE_GOOGLE_TRANSLATE/blob/master/languages.js). 
 
 ### Environment
 - Linux like OS
@@ -20,7 +20,7 @@ npm install
 
 ### Quick Start
 - Install node modules by typing `npm install` at the repository directory. 
-- Change number at line 6 of `exe.sh` file which are number of countries to localize(For example, if you want to localize json file into african then put `num=0` at line 8 and put `0` at line 10 in `exe.sh` file.  
+- Add or delete countries of `langsExplain` object in `lang_code.js` for deciding which countries you want to target for translating.
 - Then execute `exe.sh <json_file_you_to_localize>` file by typing `./exe.sh test.json` on current directory on terminal.
 
 ## Localize multiple json file
