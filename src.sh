@@ -1,1 +1,6 @@
-#!/usr/bin/env node
+#!/bin/bash
+
+LangNumber=$(node language-number.js) 
+
+# echo $Langcode
+

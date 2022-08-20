@@ -1,9 +1,6 @@
 #!/bin/bash
 
-#language num: 102
-#korean 49
-
-# source src.sh
+source src.sh
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -34,8 +31,7 @@ for var in "$@"
 
 	num=0
 	
-	# $num is the number of countries to translate
-	while [[ "$num" -le 102 ]];
+	while [[ "$num" -le $LangNumber ]];
 
 	do /usr/bin/expect <<- EOF
 
