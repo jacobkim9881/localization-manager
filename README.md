@@ -19,9 +19,17 @@ npm install
 ```
 
 ### Quick Start
-- Install node modules by typing `npm install` at the repository directory. 
+- Install node modules by typing `npm install` at the repository directory `./`. 
 - Add or delete countries of `langsExplain` object in `lang_code.js` for deciding which countries you want to target for translating.
 - Then execute `exe.sh <json_file_you_to_localize>` file by typing `./exe.sh test.json` on current directory on terminal.
+
+Here is already an example .json file, so we can execute translating without preparing .json file. `local_obj.json` is an example json file to test the repository. Type for example,
+
+```
+
+./exe local_obj.json
+
+```
 
 ### Example adding / deleting countries of `langsExplain` object in `lang_code.js` 
  The file is at `./`. You can add,
