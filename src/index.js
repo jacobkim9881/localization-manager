@@ -2,7 +2,7 @@ const fs = require('fs');
 const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
 const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath, putStrIn } = require('./utils')
-const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr} = require('./test-index')
+const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr} = require('../test/test-index')
 var assert = require('assert');
 
 let localObj

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source src.sh
+source ./src/src.sh
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -36,7 +36,7 @@ for var in "$@"
 
 	do /usr/bin/expect <<- EOF
 
-		spawn node index.js $num $var
+		spawn node ./src/index.js $num $var
 
 		expect {file is written} {
 

@@ -1,4 +1,4 @@
-const {testStr, testIdx } = require('./test-misc')
+const {testStr, testIdx } = require('../test/test-misc')
 
 module.exports= {
   lineFeedChange: function lineFeedChange(value, mark) {

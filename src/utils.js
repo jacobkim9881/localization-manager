@@ -1,7 +1,7 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
 const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue} = require('./utils-misc')
-const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('./test-utils')
+const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('../test/test-utils')
 
 module.exports = {
   writeJson: function writeJson(path, content) {
