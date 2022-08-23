@@ -38,7 +38,7 @@ process.argv.forEach(function (valArg, indexArg) {
   //	console.log('arrayOfStringsWithTagPath after makeKeyPath... func: ', arrayOfStringsWithTagPath)
   //console.log('src Str : ', srcStr)
 
-  //console.log('src Str : ', srcStr)
+  //console.log('src Obj : ', srcObj)
 
   //console.log('src key : ', keysStr)
   //console.log('src key : ', keyArr)
