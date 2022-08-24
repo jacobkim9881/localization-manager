@@ -78,7 +78,7 @@ Short briefing orders the program executed.
 `{"key": {"key1": "value"}}`
 3. Each key and value is joined and pushed in an array by `addStr` function in utils.js.
 - ex) `['key/key1 \t value']` 
-4. With the array at 3, each value is pushed in an array by `makeyKeyPathReturnSrc` function. Also each key is pushed in other array as same order. Array of value is like,
+4. With the array at 3, each value is pushed in an array by `makeyKeyPathReturnSrc` function. Also each key is pushed in other array as same order. The reason will be explained later order. Array of value is like,
 `['value1', 'value2']
 and array of key is like,
 `['key/key1', 'key/key2']
@@ -89,7 +89,7 @@ The point is that orders of the two arrays are same.
 - ex) `'value1 /n value2'` 
 7. With the string at 6, translate module translates it.
 - ex) `'frenchValue1 \n frenchValue2'`
-8. With the translated string at 7, it will splited by line feed.
+8. With the translated string at 7, it will splited by line feed. For this array, the orders of it are same to orders at 4.
 - ex) `['frenchValue1', 'frenchValue2']`
 9. With each line at 7, it replaces each value of the object at 5 by `objValWithKeyPath` function and make new object. In case of complicated example, `frenchValue2` will be omitted and `frenchValue1` will be replaced to `frenchValue`.
 - ex) `{"key/key1" : frenchValue}` 
