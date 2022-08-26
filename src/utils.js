@@ -56,26 +56,20 @@ module.exports = {
 	      // change to Array.isArray(val) 
 	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
-          , isValueStr	= arrayOfTags.length === 1 ? true : false   
-        //const { targetStr, multipleValue, isValueArray, isValueStr } = removeTagsInStr(value)
+		//console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
-        if (isValueArray) {
           arrayOfTags.forEach((val, idx) => {
 	      let hasOnlySpace = isOnlySpace(val)          
             //console.log( 'is empty: ', val.match(onlySpace))
             if (hasOnlySpace) return
 
-            let valueWithPathTag = putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath)
+            const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
 		 //console.log('value with path tag: ', valueWithPathTag)
             arrayOfStringsWithTagPath.push(valueWithPathTag)
           })
-        } else if (isValueStr) {
-          let keyValue = strPath + '\t' + strRemovedTag
-          arrayOfStringsWithTagPath.push(keyValue)
-        //console.log('key value: ', keyValue)
-        }
+
         //console.log('strRemovedTag: ', strRemovedTag)
-        //console.log('array of html tags text without tag: ', arrayOfTags)
+        console.log('array of html tags text without tag: ', arrayOfTags)
         //console.log('array which have strings added each tag path: ', arrayOfStringsWithTagPath)
         //console.log('key value: ', value)
         targetObj[tagNumber] = value 
