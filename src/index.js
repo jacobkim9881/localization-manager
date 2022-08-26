@@ -26,7 +26,7 @@ process.argv.forEach(function (valArg, indexArg) {
   localObj = addStr(localObj, undefined, arrayOfStringsWithTagPath)
   //console.log('localObj after recursive: ', localObj)
   //console.log('after loop arrayOfStringsWithTagPath: ', arrayOfStringsWithTagPath)
- testTargetObj(localObj)
+  testTargetObj(localObj)
   //console.log('localObj : ', localObj)
   let srcStr = ""
     , keyArr = []
@@ -51,15 +51,15 @@ process.argv.forEach(function (valArg, indexArg) {
 	
   localizeObj(srcStr, langs[languageIdx])
     .then((localizedStr) => {
-	testStr(localizedStr)    
+      testStr(localizedStr)    
       let targetStr = localizedStr.split('\n')
-	testArr(targetStr)    
+      testArr(targetStr)    
       //console.log('targetStr after localize: ', targetStr)
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
       localObj = putStrIn(localObj, undefined, keyObj, srcObj)
-	testTargetObj(localObj)
+      testTargetObj(localObj)
       //console.log('localized source: ', localObj)
       writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return

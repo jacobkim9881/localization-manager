@@ -22,7 +22,7 @@ module.exports = {
     //return content
     console.log('Target language: ', lang)
     return await translate(content, {to: lang, except: except}).then(res => {
-    testStr(res)	  
+      testStr(res)	  
     	//console.log('res: ', res)
       return res
     })
@@ -40,24 +40,24 @@ module.exports = {
     Object.entries(targetObj).forEach(([tagNumber, value]) => {
 
       const strPath = tagName ? tagName + '/' + tagNumber : tagNumber
-	, valueType = typeof value
+        , valueType = typeof value
 
-	switch (valueType) {   
-	case 'object': 
+      switch (valueType) {   
+      case 'object': 
       //console.log('targetObj : ', targetObj, tagNumber)
         targetObj[tagNumber] = {}
         return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
-	break
-		default: //default as 'string'		
+        break
+      default: //default as 'string'		
 
-      //console.log('key value: ', value)
+        //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
 	      // change to Array.isArray(val) 
 	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
-		//console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
+        //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
         if (isValueArray) {
           arrayOfTags.forEach((val, idx) => {
@@ -75,13 +75,13 @@ module.exports = {
         //console.log('key value: ', keyValue)
         }
         //console.log('strRemovedTag: ', strRemovedTag)
-        console.log('array of html tags text without tag: ', arrayOfTags)
+        //console.log('array of html tags text without tag: ', arrayOfTags)
         //console.log('array which have strings added each tag path: ', arrayOfStringsWithTagPath)
         //console.log('key value: ', value)
         targetObj[tagNumber] = value 
         return
-	break;		
-	}
+        break;		
+      }
 
       return
     })
@@ -192,10 +192,10 @@ module.exports = {
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
         if(isKeyObjArray) {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
-	testStr(eachStr)	  
-          //console.log('localized eachStr: ', eachStr)
-          //	console.log('target str arr: ', srcObj[strPath])
-          //console.log('target str : ', srcObj[strPath][keyObjIdx])
+            testStr(eachStr)	  
+            //console.log('localized eachStr: ', eachStr)
+            //	console.log('target str arr: ', srcObj[strPath])
+            //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
 	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
@@ -210,7 +210,7 @@ module.exports = {
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
-	testStr(replaceTarget)      
+        testStr(replaceTarget)      
         //console.log('put targetObj[key]: ', targetObj[key])
         return
       } else if (typeof value === 'object') {
