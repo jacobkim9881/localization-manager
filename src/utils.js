@@ -39,8 +39,17 @@ module.exports = {
 	  //arrayOfStringsWithTagPath
     Object.entries(targetObj).forEach(([tagNumber, value]) => {
 
-      let strPath = tagName ? tagName + '/' + tagNumber : tagNumber
-      if (typeof value === 'string') {
+      const strPath = tagName ? tagName + '/' + tagNumber : tagNumber
+	, valueType = typeof value
+
+	switch (valueType) {   
+	case 'object': 
+      //console.log('targetObj : ', targetObj, tagNumber)
+        targetObj[tagNumber] = {}
+        return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
+	break
+		default: //default as 'string'		
+
       //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -52,7 +61,7 @@ module.exports = {
         //console.log('strPath: ', strPath)
         if (isValueArray) {
           arrayOfTags.forEach((val, idx) => {
-	       let hasOnlySpace = isOnlySpace(val)          
+	      let hasOnlySpace = isOnlySpace(val)          
             //console.log( 'is empty: ', val.match(onlySpace))
             if (hasOnlySpace) return
 
@@ -71,11 +80,9 @@ module.exports = {
         //console.log('key value: ', value)
         targetObj[tagNumber] = value 
         return
-      } else if (typeof value === 'object') {
-      //console.log('targetObj : ', targetObj, tagNumber)
-        targetObj[tagNumber] = {}
-        return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
-      } 
+	break;		
+	}
+
       return
     })
     //console.log('targetObj in func: ', targetObj, targetObjKey, localObj)
