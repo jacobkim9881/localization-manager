@@ -37,7 +37,6 @@ process.argv.forEach(function (valArg, indexArg) {
   testStr(srcStr)
   //console.log('tagPathStrings after makeKeyPath... func: ', tagPathStrings)
   //console.log('src Str : ', srcStr)
-
   //console.log('src Obj : ', srcObj)
 
   //console.log('src key : ', keysStr)
@@ -54,7 +53,7 @@ process.argv.forEach(function (valArg, indexArg) {
       testStr(localizedStr)    
       let targetStr = localizedStr.split('\n')
       testArr(targetStr)    
-      //console.log('targetStr after localize: ', targetStr)
+      console.log('targetStr after localize: ', targetStr)
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
