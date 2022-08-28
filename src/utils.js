@@ -60,7 +60,7 @@ module.exports = {
         //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
           arrayOfTags.forEach((val, idx) => {
-	      let hasOnlySpace = isOnlySpace(val)          
+	       let hasOnlySpace = isOnlySpace(val)          
             //console.log( 'is empty: ', val.match(onlySpace))
             if (hasOnlySpace) return
 
@@ -77,7 +77,13 @@ module.exports = {
         return
         break;		
       }
-
+/*
+      } else if (typeof value === 'object') {
+      //console.log('targetObj : ', targetObj, tagNumber)
+        targetObj[tagNumber] = {}
+        return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
+      } 
+	    */
       return
     })
     //console.log('targetObj in func: ', targetObj, targetObjKey, localObj)
