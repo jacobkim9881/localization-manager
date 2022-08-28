@@ -39,9 +39,7 @@ module.exports = {
     Object.entries(targetObj).forEach(([tagIndex, value]) => {
       const strPath = makeStringPath(tagName, tagIndex) 
         , valueType = typeof value
-      //console.log('valueType: ', valueType)
-        //console.log('key value: ', value)
-
+//console.log('valueType: ', valueType)
       switch (valueType) {   
       case 'object': 
       //console.log('targetObj : ', targetObj, tagIndex)
@@ -203,6 +201,7 @@ module.exports = {
           //console.log(strPath)
           //console.log(replaceTarget)
           replaceTarget = lineFeedChange(replaceTarget, mark)  
+
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
