@@ -41,7 +41,7 @@ module.exports = {
 
       const strPath = tagName ? tagName + '/' + tagNumber : tagNumber
         , valueType = typeof value
-
+//console.log('valueType: ', valueType)
       switch (valueType) {   
       case 'object': 
       //console.log('targetObj : ', targetObj, tagNumber)
@@ -77,6 +77,7 @@ module.exports = {
         return
         break;		
       }
+	    
 /*
       } else if (typeof value === 'object') {
       //console.log('targetObj : ', targetObj, tagNumber)
@@ -86,7 +87,7 @@ module.exports = {
 	    */
       return
     })
-    //console.log('targetObj in func: ', targetObj, targetObjKey, localObj)
+    //console.log('targetObj in func: ', targetObj)
     return targetObj
   }
   ,
@@ -184,7 +185,7 @@ module.exports = {
 	    let replaceTarget = ''
 	      , mark = '()'
 	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
-        // console.log(' value: ', value)
+        //console.log(' value: ', value)
         //console.log('str path : ', strPath)
         //console.log('found value: ', keyObj[strPath])
 
@@ -206,6 +207,9 @@ module.exports = {
           })
         } else {
           replaceTarget = srcObj[strPath]
+//		console.log(srcObj)
+		console.log(strPath)
+//		console.log(replaceTarget)
 	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
 	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
