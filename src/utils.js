@@ -42,6 +42,7 @@ module.exports = {
       const strPath = tagName ? tagName + '/' + tagNumber : tagNumber
         , valueType = typeof value
 //console.log('valueType: ', valueType)
+        //console.log('key value: ', value)
       switch (valueType) {   
       case 'object': 
       //console.log('targetObj : ', targetObj, tagNumber)
@@ -50,6 +51,7 @@ module.exports = {
         break
       default: //default as 'string'		
 
+      //console.log('targetObj : ', targetObj, tagNumber)
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -61,8 +63,8 @@ module.exports = {
         //console.log('strPath: ', strPath)
           arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
-            //console.log( 'is empty: ', val.match(onlySpace))
-            if (hasOnlySpace) return
+            //console.log( 'is empty: ', hasOnlySpace)
+            if (hasOnlySpace && isValueArray) return
 
             const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
 		 //console.log('value with path tag: ', valueWithPathTag)
@@ -208,7 +210,7 @@ module.exports = {
         } else {
           replaceTarget = srcObj[strPath]
 //		console.log(srcObj)
-		console.log(strPath)
+		//console.log(strPath)
 //		console.log(replaceTarget)
 	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
 	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]
