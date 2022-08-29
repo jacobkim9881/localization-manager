@@ -53,7 +53,7 @@ process.argv.forEach(function (valArg, indexArg) {
       testStr(localizedStr)    
       let targetStr = localizedStr.split('\n')
       testArr(targetStr)    
-      console.log('targetStr after localize: ', targetStr)
+      //console.log('targetStr after localize: ', targetStr)
       //console.log('targetStr length after localize: ', targetStr.length)
       objValWithKeyPath(targetStr, keyObj, keyArr)
 
