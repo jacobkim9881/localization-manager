@@ -40,6 +40,7 @@ module.exports = {
       const strPath = makeStringPath(tagName, tagIndex) 
         , valueType = typeof value
 //console.log('valueType: ', valueType)
+        //console.log('key value: ', value)
       switch (valueType) {   
       case 'object': 
       //console.log('targetObj : ', targetObj, tagIndex)
@@ -49,6 +50,7 @@ module.exports = {
 
       default: // case as 'string'		
         //console.log('targetObj : ', targetObj, tagIndex)
+
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -60,8 +62,9 @@ module.exports = {
         //console.log('strPath: ', strPath)
         arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
-          //console.log( 'is empty: ', hasOnlySpace)
-          if (hasOnlySpace && isValueArray) return
+
+            //console.log( 'is empty: ', hasOnlySpace)
+            if (hasOnlySpace && isValueArray) return
 
           const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
 		 //console.log('value with path tag: ', valueWithPathTag)
