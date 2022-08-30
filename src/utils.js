@@ -1,6 +1,6 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue} = require('./utils-misc')
+const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
 const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('../test/test-utils')
 
 module.exports = {
@@ -36,21 +36,21 @@ module.exports = {
 	  testTargetObj(targetObj)
 	  testTagName(tagName, arrayOfStringsWithTagPath)
 	  testArr(arrayOfStringsWithTagPath)
-    Object.entries(targetObj).forEach(([tagNumber, value]) => {
-      const strPath = tagName ? tagName + '/' + tagNumber : tagNumber
+    Object.entries(targetObj).forEach(([tagIndex, value]) => {
+      const strPath = makeStringPath(tagName, tagIndex) 
         , valueType = typeof value
       //console.log('valueType: ', valueType)
         //console.log('key value: ', value)
 
       switch (valueType) {   
       case 'object': 
-      //console.log('targetObj : ', targetObj, tagNumber)
-        targetObj[tagNumber] = {}
-        return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
+      //console.log('targetObj : ', targetObj, tagIndex)
+        targetObj[tagIndex] = {}
+        return targetObj[tagIndex] = addStr(value, strPath, arrayOfStringsWithTagPath)
         break
 
       default: // case as 'string'		
-        //console.log('targetObj : ', targetObj, tagNumber)
+        //console.log('targetObj : ', targetObj, tagIndex)
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -74,7 +74,7 @@ module.exports = {
         //console.log('array of html tags text without tag: ', arrayOfTags)
         //console.log('array which have strings added each tag path: ', arrayOfStringsWithTagPath)
         //console.log('key value: ', value)
-        targetObj[tagNumber] = value 
+        targetObj[tagIndex] = value 
         return
         break		
       }
