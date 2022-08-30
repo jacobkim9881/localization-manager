@@ -24,5 +24,10 @@ module.exports= {
   lineFeedToMark: function(value, mark) {
     testStr(value)	  
     return value.trim().replace('\n', mark);
-  } 
+  },
+  makeStringPath: function(tagName, tagIndex) {
+    testStr(tagIndex)	  
+    const strPath = tagName ? tagName + '/' + tagIndex : tagIndex
+    return strPath	  
+  }
 }
