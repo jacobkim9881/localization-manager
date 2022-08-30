@@ -173,9 +173,13 @@ module.exports = {
 	  testTargetObj(srcObj)
 
     Object.entries(targetObj).forEach(([key, value]) => {
-	 let strPath = targetObjKey ? targetObjKey + '/' + key : key
-	 testStr(strPath)   
-      if (typeof value === 'string') {
+	 const strPath = targetObjKey ? targetObjKey + '/' + key : key
+	    , typeofValue = typeof value
+	 testStr(strPath)  
+
+	    switch(typeofValue) {
+		    default: 
+//      if (typeof value === 'string') {
 	    let replaceTarget = ''
 	      , mark = '()'
 	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
@@ -212,12 +216,16 @@ module.exports = {
         testStr(replaceTarget)      
         //console.log('put targetObj[key]: ', targetObj[key])
         return
-      } else if (typeof value === 'object') {
+	break
+	case 'object': 
+      //} else if (typeof value === 'object') {
       // console.log('targetObj : ', targetObj, key)
 	 targetObj[key] = {}
         // console.log('after recursive: ', putStrIn(value, strPath, keyObj))
         return targetObj[key] = putStrIn(value, strPath, keyObj, srcObj)
-      } 
+      //}
+	      break
+      }
       return
     })
     return targetObj
