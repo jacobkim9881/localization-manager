@@ -36,22 +36,21 @@ module.exports = {
 	  testTargetObj(targetObj)
 	  testTagName(tagName, arrayOfStringsWithTagPath)
 	  testArr(arrayOfStringsWithTagPath)
-	  //arrayOfStringsWithTagPath
     Object.entries(targetObj).forEach(([tagNumber, value]) => {
-
       const strPath = tagName ? tagName + '/' + tagNumber : tagNumber
         , valueType = typeof value
-//console.log('valueType: ', valueType)
+      //console.log('valueType: ', valueType)
         //console.log('key value: ', value)
+
       switch (valueType) {   
       case 'object': 
       //console.log('targetObj : ', targetObj, tagNumber)
         targetObj[tagNumber] = {}
         return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
         break
-      default: //default as 'string'		
 
-      //console.log('targetObj : ', targetObj, tagNumber)
+      default: // case as 'string'		
+        //console.log('targetObj : ', targetObj, tagNumber)
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -61,15 +60,15 @@ module.exports = {
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
         //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
-          arrayOfTags.forEach((val, idx) => {
+        arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
-            //console.log( 'is empty: ', hasOnlySpace)
-            if (hasOnlySpace && isValueArray) return
+          //console.log( 'is empty: ', hasOnlySpace)
+          if (hasOnlySpace && isValueArray) return
 
-            const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
+          const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
 		 //console.log('value with path tag: ', valueWithPathTag)
-            arrayOfStringsWithTagPath.push(valueWithPathTag)
-          })
+          arrayOfStringsWithTagPath.push(valueWithPathTag)
+        })
 
         //console.log('strRemovedTag: ', strRemovedTag)
         //console.log('array of html tags text without tag: ', arrayOfTags)
@@ -77,16 +76,9 @@ module.exports = {
         //console.log('key value: ', value)
         targetObj[tagNumber] = value 
         return
-        break;		
+        break		
       }
 	    
-/*
-      } else if (typeof value === 'object') {
-      //console.log('targetObj : ', targetObj, tagNumber)
-        targetObj[tagNumber] = {}
-        return targetObj[tagNumber] = addStr(value, strPath, arrayOfStringsWithTagPath)
-      } 
-	    */
       return
     })
     //console.log('targetObj in func: ', targetObj)
@@ -209,9 +201,9 @@ module.exports = {
           })
         } else {
           replaceTarget = srcObj[strPath]
-//		console.log(srcObj)
-		//console.log(strPath)
-//		console.log(replaceTarget)
+          //		console.log(srcObj)
+          //console.log(strPath)
+          //		console.log(replaceTarget)
 	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
 	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
