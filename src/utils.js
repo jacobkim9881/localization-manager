@@ -188,8 +188,8 @@ module.exports = {
       default: 
         let replaceTarget = ''
 	      , mark = '()'
-	    , isKeyObjArray = typeof keyObj[strPath] === 'object' ? true : false
-        //console.log(' value: ', value)
+	    , isKeyObjArray = Array.isArray(keyObj[strPath])
+	//console.log(' value: ', value)
         //console.log('str path : ', strPath)
         //console.log('found value: ', keyObj[strPath])
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
