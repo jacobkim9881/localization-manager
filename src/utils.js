@@ -173,7 +173,7 @@ module.exports = {
 	  testTargetObj(srcObj)
 
     Object.entries(targetObj).forEach(([key, value]) => {
-      const strPath = targetObjKey ? targetObjKey + '/' + key : key
+      const strPath = makeStringPath(targetObjKey, key) 
 	    , typeofValue = typeof value
       testStr(strPath)  
 
