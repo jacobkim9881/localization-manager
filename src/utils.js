@@ -199,12 +199,22 @@ module.exports = {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
             testStr(eachStr)	  
             //console.log('localized eachStr: ', eachStr)
-            //	console.log('target str arr: ', srcObj[strPath])
+            if (eachStr.includes(mark)) {console.log('localized eachStr: ', eachStr)}
+		    else {
+           // console.log('target str : ', srcObj[strPath][keyObjIdx])
+	//		    console.log('localized eachStr no mark: ', eachStr)
+		    }
+	    	if (srcObj[strPath].includes(mark)) { 
+
+           	console.log('target str arr: ', srcObj[strPath])
+		}
+
+           //	console.log('target str arr: ', srcObj[strPath])
             //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
 	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
-	    eachStr = replaceTarget.includes(mark) ? lineFeedChange(eachStr, mark) : eachStr
+	    eachStr = replaceTarget.includes(mark) ? lineFeedChange(eachStr, mark) : eachStr // this line has no meaning since there is no 'mark' to change
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
  	    //console.log('put targetObj[key]: ', targetObj[key])
           })
@@ -213,8 +223,19 @@ module.exports = {
           //		console.log(srcObj)
           //console.log(strPath)
           //		console.log(replaceTarget)
+				if (srcObj[strPath].includes(mark)) {console.log('localized eachStr: ', srcObj[strPath])
+           	console.log('target str arr: ', keyObj[strPath])
+				}
+		    else {
+           // console.log('target str : ', srcObj[strPath][keyObjIdx])
+	//		    console.log('localized eachStr no mark: ', eachStr)
+		    }
+	    	if (keyObj[strPath].includes(mark)) { 
+
+           	console.log('target str arr: ', keyObj[strPath])
+		}
 	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
-	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]
+	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]  // this line has no meaning since there is no 'mark' to change
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
