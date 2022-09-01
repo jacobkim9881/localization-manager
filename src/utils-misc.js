@@ -3,11 +3,11 @@ const {testStr, testIdx } = require('../test/test-misc')
 module.exports= {
   lineFeedChange: function lineFeedChange(value, mark, to) {
     if (value.includes(mark)) {
-    testStr(value)	  
-    return value.replace(mark, '\n');
+      testStr(value)	  
+      return value.replace(mark, '\n');
     } else if(to) {
-    testStr(to)	    
-    return to	
+      testStr(to)	    
+      return to	
     } else {
       testStr(value)
       return value
