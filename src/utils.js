@@ -1,6 +1,6 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-const {lineFeedChange, lineFeedChange1, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
+const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
 const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('../test/test-utils')
 
 module.exports = {
@@ -203,8 +203,7 @@ module.exports = {
             //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
-		replaceTarget = lineFeedChange1(replaceTarget, mark)  
-	    //replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
+		replaceTarget = lineFeedChange(replaceTarget, mark)  
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
  	    //console.log('put targetObj[key]: ', targetObj[key])
           })
@@ -213,8 +212,7 @@ module.exports = {
           //console.log(srcObj)
           //console.log(strPath)
           //console.log(replaceTarget)
-		replaceTarget = lineFeedChange1(replaceTarget, mark)  
-	    //replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
+		replaceTarget = lineFeedChange(replaceTarget, mark)  
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
