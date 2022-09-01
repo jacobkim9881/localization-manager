@@ -189,7 +189,7 @@ module.exports = {
         let replaceTarget = ''
 	      , mark = '()'
 	    , isKeyObjArray = Array.isArray(keyObj[strPath])
-	//console.log(' value: ', value)
+        //console.log(' value: ', value)
         //console.log('str path : ', strPath)
         //console.log('found value: ', keyObj[strPath])
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
@@ -199,11 +199,11 @@ module.exports = {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
             testStr(eachStr)	  
             //console.log('localized eachStr: ', eachStr)
-           //	console.log('target str arr: ', srcObj[strPath])
+            //	console.log('target str arr: ', srcObj[strPath])
             //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
-		replaceTarget = lineFeedChange(replaceTarget, mark)  
+            replaceTarget = lineFeedChange(replaceTarget, mark)  
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
  	    //console.log('put targetObj[key]: ', targetObj[key])
           })
@@ -212,7 +212,7 @@ module.exports = {
           //console.log(srcObj)
           //console.log(strPath)
           //console.log(replaceTarget)
-		replaceTarget = lineFeedChange(replaceTarget, mark)  
+          replaceTarget = lineFeedChange(replaceTarget, mark)  
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
