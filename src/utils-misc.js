@@ -1,11 +1,7 @@
 const {testStr, testIdx } = require('../test/test-misc')
 
 module.exports= {
-  lineFeedChange: function lineFeedChange(value, mark) {
-    testStr(value)	  
-    return value.replace(mark, '\n');
-  },
-  lineFeedChange1: function lineFeedChange(value, mark, to) {
+  lineFeedChange: function lineFeedChange(value, mark, to) {
     if (value.includes(mark)) {
     testStr(value)	  
     return value.replace(mark, '\n');
