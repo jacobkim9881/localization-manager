@@ -5,6 +5,19 @@ module.exports= {
     testStr(value)	  
     return value.replace(mark, '\n');
   },
+  lineFeedChange1: function lineFeedChange(value, mark, to) {
+    if (value.includes(mark)) {
+    testStr(value)	  
+    return value.replace(mark, '\n');
+    } else if(to) {
+    testStr(to)	    
+    return to	
+    } else {
+      testStr(value)
+      return value
+    }
+  },
+
   removeTagsInStr: function removeTagsInStr(value) {
     testStr(value)	  
     return value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t').trim()
