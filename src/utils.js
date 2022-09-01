@@ -1,6 +1,6 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
+const {lineFeedChange, lineFeedChange1, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
 const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('../test/test-utils')
 
 module.exports = {
@@ -199,43 +199,22 @@ module.exports = {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
             testStr(eachStr)	  
             //console.log('localized eachStr: ', eachStr)
-            if (eachStr.includes(mark)) {console.log('localized eachStr: ', eachStr)}
-		    else {
-           // console.log('target str : ', srcObj[strPath][keyObjIdx])
-	//		    console.log('localized eachStr no mark: ', eachStr)
-		    }
-	    	if (srcObj[strPath].includes(mark)) { 
-
-           	console.log('target str arr: ', srcObj[strPath])
-		}
-
            //	console.log('target str arr: ', srcObj[strPath])
             //console.log('target str : ', srcObj[strPath][keyObjIdx])
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
-	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
-	    eachStr = replaceTarget.includes(mark) ? lineFeedChange(eachStr, mark) : eachStr // this line has no meaning since there is no 'mark' to change
+		replaceTarget = lineFeedChange1(replaceTarget, mark)  
+	    //replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
  	    //console.log('put targetObj[key]: ', targetObj[key])
           })
         } else {
           replaceTarget = srcObj[strPath]
-          //		console.log(srcObj)
+          //console.log(srcObj)
           //console.log(strPath)
-          //		console.log(replaceTarget)
-				if (srcObj[strPath].includes(mark)) {console.log('localized eachStr: ', srcObj[strPath])
-           	console.log('target str arr: ', keyObj[strPath])
-				}
-		    else {
-           // console.log('target str : ', srcObj[strPath][keyObjIdx])
-	//		    console.log('localized eachStr no mark: ', eachStr)
-		    }
-	    	if (keyObj[strPath].includes(mark)) { 
-
-           	console.log('target str arr: ', keyObj[strPath])
-		}
-	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
-	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]  // this line has no meaning since there is no 'mark' to change
+          //console.log(replaceTarget)
+		replaceTarget = lineFeedChange1(replaceTarget, mark)  
+	    //replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
