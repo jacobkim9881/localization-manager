@@ -13,7 +13,10 @@ module.exports= {
       return value
     }
   },
-
+  addStrToSrc: function (nextLine, src, newStr) {
+  testStr(newStr)	  
+  return nextLine ? src + newStr + '\n' : src + newStr
+  },
   removeTagsInStr: function removeTagsInStr(value) {
     testStr(value)	  
     return value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t').trim()

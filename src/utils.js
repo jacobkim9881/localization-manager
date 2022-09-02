@@ -1,6 +1,6 @@
 const translate = require('translate-google')
 const writeFile = require('write-file')
-const {lineFeedChange, lineFeedToMark, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
+const {lineFeedChange, lineFeedToMark, addStrToSrc, removeTagsInStr, isOnlySpace, putPathTagToValue, makeStringPath} = require('./utils-misc')
 const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr, testTagName} = require('../test/test-utils')
 
 module.exports = {
@@ -102,7 +102,7 @@ module.exports = {
       //logSplitedTag(splitedTag, splitedVal)    
 	    splitedVal = lineFeedToMark(splitedVal, mark)
       keyArr.push(splitedTag)
-      srcStr = targetObj[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
+      srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
       testStr(srcStr)	    
       targetObj[idx] = splitedVal
       if(splitedTag.includes('tag0')) {
