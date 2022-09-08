@@ -112,7 +112,9 @@ module.exports = {
       } else if (splitedTag.includes('tag') && !splitedTag.includes('tag0')) {
       //push value
       //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-        let isLastNonTagArray = typeof keyObj[lastNonTag] === 'object' ? true : false
+        let isLastNonTagArray = Array.isArray(keyObj[lastNonTag])
+	      console.log('is array check: ')
+	   if( isLastNonTagArray !== Array.isArray(keyObj[lastNonTag])) { console.log('is array not same: ', isLastNonTagArray, Array.isArray(keyObj[lastNonTag]))}
         if (isLastNonTagArray) { 
           keyObj[lastNonTag] = [...keyObj[lastNonTag], splitedVal]
         } else {
