@@ -142,18 +142,8 @@ module.exports = {
         keyObj[lastNonTag] = [val]
 	  } else if (keyArr[idx].includes('tag') && !keyArr[idx].includes('tag0')) {
       //push value
-		  console.log('array check: ')
-		console.log(typeof keyObj[lastNonTag], Array.isArray(keyObj[lastNonTag])) 
-		  
           keyObj[lastNonTag] = Array.isArray(keyObj[lastNonTag]) ? [...keyObj[lastNonTag], val] : [keyObj[lastNonTag], val]
-		  /*
-        if (typeof keyObj[lastNonTag] === 'object') { 
-          keyObj[lastNonTag] = [...keyObj[lastNonTag], val]
-        } else {
-          keyObj[lastNonTag] = [keyObj[lastNonTag], val]
-        }
-	*/
-      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
+	      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
       //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
       //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
       } else {
