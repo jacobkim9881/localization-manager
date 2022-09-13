@@ -18,14 +18,14 @@ process.argv.forEach(function (valArg, indexArg) {
   localObj = JSON.parse(fs.readFileSync(valArg))
   //console.log('localObj : ', localObj)
   //console.log(langs)
-  let arrayOfStringsWithTagPath = [] 
+  let tagPathStrings = [] 
     , aPath = `_locales/`
     , srcToLocalize = {}
   srcToLocalize[langs[languageIdx]] = {}
 
-  localObj = addStr(localObj, undefined, arrayOfStringsWithTagPath)
+  localObj = addStr(localObj, undefined, tagPathStrings)
   //console.log('localObj after recursive: ', localObj)
-  //console.log('after loop arrayOfStringsWithTagPath: ', arrayOfStringsWithTagPath)
+  //console.log('after loop tagPathStrings: ', tagPathStrings)
   testTargetObj(localObj)
   //console.log('localObj : ', localObj)
   let srcStr = ""
@@ -33,9 +33,9 @@ process.argv.forEach(function (valArg, indexArg) {
     , keyObj = {}
     , srcObj = {}
   
-  srcStr = makeKeyPathReturnSrc(arrayOfStringsWithTagPath, srcStr, keyArr, srcObj)
+  srcStr = makeKeyPathReturnSrc(tagPathStrings, srcStr, keyArr, srcObj)
   testStr(srcStr)
-  //	console.log('arrayOfStringsWithTagPath after makeKeyPath... func: ', arrayOfStringsWithTagPath)
+  //console.log('tagPathStrings after makeKeyPath... func: ', tagPathStrings)
   //console.log('src Str : ', srcStr)
 
   //console.log('src Obj : ', srcObj)
