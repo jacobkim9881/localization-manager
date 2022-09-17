@@ -7,12 +7,15 @@ var assert = require('assert');
 
 let localObj
   , languageIdx
+  , languageKey
 
 process.argv.forEach(function (valArg, indexArg) {
   console.log(indexArg, ': ' , valArg)
-  if (indexArg == 2) languageIdx = valArg
+  //if (indexArg == 2) languageIdx = valArg
+  if (indexArg == 2) languageKey = valArg
   if (indexArg !== 3) return;
-  testLanguageIdx(languageIdx)	
+  testStr(languageKey)	
+  //testLanguageIdx(languageIdx)	
   testJsonData(fs.readFileSync(valArg))
 
   localObj = JSON.parse(fs.readFileSync(valArg))
@@ -21,7 +24,8 @@ process.argv.forEach(function (valArg, indexArg) {
   let tagPathStrings = [] 
     , aPath = `_locales/`
     , srcToLocalize = {}
-  srcToLocalize[langs[languageIdx]] = {}
+  //srcToLocalize[langs[languageIdx]] = {}
+  srcToLocalize[languageKey] = {}
 
   localObj = addStr(localObj, undefined, tagPathStrings)
   //console.log('localObj after recursive: ', localObj)
@@ -48,7 +52,8 @@ process.argv.forEach(function (valArg, indexArg) {
   //splited:  [ 'LI/0', 'What is VPN' ]
   //
 	
-  localizeObj(srcStr, langs[languageIdx])
+  //localizeObj(srcStr, langs[languageIdx])
+  localizeObj(srcStr, languageKey)
     .then((localizedStr) => {
       testStr(localizedStr)    
       let targetStr = localizedStr.split('\n')
@@ -60,7 +65,8 @@ process.argv.forEach(function (valArg, indexArg) {
       localObj = putStrIn(localObj, undefined, keyObj, srcObj)
       testTargetObj(localObj)
       //console.log('localized source: ', localObj)
-      writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
+      //writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
+      writeJson(aPath + languageKey  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return
     })
 

@@ -33,10 +33,14 @@ for var in "$@"
 	
 	while [[ "$num" -le $LangNumber ]];
 	# $num is the number of countries to translate
+	
+	LangKey=$(node ./src/read-lang-by-key-num.js $num)
+
+		echo $LangKey
 
 	do /usr/bin/expect <<- EOF
 
-		spawn node ./src/index.js $num $var
+		spawn node ./src/index.js $LangKey $var
 
 		expect {file is written} {
 
