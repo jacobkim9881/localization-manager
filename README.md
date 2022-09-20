@@ -3,7 +3,7 @@
 ## Localization Manager
 This repository helps users to make localized json file(to 102 countries language based on google translator API) from a json file.
 
-Countries list which can be with localizing json are in `lang_code.js`. You can decide which countries you want to translate in the file by deleting or adding countries of `langsExplain object`. This countries list is referenced [here](https://github.com/shikar/NODE_GOOGLE_TRANSLATE/blob/master/languages.js). 
+The countries available for localization are listed in `./src/lang_code.js`. You can decide which countries you want to translate in the file by adding countries of `langsExplain`object to `langsToTranslate` array. The countries list is referenced [here](https://github.com/shikar/NODE_GOOGLE_TRANSLATE/blob/master/languages.js). 
 
 ### Environment
 - Linux like OS
@@ -22,7 +22,7 @@ npm install
 
 ### Quick Start
 - Install node modules by typing `npm install` at the repository directory `./`. 
-- Add or delete countries of `langsExplain` object in `lang_code.js` for deciding which countries you want to target for translating.
+- Open `./src/lang_code.js`. At the bottom of the file, add countries to the `langsToTranslate` array from the `langsExplain` object. The countries within `langsToTranslate` array will be the countries you want to target for translating. Leaving `langsToTranslate` empty will translate to every langauge by default.
 - Then execute `exe.sh <json_file_you_to_localize>` file by typing `./exe.sh test.json` on current directory on terminal.
 
 Here is already an example .json file, so we can execute translating without preparing .json file. `local_obj.json` is an example json file to test the repository. Type for example,
@@ -33,32 +33,24 @@ Here is already an example .json file, so we can execute translating without pre
 
 ```
 
-### Example adding / deleting countries of `langsExplain` object in `lang_code.js` 
- The file is at `./`. You can add,
+### Example adding countries to `langsToTranslate` array in `lang_code.js` 
+ The file is at `./src`. You can add,
 
 ```js
 
 // lang_code.js
 
-const langsExplain = {
-  af: 'Afrikaans',
-  sq: 'Albanian',
-// add countries
-  nl: 'Dutch',
-)
+const langsToTranslate = [langsExplain.fr, langsExplain.ko /*add more languages from langsExplain here*/]
 
 ```
 
-or you can delete countries in the list,
+or you can leave `langsToTranslate` empty to translate all langauges,
 
 ```js
 
 // lang_code.js
 
-const langsExplain = {
-  af: 'Afrikaans',
-// delete countries
-)
+const langsToTranslate = []
 
 ```
 
