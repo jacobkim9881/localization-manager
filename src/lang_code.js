@@ -1,3 +1,6 @@
+// DO NOT EDIT TO SELECT DESIRED LANGAUGES
+// Must be declared at the top to be used by the langsToTranslate array.
+// TODO: Perhaps put this in its own file to prevent end user from modifing it by mistake?
 const langsExplain = {
   af: 'Afrikaans',
   sq: 'Albanian',
@@ -104,4 +107,17 @@ const langsExplain = {
   zu: 'Zulu'
 }
 
-module.exports = langsExplain
+// Add desired languages to this array using the langsExplain object.
+// Leave langsToTranslate empty to translate all languages.
+const langsToTranslate = [/*Put desired languages from langsExplain here, example: langsExplain.af, langsExplain.fr*/]
+
+exportLanguages(langsToTranslate)
+
+// Determines exporting of the langsToTranslate array, or the langsExplain object.
+function exportLanguages(langs) {
+  if(langsToTranslate.length == 0) {
+    module.exports = langsExplain;
+  } else {
+    module.exports = langsToTranslate;
+  }
+}
