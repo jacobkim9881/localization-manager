@@ -1,7 +1,4 @@
 // DO NOT EDIT TO SELECT DESIRED LANGAUGES
-// Must be declared at the top to be used by the langsToTranslate array.
-// TODO: Perhaps put this in its own file to prevent end user from modifing it by mistake?
-// made js file which contains the array languageToTranslate
 const langsExplain = {
   af: 'Afrikaans',
   sq: 'Albanian',
@@ -109,9 +106,3 @@ const langsExplain = {
 }
 
 module.exports = langsExplain;
-
-// Add desired languages to this array using the langsExplain object.
-// Leave langsToTranslate empty to translate all languages.
-//const langsToTranslate = require('./edit-lang-coverage')
-	//[/*Put desired languages from langsExplain here, example: langsExplain.af, langsExplain.fr*/]
-
