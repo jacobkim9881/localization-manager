@@ -103,7 +103,7 @@ module.exports = {
         console.log('splited Tag:', splitedTag)    
         console.log('splited value:', splitedVal)    
       }
-      //logSplitedTag(splitedTag, splitedVal)    
+      logSplitedTag(splitedTag, splitedVal)    
 	    splitedVal = lineFeedToMark(splitedVal, mark)
       keyArr.push(splitedTag)
       srcStr = targetObj[idx +1] ? srcStr + splitedVal + '\n' : srcStr + splitedVal 
