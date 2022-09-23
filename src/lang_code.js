@@ -108,17 +108,10 @@ const langsExplain = {
   zu: 'Zulu'
 }
 
+module.exports = langsExplain;
+
 // Add desired languages to this array using the langsExplain object.
 // Leave langsToTranslate empty to translate all languages.
-const langsToTranslate = require('./edit-lang-coverage')
+//const langsToTranslate = require('./edit-lang-coverage')
 	//[/*Put desired languages from langsExplain here, example: langsExplain.af, langsExplain.fr*/]
-exportLanguages(langsToTranslate)
 
-// Determines exporting of the langsToTranslate array, or the langsExplain object.
-function exportLanguages(langsToTranslate) {
-  if(langsToTranslate.length == 0) {
-    module.exports = langsExplain;
-  } else {
-    module.exports = langsToTranslate;
-  }
-}
