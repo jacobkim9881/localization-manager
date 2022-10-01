@@ -1,3 +1,4 @@
+// DO NOT EDIT TO SELECT DESIRED LANGAUGES
 const langsExplain = {
   af: 'Afrikaans',
   sq: 'Albanian',
@@ -104,4 +105,4 @@ const langsExplain = {
   zu: 'Zulu'
 }
 
-module.exports = langsExplain
+module.exports = langsExplain;
