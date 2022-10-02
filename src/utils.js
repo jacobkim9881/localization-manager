@@ -48,12 +48,8 @@ module.exports = {
         return targetObj[tagIndex] = addStr(value, strPath, arrayOfStringsWithTagPath)
         break
 
-<<<<<<< HEAD
       default: // case as 'string'		
         //console.log('targetObj : ', targetObj, tagIndex)
-=======
-      //console.log('targetObj : ', targetObj, tagNumber)
->>>>>>> 98d8344 (fix: tagname with empty value can not be read)
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -65,13 +61,7 @@ module.exports = {
         //console.log('strPath: ', strPath)
         arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
-<<<<<<< HEAD
-          //console.log( 'is empty: ', hasOnlySpace)
-          if (hasOnlySpace && isValueArray) return
-=======
-            //console.log( 'is empty: ', hasOnlySpace)
             if (hasOnlySpace && isValueArray) return
->>>>>>> 98d8344 (fix: tagname with empty value can not be read)
 
           const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
 		 //console.log('value with path tag: ', valueWithPathTag)
@@ -207,19 +197,11 @@ module.exports = {
           })
         } else {
           replaceTarget = srcObj[strPath]
-<<<<<<< HEAD
           //console.log(srcObj)
           //console.log(strPath)
           //console.log(replaceTarget)
           replaceTarget = lineFeedChange(replaceTarget, mark)  
 
-=======
-//		console.log(srcObj)
-		//console.log(strPath)
-//		console.log(replaceTarget)
-	    replaceTarget = replaceTarget.includes(mark) ? lineFeedChange(replaceTarget, mark) : replaceTarget 
-	    keyObj[strPath] = replaceTarget.includes(mark) ? lineFeedChange(keyObj[strPath], mark) : keyObj[strPath]
->>>>>>> 98d8344 (fix: tagname with empty value can not be read)
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
