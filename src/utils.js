@@ -32,10 +32,8 @@ module.exports = {
       })
   }
   ,
-  addStr: function addStr(targetObj, tagName, arrayOfStringsWithTagPath) {
+  addStr: function addStr(targetObj, tagName, srcObj) {
 	  testTargetObj(targetObj)
-	  testTagName(tagName, arrayOfStringsWithTagPath)
-	  testArr(arrayOfStringsWithTagPath)
     Object.entries(targetObj).forEach(([tagIndex, value]) => {
       const strPath = makeStringPath(tagName, tagIndex) 
         , valueType = typeof value
@@ -45,7 +43,7 @@ module.exports = {
       case 'object': 
       //console.log('targetObj : ', targetObj, tagIndex)
         targetObj[tagIndex] = {}
-        return targetObj[tagIndex] = addStr(value, strPath, arrayOfStringsWithTagPath)
+        return targetObj[tagIndex] = addStr(value, strPath, srcObj)
         break
 
       default: // case as 'string'		
@@ -66,14 +64,13 @@ module.exports = {
             //console.log( 'is empty: ', hasOnlySpace)
             if (hasOnlySpace && isValueArray) return
 
-          const valueWithPathTag = isValueArray ? putPathTagToValue(val, idx, strPath, arrayOfStringsWithTagPath) : strPath + '\t' + strRemovedTag
-		 //console.log('value with path tag: ', valueWithPathTag)
-          arrayOfStringsWithTagPath.push(valueWithPathTag)
+        if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
+		//console.log('val: ', srcObj[strPath])
+	if (isValueArray) { srcObj[strPath].push(val) } else {srcObj[strPath] = val} 
         })
 
         //console.log('strRemovedTag: ', strRemovedTag)
         //console.log('array of html tags text without tag: ', arrayOfTags)
-        //console.log('array which have strings added each tag path: ', arrayOfStringsWithTagPath)
         //console.log('key value: ', value)
         targetObj[tagIndex] = value 
         return
@@ -86,42 +83,34 @@ module.exports = {
     return targetObj
   }
   ,
-  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
-	  testTargetObj(targetObj)
+  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {	
+  //makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
+	  //testTargetObj(targetObj)
 	  testTargetObj(keyObj)
 	  testArr(keyArr)
 	  testStr(srcStr)
-    let lastNonTag = ''
-    targetObj.forEach((val, idx) => {
+	let tEntries = Object.entries(keyObj)
+	  tEntries.forEach( (arr, idx) => {
+	  //for (const [key, val] of Object.entries(keyObj)) {
+//    targetObj.forEach((val, idx) => {
     //console.log(idx, val)
-      let [splitedTag, splitedVal] = val.split('\t')
+      //let [splitedTag, splitedVal] = val.split('\t')
+      let [splitedTag, splitedVal] = [arr[0], arr[1]]
+      //let [splitedTag, splitedVal] = [key, val]
 	    , mark = '()'
       function logSplitedTag(splitedTag, splitedVal) {    
         console.log('splited Tag:', splitedTag)    
         console.log('splited value:', splitedVal)    
       }
-      //logSplitedTag(splitedTag, splitedVal)    
-	    splitedVal = lineFeedToMark(splitedVal, mark)
+      logSplitedTag(splitedTag, splitedVal)    
+	 if (Array.isArray(splitedVal)) {splitedVal = splitedVal.join(' ') } else { splitedVal = lineFeedToMark(splitedVal, mark)}
       keyArr.push(splitedTag)
-      srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
+      //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
+      srcStr = addStrToSrc(tEntries[idx +1], srcStr, splitedVal) 
       testStr(srcStr)	    
-      targetObj[idx] = splitedVal
-      if(splitedTag.includes('tag0')) {
-        lastNonTag = splitedTag.replace('/tag0', '')
-	      testStr(lastNonTag)
-        keyObj[lastNonTag] = [splitedVal]
-      } else if (splitedTag.includes('tag') && !splitedTag.includes('tag0')) {
-      //push value
-      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-        keyObj[lastNonTag] = Array.isArray(keyObj[lastNonTag]) ? [...keyObj[lastNonTag], splitedVal] : [keyObj[lastNonTag], splitedVal]
-      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-      //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
-      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-      //console.log('lastNonTag: ', lastNonTag)
-      }  else {
-        keyObj[splitedTag] = splitedVal 
-      }
-      return	  
+      //targetObj[idx] = splitedVal
+          return	  
+   // }
     })
     return srcStr	
   }
