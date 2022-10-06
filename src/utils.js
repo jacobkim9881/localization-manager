@@ -62,8 +62,8 @@ module.exports = {
 	targetVal = exceptWordStr // to leave symbol on the value	      
 
         //const strRemovedTag = removeTagsInStr(exceptWordStr)    
-	*/
-
+	
+	// below variable should be replaced with above */
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
           , isValueArray= arrayOfTags.length > 1 ? true : false   
