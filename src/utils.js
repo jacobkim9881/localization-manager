@@ -52,10 +52,15 @@ module.exports = {
         //console.log('targetObj : ', targetObj, tagIndex)
 
         //console.log('key value: ', value)
+		      
+	// test string: this is test exceptThis.	      
+	const exceptions = []
+	, exceptionRegx = '//' 	      
+	// after regX `exceptThis` should changed symbols like $# $%		     
+	let exceptWordStr = 'val'	
+
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
-	      // change to Array.isArray(val) 
-	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
         //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
@@ -192,6 +197,8 @@ module.exports = {
             //console.log('localized eachStr: ', eachStr)
             //	console.log('target str arr: ', srcObj[strPath])
             //console.log('target str : ', srcObj[strPath][keyObjIdx])
+		  //
+		  //the value should have symbols to replace except words
           	//console.log('src str: ', value)
   	    replaceTarget = srcObj[strPath][keyObjIdx]
             replaceTarget = lineFeedChange(replaceTarget, mark)  
