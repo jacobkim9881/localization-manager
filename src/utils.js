@@ -53,11 +53,16 @@ module.exports = {
 
         //console.log('key value: ', value)
 		      
-	// test string: this is test exceptThis.	      
-	const exceptions = []
-	, exceptionRegx = '//' 	      
+	/* test string: this is test exceptThis.	     
+	let targetVal = `this is test exceptThis.`	      
+	const exceptions = ['exceptThis']
+	, exceptionRegx = /exceptThis/ 	      
 	// after regX `exceptThis` should changed symbols like $# $%		     
-	let exceptWordStr = 'val'	
+	let exceptWordStr = targetVal.replace(exceptionRegx, 'any symbol').trim()
+	targetVal = exceptWordStr // to leave symbol on the value	      
+
+        //const strRemovedTag = removeTagsInStr(exceptWordStr)    
+	*/
 
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
@@ -197,9 +202,10 @@ module.exports = {
             //console.log('localized eachStr: ', eachStr)
             //	console.log('target str arr: ', srcObj[strPath])
             //console.log('target str : ', srcObj[strPath][keyObjIdx])
-		  //
+		  
 		  //the value should have symbols to replace except words
           	//console.log('src str: ', value)
+		 
   	    replaceTarget = srcObj[strPath][keyObjIdx]
             replaceTarget = lineFeedChange(replaceTarget, mark)  
             targetObj[key] = keyObjIdx === 0 ? value.replace(replaceTarget, eachStr) : targetObj[key].replace(replaceTarget, eachStr)
