@@ -216,7 +216,10 @@ module.exports = {
           //console.log(srcObj)
           //console.log(strPath)
           //console.log(replaceTarget)
-          replaceTarget = lineFeedChange(replaceTarget, mark)  
+          replaceTarget = lineFeedChange(replaceTarget, mark) 
+
+	  //the value should have symbols to replace except words
+          	//console.log('src str: ', value)
 
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
