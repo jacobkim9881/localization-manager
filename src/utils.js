@@ -102,7 +102,7 @@ module.exports = {
         console.log('splited Tag:', splitedTag)    
         console.log('splited value:', splitedVal)    
       }
-      logSplitedTag(splitedTag, splitedVal)    
+      //logSplitedTag(splitedTag, splitedVal)    
 	 if (Array.isArray(splitedVal)) {splitedVal = splitedVal.join(' ') } else { splitedVal = lineFeedToMark(splitedVal, mark)}
       keyArr.push(splitedTag)
       //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
@@ -191,9 +191,17 @@ module.exports = {
           replaceTarget = srcObj[strPath]
           //console.log(srcObj)
           //console.log(strPath)
-          //console.log(replaceTarget)
-          replaceTarget = lineFeedChange(replaceTarget, mark)  
+          console.log(replaceTarget)
 
+	  if(Array.isArray(replaceTarget)) {
+	  let tempArr = []
+	  replaceTarget.forEach((val, idx) => {
+	  tempArr.push(lineFeedChange(val, mark))  	  
+	  })
+	  replaceTarget = tempArr	  
+	  } else {
+          replaceTarget = lineFeedChange(replaceTarget, mark)  
+	  }
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
