@@ -191,7 +191,7 @@ module.exports = {
           replaceTarget = srcObj[strPath]
           //console.log(srcObj)
           //console.log(strPath)
-          console.log(replaceTarget)
+          //console.log(replaceTarget)
 
 	  if(Array.isArray(replaceTarget)) {
 	  let tempArr = []
@@ -205,7 +205,6 @@ module.exports = {
           targetObj[key] = value.replace(replaceTarget, keyObj[strPath])
         //console.log('srcObj[strPath]: ', srcObj[strPath])		
         }
-        testStr(replaceTarget)      
         //console.log('put targetObj[key]: ', targetObj[key])
         return
         break
