@@ -3,6 +3,7 @@ const langsExplain = require('./lang_code')
 const langs = Object.keys(langsExplain);
 const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath, putStrIn } = require('./utils')
 const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr} = require('../test/test-index')
+const LocalizeObject = require('./module.js')
 var assert = require('assert');
 
 let localObj
@@ -16,51 +17,11 @@ process.argv.forEach(function (valArg, indexArg) {
   testJsonData(fs.readFileSync(valArg))
 
   localObj = JSON.parse(fs.readFileSync(valArg))
-  //console.log('localObj : ', localObj)
-  //console.log(langs)
+
+  localObj = LocalizeObject(localObj)	
   let aPath = `_locales/`
-    , srcToLocalize = {}
-    , srcObj = {}
-  srcToLocalize[langs[languageIdx]] = {}
-
-  localObj = addStr(localObj, undefined, srcObj)
-  //console.log('src Obj : ', srcObj)
-  //console.log('localObj after recursive: ', localObj)
-  testTargetObj(localObj)
-  //console.log('localObj : ', localObj)
-  let srcStr = ""
-    , keyArr = []
-    , keyObj = {}
-  
-  srcStr = makeKeyPathReturnSrc(srcStr, keyArr, srcObj)
-  //srcStr = makeKeyPathReturnSrc(tagPathStrings, srcStr, keyArr, srcObj)
-  testStr(srcStr)
-  //console.log('src Str : ', srcStr)
-  //console.log('src Obj : ', srcObj)
-
-  //console.log('src key : ', keyArr)
-  //console.log('src keys length : ', keyArr.length)
-
-  //ex
-  //splited:  [ 'SMALL/1/tag4', '. NortainVPN\n' ]
-  //splited:  [ 'LI/0', 'What is VPN' ]
-  //
-	
-  localizeObj(srcStr, langs[languageIdx])
-    .then((localizedStr) => {
-      testStr(localizedStr)    
-      let targetStr = localizedStr.split('\n')
-      testArr(targetStr)    
-      //console.log('targetStr after localize: ', targetStr)
-      //console.log('targetStr length after localize: ', targetStr.length)
-      objValWithKeyPath(targetStr, keyObj, keyArr)
-
-      localObj = putStrIn(localObj, undefined, keyObj, srcObj)
-      testTargetObj(localObj)
-      //console.log('localized source: ', localObj)
       writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return
-    })
 
   //console.log('langs length: ', langs.length)
   //console.log('srcToLozalize: ', srcToLocalize)
