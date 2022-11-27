@@ -5,7 +5,7 @@ const { writeJson, localizeObj, addStr, makeKeyPathReturnSrc, objValWithKeyPath,
 const {testLanguageIdx, testJsonData, testTargetObj, testStr, testArr} = require('../test/test-index')
 var assert = require('assert');
 
-function localizeObject() {
+function localizeObject(localObj, languageIdx) {
   //console.log('localObj : ', localObj)
   //console.log(langs)
   let tagPathStrings = [] 

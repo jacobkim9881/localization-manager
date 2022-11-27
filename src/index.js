@@ -18,7 +18,7 @@ process.argv.forEach(function (valArg, indexArg) {
 
   localObj = JSON.parse(fs.readFileSync(valArg))
 
-  localObj = LocalizeObject(localObj)	
+  localObj = LocalizeObject(localObj, languageIdx)	
   let aPath = `_locales/`
       writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return
