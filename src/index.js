@@ -9,7 +9,7 @@ var assert = require('assert');
 let localObj
   , languageIdx
 
-process.argv.forEach(function (valArg, indexArg) {
+process.argv.forEach(async function (valArg, indexArg) {
   console.log(indexArg, ': ' , valArg)
   if (indexArg == 2) languageIdx = valArg
   if (indexArg !== 3) return;
@@ -18,7 +18,7 @@ process.argv.forEach(function (valArg, indexArg) {
 
   localObj = JSON.parse(fs.readFileSync(valArg))
 
-  localObj = LocalizeObject(localObj, languageIdx)	
+  localObj = await LocalizeObject(localObj, languageIdx)	
   let aPath = `_locales/`
       writeJson(aPath + langs[languageIdx]  + `/` + valArg , JSON.stringify(localObj, null, 4));  	
       return
