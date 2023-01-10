@@ -65,7 +65,9 @@ module.exports = {
             if (hasOnlySpace && isValueArray) return
 
         if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
-		//console.log('val: ', srcObj[strPath])
+		console.log('val: ', srcObj[strPath])
+		console.log('path: ', strPath)
+		console.log('objl: ', srcObj)
 	if (isValueArray) { srcObj[strPath].push(val) } else {srcObj[strPath] = val} 
         })
 

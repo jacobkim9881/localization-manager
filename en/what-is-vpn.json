@@ -1,0 +1,63 @@
+{
+    "H1": {
+        "0": "What is VPN?",
+        "1": "Why do you need VPN?",
+        "2": "How does VPN work?"
+    },
+    "P": {
+        "0": "VPN means \"Virtual Private Network\" which keeps your online activity secure and makes your internet connection safe. It lets users use encrypted tunnels while sending and receiving data, hide your IP address and let your data hard to track.",
+        "1": "If you are online by internet connection you have IP address to send/receive data on websites, which makes your data easy to track or intercept. To protect your data VPN is needed for hiding your IP address and encrypting data. Specifically, there are scenarios when you need a VPN.",
+        "2": "You need an internet connection for using a credit card to buy or subscribe where you can not use your private internet connection but use public Wi-Fi, you would need a VPN to protect the data of your credit card, etc. Wi-Fi connections at cafes, hotels, etc would not be safe for being targets for intercepting data of whom uses the insecure connections.",
+        "3": "You want to access networks of your offices, facilities, etc from remote places. VPN can help to secure network connection from eavesdropping.",
+        "4": "Sometimes you are not sure if the websites you enter are safe or not because some government agencies, and marketers like to track and save your cookie data or browsing history. Such data could be used for advertisement, raising the prices of stuff you could want to buy, or watching you.",
+        "5": "Through the tunnel, each packet will be wrapped by the new packet which is encrypted by the VPN server. So data will be encrypted and the IP address is changed to VPNs."
+    },
+    "H4": {
+        "0": "When you use public Wi-Fi at cafes, hotels, etc",
+        "1": "When you want to access another network from remote places",
+        "2": "The websites you want to enter are doubtful for your data"
+    },
+    "A": {
+        "0": "NortainVPN<img>",
+        "1": "What is VPN",
+        "2": "Pricing",
+        "3": "Guide to NortainVPN",
+        "4": "How to buy NortainVPN",
+        "5": "How to Download configuration file",
+        "6": "How to use Wireguard",
+        "7": "Blog",
+        "8": "Support",
+        "9": "",
+        "10": "Login",
+        "11": "Purchase Now",
+        "12": "NortainVPN<img>",
+        "13": "What is VPN",
+        "14": "Pricing",
+        "15": "Guide to NortainVPN",
+        "16": "How to buy NortainVPN",
+        "17": "How to Download configuration file",
+        "18": "How to use Wireguard",
+        "19": "Blog",
+        "20": "Support",
+        "21": "Terms of Service",
+        "22": "Privacy Policy"
+    },
+    "SMALL": {
+        "0": "All Rights Reserved and are protected by <a target=\"_blank\" href=\"./terms-of-service.html\">Terms of Service</a> and <a target=\"_blank\" href=\"./privacy-policy.html\">Privacy Policy</a>. NortainVPN"
+    },
+    "LI": {
+        "0": "<a href=\"./what-is-vpn.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">What is VPN</a>",
+        "1": "<a href=\"pricing_plans.html\" class=\"nav-link\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Pricing</a>",
+        "2": "<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" aria-haspopup=\"true\">Guide to NortainVPN</a>\n                  <div class=\"dropdown-menu\">\n                     <div class=\"col-auto\" data-dropdown-content=\"\">\n\t\t       <a href=\"guide-purchase.html\" class=\"dropdown-item\">How to buy NortainVPN</a>\n\t\t       <a href=\"guide-download.html\" class=\"dropdown-item\">How to Download configuration file</a>\n\t\t       <a href=\"guide-wg.html\" class=\"dropdown-item\">How to use Wireguard</a>\n                    </div>\n                   </div>",
+        "3": "<a href=\"./blog.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Blog</a>",
+        "4": "<a href=\"./support.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Support</a>",
+        "5": "When you connect VPN by client program it authenticates by a configuration file.",
+        "6": "The server will prepare for sending/receiving your data from you.",
+        "7": "The VPN will create a tunnel for securing your data by sending/receiving between you and the website you visit.",
+        "8": "<a href=\"./what-is-vpn.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">What is VPN</a>",
+        "9": "<a href=\"pricing_plans.html\" class=\"nav-link\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Pricing</a>",
+        "10": "<a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" aria-haspopup=\"true\">Guide to NortainVPN</a>\n                    <div class=\"dropdown-menu badge-dark\">\n                        <div class=\"col-auto\" data-dropdown-content=\"\">\n\t\t\t      <a href=\"guide-purchase.html\" class=\"dropdown-item\">How to buy NortainVPN</a>\n\t\t\t      <a href=\"guide-download.html\" class=\"dropdown-item\">How to Download configuration file</a>\n\t\t\t      <a href=\"guide-wg.html\" class=\"dropdown-item\">How to use Wireguard</a>\n                    </div>\n                      </div>",
+        "11": "<a href=\"./blog.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Blog</a>",
+        "12": "<a href=\"./support.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Support</a>"
+    }
+}

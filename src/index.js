@@ -16,6 +16,7 @@ process.argv.forEach(async function (valArg, indexArg) {
   testLanguageIdx(languageIdx)	
   testJsonData(fs.readFileSync(valArg))
 
+  // can not read folder
   localObj = JSON.parse(fs.readFileSync(valArg))
 
   localObj = await LocalizeObject(localObj, languageIdx)	

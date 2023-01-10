@@ -1,0 +1,77 @@
+{
+    "H1": {
+        "0": "How to buy Nortain VPN service"
+    },
+    "P": {
+        "0": "This document is a guide on how to buy Nortain VPN service. For downloading config files at Wireguard which is tunneled to Nortain VPN server, you should buy a plan first. Before buying a plan you must have Nortain VPN account first. <a href=\"./account-sign-up\">Creating an account page is here.</a> If you already have a plan but want to know how to use the Wireguard client <a href=\"guide-wg\"> this page will guide you on how to download and use the Wireguard client.</a>",
+        "1": "<a href=\"./account-sign-up\">As you created an account</a> you go to the pricing page to buy a plan. <a href=\"./pricing_plans\">The pricing page is here.</a> There will be plans which you can choose from. For each plan options of a plan are different. You can compare which one is better for you by reading the plans. After deciding which you want for a plan you click one of the toggle buttons. And then Click one of them you want to buy.",
+        "2": "It is a case when you selected subscription plan. Subscription plan lets you use Wireguard VPN at Nortain server with paying monthly. Click 'Proceed to purchase'.",
+        "3": "It is a case when you selected a plan without subscribing. This plan lets you use Wireguard VPN at Nortain server with a fixed term. Select months you want to pay for the plan in the range in the picture. And then click 'Proceed to purchase'.",
+        "4": "As you click 'Proceed to purchase' button you will have a payment page. After putting your card information on the page and paying then you successfully bought Nortain VPN plans. <a href=\"./guide-download\">You can download configuration files on this page.</a>"
+    },
+    "H4": {
+        "0": "Before starting to learn how to buy a plan",
+        "1": "Selecting a plan on the pricing page",
+        "2": "I selected a plan with subscribing",
+        "3": "I selected a plan without subscribing",
+        "4": "Payment page"
+    },
+    "A": {
+        "0": "NortainVPN<img>",
+        "1": "What is VPN",
+        "2": "Pricing",
+        "3": "Guide to NortainVPN",
+        "4": "How to buy NortainVPN",
+        "5": "How to Download configuration file",
+        "6": "How to use Wireguard",
+        "7": "Blog",
+        "8": "Support",
+        "9": "",
+        "10": "Login",
+        "11": "Creating an account page is here.",
+        "12": "this page will guide you on how to download and use the Wireguard client.",
+        "13": "As you created an account",
+        "14": "The pricing page is here.",
+        "15": "You can download configuration files on this page.",
+        "16": "https://www.wireguard.com/install/",
+        "17": "Purchase Now",
+        "18": "NortainVPN<img>",
+        "19": "What is VPN",
+        "20": "Pricing",
+        "21": "Guide to NortainVPN",
+        "22": "How to buy NortainVPN",
+        "23": "How to Download configuration file",
+        "24": "How to use Wireguard",
+        "25": "Blog",
+        "26": "Support",
+        "27": "Terms of Service",
+        "28": "Privacy Policy"
+    },
+    "SMALL": {
+        "0": "All Rights Reserved and are protected by <a target=\"_blank\" href=\"./terms-of-service.html\">Terms of Service</a> and <a target=\"_blank\" href=\"./privacy-policy.html\">Privacy Policy</a>. NortainVPN"
+    },
+    "LI": {
+        "0": "<a href=\"./what-is-vpn.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">What is VPN</a>",
+        "1": "<a href=\"pricing_plans.html\" class=\"nav-link\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Pricing</a>",
+        "2": "<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" aria-haspopup=\"true\">Guide to NortainVPN</a>\n                  <div class=\"dropdown-menu\">\n                     <div class=\"col-auto\" data-dropdown-content=\"\">\n\t\t       <a href=\"guide-purchase.html\" class=\"dropdown-item\">How to buy NortainVPN</a>\n\t\t       <a href=\"guide-download.html\" class=\"dropdown-item\">How to Download configuration file</a>\n\t\t       <a href=\"guide-wg.html\" class=\"dropdown-item\">How to use Wireguard</a>\n                    </div>\n                   </div>",
+        "3": "<a href=\"./blog.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Blog</a>",
+        "4": "<a href=\"./support.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Support</a>",
+        "5": "<a href=\"./what-is-vpn.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">What is VPN</a>",
+        "6": "<a href=\"pricing_plans.html\" class=\"nav-link\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Pricing</a>",
+        "7": "<a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" aria-haspopup=\"true\">Guide to NortainVPN</a>\n                <div class=\"dropdown-menu badge-dark\">\n                    <div class=\"col-auto\" data-dropdown-content=\"\">\n        <a href=\"guide-purchase.html\" class=\"dropdown-item\">How to buy NortainVPN</a>\n        <a href=\"guide-download.html\" class=\"dropdown-item\">How to Download configuration file</a>\n        <a href=\"guide-wg.html\" class=\"dropdown-item\">How to use Wireguard</a>\n                </div>\n                  </div>",
+        "8": "<a href=\"./blog.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Blog</a>",
+        "9": "<a href=\"./support.html\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown-grid\" aria-expanded=\"false\" aria-haspopup=\"true\">Support</a>"
+    },
+    "FIGURE": {
+        "0": "<img src=\"assets/img/vpn-website/wireguard-select-plan.png\" alt=\"Selecting pricing plan\" class=\"rounded\">\n                    <figcaption>There are plans which you can choose.</figcaption>",
+        "1": "<img src=\"assets/img/vpn-website/wireguard-plan-with-subscribe.png\" alt=\"Pricing plan with subscribing\" class=\"rounded\">\n                    <figcaption>Subscription plan lets you use Wireguard VPN at Nortain server with paying monthly.</figcaption>",
+        "2": "<img src=\"assets/img/vpn-website/wireguard-plan-without-subscribe.png\" alt=\"Pricing plan without subscribing\" class=\"rounded\">\n                    <figcaption>Subscription plan lets you use Wireguard VPN at Nortain server with a fixed term.</figcaption>",
+        "3": "<img src=\"assets/img/vpn-website/wireguard-payment-page.png\" alt=\"Payment page of VPN plans\" class=\"rounded\">\n                    <figcaption>After putting your card information on the page and paying then you successfully bought Nortain VPN plans.</figcaption>"
+    },
+    "FIGCAPTION": {
+        "0": "There are plans which you can choose.",
+        "1": "Subscription plan lets you use Wireguard VPN at Nortain server with paying monthly.",
+        "2": "Subscription plan lets you use Wireguard VPN at Nortain server with a fixed term.",
+        "3": "After putting your card information on the page and paying then you successfully bought Nortain VPN plans."
+    }
+}

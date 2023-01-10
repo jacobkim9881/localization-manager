@@ -1,0 +1,23 @@
+{
+    "H1": {
+        "0": "Create Account"
+    },
+    "A": {
+        "0": "<img>NortainVPN",
+        "1": "Terms of Service",
+        "2": "Sign In"
+    },
+    "SMALL": {
+        "0": "Must be at least 6 characters",
+        "1": "Must have at least 1 capital character",
+        "2": "Must have at least 1 number",
+        "3": ""
+    },
+    "SPAN": {
+        "0": "No credit card required",
+        "1": "I agree to the <a target=\"_blank\" href=\"./terms-of-service.html\">Terms of Service</a>",
+        "2": "Already have an account yet? <a href=\"./account-sign-in\">Sign In</a>",
+        "3": "Language"
+    }
+}
+
