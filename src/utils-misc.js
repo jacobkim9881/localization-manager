@@ -19,7 +19,11 @@ module.exports= {
   },
   removeTagsInStr: function removeTagsInStr(value) {
     testStr(value)	  
-    return value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t').trim()
+	let test =  value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t')
+  ,test2 = test.replace('\t\t', '\t').trim()
+
+//    return value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t').trim()
+	  return test2
   },
   isOnlySpace: function isOnlySpace(value) {
     testStr(value)	  
