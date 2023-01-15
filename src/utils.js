@@ -56,8 +56,9 @@ module.exports = {
 	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
-        //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
+       //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
+	//console.log('arrayOfTags: ', arrayOfTags)		    
         arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
 
@@ -65,9 +66,9 @@ module.exports = {
             if (hasOnlySpace && isValueArray) return
 
         if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
-		console.log('val: ', srcObj[strPath])
-		console.log('path: ', strPath)
-		console.log('objl: ', srcObj)
+		//console.log('val: ', srcObj[strPath])
+		//console.log('path: ', strPath)
+		//console.log('objl: ', srcObj)
 	if (isValueArray) { srcObj[strPath].push(val) } else {srcObj[strPath] = val} 
         })
 
