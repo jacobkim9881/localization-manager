@@ -6,9 +6,23 @@ RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NC=$(tput sgr0)
 
-for var in "$@"
-	do
-	if [[ $var =~ ".json" ]]; then
+recursive()
+	{
+	echo var is $var	
+for var in "$1"
+do
+	echo $var
+	if [[ -d $var ]]; then
+	echo It is a directory.
+		exeRe=$(recursive $var);
+		$((exeRe))	
+		echo dir
+	continue		
+	elif [[ ! $var =~ ".json" ]]; then
+	echo not .json format. It will continue next file.
+	continue
+
+	elif [[ $var =~ ".json" ]]; then
 	echo $var will be translated into other language version $var.
 	else
           echo "File format should have ${RED}.json${NC}." 
@@ -42,7 +56,10 @@ for var in "$@"
 	done
 
 	sleep 1
+done	
+}
 
-done
-
+execRe=$(recursive $@);
+$((execRe))
+	
 echo "Script done."
