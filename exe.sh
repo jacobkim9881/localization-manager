@@ -8,30 +8,25 @@ NC=$(tput sgr0)
 
 recursive()
 	{
-	echo var is $var	
-for var in "$1"
-do
-	echo $var
+		var=$1
+	test1=$(echo -n $var)
+
 	if [[ -d $var ]]; then
-	echo It is a directory.
-		exeRe=$(recursive $var);
-		$((exeRe))	
+	echo It is a directory. : $var
+	for var2 in "$var"/*
+	do	
+		recursive $var2
 		echo dir
-	continue		
+	done	
+	continue
+
 	elif [[ ! $var =~ ".json" ]]; then
-	echo not .json format. It will continue next file.
+		echo "it is not json format"
 	continue
 
 	elif [[ $var =~ ".json" ]]; then
 	echo $var will be translated into other language version $var.
-	else
-          echo "File format should have ${RED}.json${NC}." 
-	  echo "The file you put: ${RED}$var${NC}." 
-
-	  exit
-
-	fi
-
+	
 	num=0
 	
 	while [[ "$num" -le $LangNumber ]];
@@ -56,10 +51,15 @@ do
 	done
 
 	sleep 1
-done	
+
+	fi
 }
 
-execRe=$(recursive $@);
-$((execRe))
+for var1 in "$@"
+do
+echo target is $@
+echo will execute function for $var1
+recursive $var1
 	
+done	
 echo "Script done."
