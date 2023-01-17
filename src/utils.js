@@ -154,7 +154,9 @@ module.exports = {
 	  testTagName(targetObjKey)
 	  testTargetObj(keyObj)
 	  testTargetObj(srcObj)
-
+	//console.log('keyObj: ', keyObj)
+	  //srcObj has an error
+	  //console.log('srcObj: ', srcObj)
     Object.entries(targetObj).forEach(([key, value]) => {
       const strPath = makeStringPath(targetObjKey, key) 
 	    , typeofValue = typeof value
