@@ -86,7 +86,8 @@ module.exports = {
     return targetObj
   }
   ,
-  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {	
+  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {
+	  //console.log('keyObj: ', keyObj)
   //makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
 	  //testTargetObj(targetObj)
 	  testTargetObj(keyObj)
@@ -106,10 +107,16 @@ module.exports = {
         console.log('splited value:', splitedVal)    
       }
       //logSplitedTag(splitedTag, splitedVal)    
-	 if (Array.isArray(splitedVal)) {splitedVal = splitedVal.join(' ') } else { splitedVal = lineFeedToMark(splitedVal, mark)}
+	 if (Array.isArray(splitedVal)) {
+		 splitedVal.forEach((valu, indx) => {
+//putPathTagToValue(valu, indx, splitedTag)
+		 })
+		 splitedVal = splitedVal.join(' ') 
+	 } else { splitedVal = lineFeedToMark(splitedVal, mark)}
       keyArr.push(splitedTag)
       //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
       srcStr = addStrToSrc(tEntries[idx +1], srcStr, splitedVal) 
+		  //console.log('srcStr: ', srcStr)
       testStr(srcStr)	    
       //targetObj[idx] = splitedVal
           return	  
@@ -122,7 +129,7 @@ module.exports = {
 	  testArr(targetArr)
 	  testTargetObj(keyObj)
 	  testArr(keyArr)
-    //	console.log('keyObj before function: ', keyObj)
+    	console.log('keyObj before function: ', keyObj)
     let lastNonTag = ''
     //console.log('targetArr after poping empty str: ', targetArr)
     //console.log('targetArr length after poping empty str: ', targetArr.length)
@@ -130,6 +137,7 @@ module.exports = {
     //console.log('idx at targetArr each: ', idx)
     //console.log('val at targetArr each: ', val)
     //console.log('key arr[idx] : ', keyArr[idx])
+	    //values with tags do not have tag0 string
 	  if (keyArr[idx].includes('tag0')) { 
         lastNonTag = keyArr[idx].replace('/tag0', '')
         keyObj[lastNonTag] = [val]
@@ -144,7 +152,7 @@ module.exports = {
       keyObj[keyArr[idx]] = val	
       return	
     })
-    //console.log('keyObj after function: ', keyObj)
+    console.log('keyObj after function: ', keyObj)
     return
   }
 
@@ -154,19 +162,22 @@ module.exports = {
 	  testTagName(targetObjKey)
 	  testTargetObj(keyObj)
 	  testTargetObj(srcObj)
+	  //for some value of keyObj should have each array
 	//console.log('keyObj: ', keyObj)
 	  //srcObj has an error
 	  //console.log('srcObj: ', srcObj)
+	  //console.log('targetObjKey : ', targetObjKey)
     Object.entries(targetObj).forEach(([key, value]) => {
       const strPath = makeStringPath(targetObjKey, key) 
 	    , typeofValue = typeof value
       testStr(strPath)  
-
+//console.log('strPath: ', strPath)
       switch(typeofValue) {
       case 'object': 
       // console.log('targetObj : ', targetObj, key)
+		  //console.log('objs value: ', value)
 	 targetObj[key] = {}
-        // console.log('after recursive: ', putStrIn(value, strPath, keyObj))
+         //console.log('after recursive: ', putStrIn(value, strPath, keyObj, srcObj))
         return targetObj[key] = putStrIn(value, strPath, keyObj, srcObj)
         break
 
