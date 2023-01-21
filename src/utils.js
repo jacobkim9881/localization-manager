@@ -176,7 +176,12 @@ module.exports = {
 	  //srcObj has an error
 	  //console.log('srcObj: ', srcObj)
 	  //console.log('targetObjKey : ', targetObjKey)
+	  //
+	  //
+	  //should have pass if keyObj's key has tag0 some value.
+	  //
     Object.entries(targetObj).forEach(([key, value]) => {
+       console.log('targetObj : ', targetObj, key)
       const strPath = makeStringPath(targetObjKey, key) 
 	    , typeofValue = typeof value
       testStr(strPath)  
@@ -216,7 +221,7 @@ module.exports = {
           replaceTarget = srcObj[strPath]
           //console.log(srcObj)
           //console.log(strPath)
-          //console.log(replaceTarget)
+          console.log('replaceTarget: ', replaceTarget)
 
 	  if(Array.isArray(replaceTarget)) {
 	  let tempArr = []
