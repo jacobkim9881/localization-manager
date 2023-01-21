@@ -36,7 +36,8 @@ module.exports= {
     testStr(strPath)	  
     testIdx(idx)	  
     testStr(value)	  
-    return strPath + '/tag' + idx + '\t' + value + '\n'
+    return strPath + '/tag' + idx //+ '\t' + value + '\n'
+
   },
 
   lineFeedToMark: function(value, mark) {

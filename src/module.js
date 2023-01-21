@@ -27,7 +27,7 @@ function localizeObject(localObj, languageIdx) {
   //srcStr = makeKeyPathReturnSrc(tagPathStrings, srcStr, keyArr, srcObj)
   testStr(srcStr)
  //console.log('src Str after func: ', srcStr)
-  //console.log('src Obj : ', srcObj)
+  console.log('src Obj : ', srcObj)
 
   //console.log('src key : ', keyArr)
   //console.log('src keys length : ', keyArr.length)

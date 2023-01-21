@@ -65,11 +65,20 @@ module.exports = {
             //console.log( 'is empty: ', hasOnlySpace)
             if (hasOnlySpace && isValueArray) return
 
-        if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
+        //if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
 		//console.log('val: ', srcObj[strPath])
 		//console.log('path: ', strPath)
 		//console.log('objl: ', srcObj)
-	if (isValueArray) { srcObj[strPath].push(val) } else {srcObj[strPath] = val} 
+	if (isValueArray) {
+	let testPath = putPathTagToValue(val, idx, strPath)
+		srcObj[testPath] = val
+		//srcObj[testPath].push(val) 		
+
+		//srcObj[strPath].push(val) 
+
+	} else {
+		srcObj[strPath] = val
+		} 
         })
 
         //console.log('strRemovedTag: ', strRemovedTag)
@@ -131,12 +140,12 @@ module.exports = {
 	  testArr(keyArr)
     	console.log('keyObj before function: ', keyObj)
     let lastNonTag = ''
-    //console.log('targetArr after poping empty str: ', targetArr)
+    console.log('targetArr after poping empty str: ', targetArr)
     //console.log('targetArr length after poping empty str: ', targetArr.length)
     targetArr.forEach((val, idx) => {
     //console.log('idx at targetArr each: ', idx)
     //console.log('val at targetArr each: ', val)
-    //console.log('key arr[idx] : ', keyArr[idx])
+    console.log('key arr[idx] : ', keyArr[idx])
 	    //values with tags do not have tag0 string
 	  if (keyArr[idx].includes('tag0')) { 
         lastNonTag = keyArr[idx].replace('/tag0', '')
