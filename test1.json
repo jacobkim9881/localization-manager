@@ -4,7 +4,7 @@
     },
     "P": {
         "banana": "Encrypt your online connection and \n keep your online activity safe.",
-        "1": "Keep your online activity anonymous so don't let any businesses or governments watch and track what you do online.",
+        "1": "<a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" aria-haspopup=\"true\">Guide to NortainVPN</a>\n                    <div class=\"dropdown-menu\">\n                        <div class=\"col-auto\" data-dropdown-content=\"\">\n                      \n\t\t\t      <a href=\"guide-purchase.html\" class=\"dropdown-item fade-page\">How to buy NortainVPN</a>\n\t\t\t      <a href=\"guide-download.html\" class=\"dropdown-item fade-page\">How to Download configuration file</a>\n\t\t\t      <a href=\"guide-wg.html\" class=\"dropdown-item fade-page\">How to use Wireguard</a>\n\t\t      </div>\n                      </div>",
         "2": "Be safe while you're using vulnerable wi-fi at a cafe, hotel to be easy to exposure your credit card number or precious information by crackers.",
         "3": "Encrypt your data while you're entering a business website which gathers your cookie information.",
         "4": "Enjoy content from other regions like a movie, streaming, or other services.",
