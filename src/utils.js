@@ -58,23 +58,23 @@ module.exports = {
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
        //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
-	//console.log('arrayOfTags: ', arrayOfTags)		    
+	console.log('arrayOfTags: ', arrayOfTags)		    
         arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
 
             //console.log( 'is empty: ', hasOnlySpace)
             if (hasOnlySpace && isValueArray) return
-
-        //if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
+//console.log('has idx 1: ', arrayOfTags[idx + 1])
+        if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
 		//console.log('val: ', srcObj[strPath])
 		//console.log('path: ', strPath)
 		//console.log('objl: ', srcObj)
 	if (isValueArray) {
 	let testPath = putPathTagToValue(val, idx, strPath)
-		srcObj[testPath] = val
+		//srcObj[testPath] = val
 		//srcObj[testPath].push(val) 		
 
-		//srcObj[strPath].push(val) 
+		srcObj[strPath].push(val) 
 
 	} else {
 		srcObj[strPath] = val
@@ -96,7 +96,7 @@ module.exports = {
   }
   ,
   makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {
-	  //console.log('keyObj: ', keyObj)
+	  console.log('keyObj at makeKeyPathReturnSrc: ', keyObj)
   //makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
 	  //testTargetObj(targetObj)
 	  testTargetObj(keyObj)
@@ -117,12 +117,16 @@ module.exports = {
       }
       //logSplitedTag(splitedTag, splitedVal)    
 	 if (Array.isArray(splitedVal)) {
+		 let pushArr = []
 		 splitedVal.forEach((valu, indx) => {
-//putPathTagToValue(valu, indx, splitedTag)
+keyArr.push(putPathTagToValue(valu, indx, splitedTag))
+			 console.log('pushed key: at makeKeyP: ', putPathTagToValue(valu, indx, splitedTag))
 		 })
 		 splitedVal = splitedVal.join(' ') 
-	 } else { splitedVal = lineFeedToMark(splitedVal, mark)}
+	 } else { splitedVal = lineFeedToMark(splitedVal, mark)
       keyArr.push(splitedTag)
+			 console.log('pushed key: at makeKeyP: ', splitedTag)
+	 }
       //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
       srcStr = addStrToSrc(tEntries[idx +1], srcStr, splitedVal) 
 		  //console.log('srcStr: ', srcStr)
@@ -149,13 +153,14 @@ module.exports = {
 	    //values with tags do not have tag0 string
 	  if (keyArr[idx].includes('tag0')) { 
         lastNonTag = keyArr[idx].replace('/tag0', '')
+		  console.log('arr created: ', lastNonTag)
         keyObj[lastNonTag] = [val]
 	  } else if (keyArr[idx].includes('tag') && !keyArr[idx].includes('tag0')) {
       //push value
           keyObj[lastNonTag] = Array.isArray(keyObj[lastNonTag]) ? [...keyObj[lastNonTag], val] : [keyObj[lastNonTag], val]
 	      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
       //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
-      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
+      console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
       } else {
       }
       keyObj[keyArr[idx]] = val	
@@ -181,7 +186,7 @@ module.exports = {
 	  //should have pass if keyObj's key has tag0 some value.
 	  //
     Object.entries(targetObj).forEach(([key, value]) => {
-       console.log('targetObj : ', targetObj, key)
+       //console.log('targetObj : ', targetObj, key)
       const strPath = makeStringPath(targetObjKey, key) 
 	    , typeofValue = typeof value
       testStr(strPath)  
@@ -202,8 +207,9 @@ module.exports = {
         //console.log(' value: ', value)
         //console.log('str path : ', strPath)
         //console.log('found value: ', keyObj[strPath])
+        console.log('keyObj: ', keyObj)
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
-        //console.log('scrObj: ', srcObj)
+        console.log('scrObj: at 206 ', srcObj)
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
         if(isKeyObjArray) {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
