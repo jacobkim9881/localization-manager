@@ -96,37 +96,49 @@ module.exports = {
   }
   ,
   makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {
-	  console.log('keyObj at makeKeyPathReturnSrc: ', keyObj)
+	  //console.log('keyObj at makeKeyPathReturnSrc: ', keyObj)
   //makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
 	  //testTargetObj(targetObj)
 	  testTargetObj(keyObj)
 	  testArr(keyArr)
 	  testStr(srcStr)
 	let tEntries = Object.entries(keyObj)
+	  console.log('tEntries: ', tEntries)
 	  tEntries.forEach( (arr, idx) => {
 	  //for (const [key, val] of Object.entries(keyObj)) {
 //    targetObj.forEach((val, idx) => {
-    //console.log(idx, val)
+    console.log('makeKeyPathReturnSrc idx and arr: ', idx, arr)
       //let [splitedTag, splitedVal] = val.split('\t')
       let [splitedTag, splitedVal] = [arr[0], arr[1]]
       //let [splitedTag, splitedVal] = [key, val]
 	    , mark = '()'
+		  , tagMark = '[]'
       function logSplitedTag(splitedTag, splitedVal) {    
         console.log('splited Tag:', splitedTag)    
         console.log('splited value:', splitedVal)    
       }
       //logSplitedTag(splitedTag, splitedVal)    
 	 if (Array.isArray(splitedVal)) {
-		 let pushArr = []
+		 let multiTag = ''
+		 , putMark = ''
 		 splitedVal.forEach((valu, indx) => {
-keyArr.push(putPathTagToValue(valu, indx, splitedTag))
+			 multiTag = multiTag + 'tag'
+			 putMark = splitedVal[indx + 1] ? putMark + valu + tagMark : putMark + valu
+//keyArr.push(putPathTagToValue(valu, indx, splitedTag))
 			 console.log('pushed key: at makeKeyP: ', putPathTagToValue(valu, indx, splitedTag))
 		 })
-		 splitedVal = splitedVal.join(' ') 
+		 splitedTag = splitedTag + multiTag
+//keyArr.unshift(putPathTagToValue(valu, indx, splitedTag))
+keyArr.push(splitedTag)
+		splitedVal = putMark
+		 //splitedVal = splitedVal.join(' ') 
 	 } else { splitedVal = lineFeedToMark(splitedVal, mark)
       keyArr.push(splitedTag)
+		 //unshift for right order
+      //keyArr.unshift(splitedTag)
 			 console.log('pushed key: at makeKeyP: ', splitedTag)
 	 }
+    console.log('key arr after push : ', keyArr)
       //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
       srcStr = addStrToSrc(tEntries[idx +1], srcStr, splitedVal) 
 		  //console.log('srcStr: ', srcStr)
@@ -151,7 +163,11 @@ keyArr.push(putPathTagToValue(valu, indx, splitedTag))
     //console.log('val at targetArr each: ', val)
     console.log('key arr[idx] : ', keyArr[idx])
 	    //values with tags do not have tag0 string
-	  if (keyArr[idx].includes('tag0')) { 
+	  if (keyArr[idx].includes('tag')) {
+	 	let arrTranslated = keyObj[lastNonTag].split('[]')
+		  keyObj[lasgNontag] = arrTranslated
+	  }
+	 /* if (keyArr[idx].includes('tag0')) { 
         lastNonTag = keyArr[idx].replace('/tag0', '')
 		  console.log('arr created: ', lastNonTag)
         keyObj[lastNonTag] = [val]
@@ -161,9 +177,10 @@ keyArr.push(putPathTagToValue(valu, indx, splitedTag))
 	      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
       //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
       console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-      } else {
-      }
+      }*/
+	    else {
       keyObj[keyArr[idx]] = val	
+      }
       return	
     })
     console.log('keyObj after function: ', keyObj)
