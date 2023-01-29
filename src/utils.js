@@ -164,8 +164,10 @@ keyArr.push(splitedTag)
     console.log('key arr[idx] : ', keyArr[idx])
 	    //values with tags do not have tag0 string
 	  if (keyArr[idx].includes('tag')) {
-	 	let arrTranslated = keyObj[lastNonTag].split('[]')
-		  keyObj[lasgNontag] = arrTranslated
+		  console.log('split me:' ,keyArr[idx])
+		  let testKey = keyArr[idx].replaceAll('tag', '')
+	 	let arrTranslated = targetArr[idx].split('[]')
+		  keyObj[testKey] = arrTranslated
 	  }
 	 /* if (keyArr[idx].includes('tag0')) { 
         lastNonTag = keyArr[idx].replace('/tag0', '')
@@ -224,9 +226,9 @@ keyArr.push(splitedTag)
         //console.log(' value: ', value)
         //console.log('str path : ', strPath)
         //console.log('found value: ', keyObj[strPath])
-        console.log('keyObj: ', keyObj)
+        //console.log('keyObj: ', keyObj)
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
-        console.log('scrObj: at 206 ', srcObj)
+        //console.log('scrObj: at 206 ', srcObj)
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
         if(isKeyObjArray) {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
