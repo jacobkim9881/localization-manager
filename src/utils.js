@@ -52,19 +52,20 @@ module.exports = {
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
+	//console.log('strRemovedTag: ', strRemovedTag)
 	      // change to Array.isArray(val) 
 	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
-       //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
+        //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
-	console.log('arrayOfTags: ', arrayOfTags)		    
+	//console.log('arrayOfTags: ', arrayOfTags)		    
         arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
 
             //console.log( 'is empty: ', hasOnlySpace)
             if (hasOnlySpace && isValueArray) return
-//console.log('has idx 1: ', arrayOfTags[idx + 1])
+	//console.log('has idx 1: ', arrayOfTags[idx + 1])
         if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
 		//console.log('val: ', srcObj[strPath])
 		//console.log('path: ', strPath)
@@ -103,11 +104,10 @@ module.exports = {
 	  testArr(keyArr)
 	  testStr(srcStr)
 	let tEntries = Object.entries(keyObj)
-	  console.log('tEntries: ', tEntries)
+	  //console.log('tEntries: ', tEntries)
 	  tEntries.forEach( (arr, idx) => {
 	  //for (const [key, val] of Object.entries(keyObj)) {
-//    targetObj.forEach((val, idx) => {
-    console.log('makeKeyPathReturnSrc idx and arr: ', idx, arr)
+    //console.log('makeKeyPathReturnSrc idx and arr: ', idx, arr)
       //let [splitedTag, splitedVal] = val.split('\t')
       let [splitedTag, splitedVal] = [arr[0], arr[1]]
       //let [splitedTag, splitedVal] = [key, val]
@@ -125,7 +125,7 @@ module.exports = {
 			 multiTag = multiTag + 'tag'
 			 putMark = splitedVal[indx + 1] ? putMark + valu + tagMark : putMark + valu
 //keyArr.push(putPathTagToValue(valu, indx, splitedTag))
-			 console.log('pushed key: at makeKeyP: ', putPathTagToValue(valu, indx, splitedTag))
+			 //console.log('pushed key: at makeKeyP: ', putPathTagToValue(valu, indx, splitedTag))
 		 })
 		 splitedTag = splitedTag + multiTag
 //keyArr.unshift(putPathTagToValue(valu, indx, splitedTag))
@@ -136,9 +136,9 @@ keyArr.push(splitedTag)
       keyArr.push(splitedTag)
 		 //unshift for right order
       //keyArr.unshift(splitedTag)
-			 console.log('pushed key: at makeKeyP: ', splitedTag)
+			 //console.log('pushed key: at makeKeyP: ', splitedTag)
 	 }
-    console.log('key arr after push : ', keyArr)
+    //console.log('key arr after push : ', keyArr)
       //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
       srcStr = addStrToSrc(tEntries[idx +1], srcStr, splitedVal) 
 		  //console.log('srcStr: ', srcStr)
@@ -154,38 +154,26 @@ keyArr.push(splitedTag)
 	  testArr(targetArr)
 	  testTargetObj(keyObj)
 	  testArr(keyArr)
-    	console.log('keyObj before function: ', keyObj)
+    	 //console.log('keyObj before function: ', keyObj)
     let lastNonTag = ''
-    console.log('targetArr after poping empty str: ', targetArr)
+    //console.log('targetArr after poping empty str: ', targetArr)
     //console.log('targetArr length after poping empty str: ', targetArr.length)
     targetArr.forEach((val, idx) => {
     //console.log('idx at targetArr each: ', idx)
     //console.log('val at targetArr each: ', val)
-    console.log('key arr[idx] : ', keyArr[idx])
+    //console.log('key arr[idx] : ', keyArr[idx])
 	    //values with tags do not have tag0 string
 	  if (keyArr[idx].includes('tag')) {
-		  console.log('split me:' ,keyArr[idx])
+		  //console.log('split me:' ,keyArr[idx])
 		  let testKey = keyArr[idx].replaceAll('tag', '')
 	 	let arrTranslated = targetArr[idx].split('[]')
 		  keyObj[testKey] = arrTranslated
-	  }
-	 /* if (keyArr[idx].includes('tag0')) { 
-        lastNonTag = keyArr[idx].replace('/tag0', '')
-		  console.log('arr created: ', lastNonTag)
-        keyObj[lastNonTag] = [val]
-	  } else if (keyArr[idx].includes('tag') && !keyArr[idx].includes('tag0')) {
-      //push value
-          keyObj[lastNonTag] = Array.isArray(keyObj[lastNonTag]) ? [...keyObj[lastNonTag], val] : [keyObj[lastNonTag], val]
-	      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-      //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
-      console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-      }*/
-	    else {
+	  } else {
       keyObj[keyArr[idx]] = val	
       }
       return	
     })
-    console.log('keyObj after function: ', keyObj)
+    //console.log('keyObj after function: ', keyObj)
     return
   }
 
@@ -195,15 +183,10 @@ keyArr.push(splitedTag)
 	  testTagName(targetObjKey)
 	  testTargetObj(keyObj)
 	  testTargetObj(srcObj)
-	  //for some value of keyObj should have each array
 	//console.log('keyObj: ', keyObj)
-	  //srcObj has an error
 	  //console.log('srcObj: ', srcObj)
 	  //console.log('targetObjKey : ', targetObjKey)
-	  //
-	  //
-	  //should have pass if keyObj's key has tag0 some value.
-	  //
+	  
     Object.entries(targetObj).forEach(([key, value]) => {
        //console.log('targetObj : ', targetObj, key)
       const strPath = makeStringPath(targetObjKey, key) 
@@ -246,7 +229,7 @@ keyArr.push(splitedTag)
           replaceTarget = srcObj[strPath]
           //console.log(srcObj)
           //console.log(strPath)
-          console.log('replaceTarget: ', replaceTarget)
+          //console.log('replaceTarget: ', replaceTarget)
 
 	  if(Array.isArray(replaceTarget)) {
 	  let tempArr = []

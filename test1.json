@@ -5,8 +5,8 @@
     "P": {
         "banana": "Encrypt your online connection and \n keep your online activity safe.",
         "1": "<a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\" aria-haspopup=\"true\">Guide to NortainVPN</a>\n                    <div class=\"dropdown-menu\">\n                        <div class=\"col-auto\" data-dropdown-content=\"\">\n                      \n\t\t\t      <a href=\"guide-purchase.html\" class=\"dropdown-item fade-page\">How to buy NortainVPN</a>\n\t\t\t      <a href=\"guide-download.html\" class=\"dropdown-item fade-page\">How to Download configuration file</a>\n\t\t\t      <a href=\"guide-wg.html\" class=\"dropdown-item fade-page\">How to use Wireguard</a>\n\t\t      </div>\n                      </div>",
-        "2": "Be safe while you're using vulnerable wi-fi at a cafe, hotel to be easy to exposure your credit card number or precious information by crackers.",
-        "3": "Encrypt your data while you're entering a business website which gathers your cookie information.",
+        "2": "NortainVPN service uses Wireguard client to activate the VPN tunnel with configuration files. Wireguard is a powerful and simple utility that uses crypto for encrypting your data. While surfing with the NortainVPN service, your data will be protected by using the Wireguard client. The first download, and install the Wireguard client by your OS at <span><a href=\"https://www.wireguard.com/install/\">this website.</a></span> Address is below:",
+	"3": "Encrypt your data while you're entering a business website which gathers your cookie information.",
         "4": "Enjoy content from other regions like a movie, streaming, or other services.",
         "5": "VPN hides your IP address and makes it untraceable",
         "6": "Watch movies, series and play video games only allowed in other countries.",
