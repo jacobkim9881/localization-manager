@@ -52,21 +52,34 @@ module.exports = {
         //console.log('key value: ', value)
         const strRemovedTag = removeTagsInStr(value)    
           , arrayOfTags = strRemovedTag.split('\t')
+	//console.log('strRemovedTag: ', strRemovedTag)
 	      // change to Array.isArray(val) 
 	      // and test it
           , isValueArray= arrayOfTags.length > 1 ? true : false   
           , isValueStr	= arrayOfTags.length === 1 ? true : false  
         //console.log('isValueArry: ', isValueArray, 'isValStr: ', isValueStr)	
         //console.log('strPath: ', strPath)
+	//console.log('arrayOfTags: ', arrayOfTags)		    
         arrayOfTags.forEach((val, idx) => {
 	       let hasOnlySpace = isOnlySpace(val)          
 
             //console.log( 'is empty: ', hasOnlySpace)
             if (hasOnlySpace && isValueArray) return
-
+	//console.log('has idx 1: ', arrayOfTags[idx + 1])
         if (idx === 0 && arrayOfTags[idx + 1]) srcObj[strPath] = []
 		//console.log('val: ', srcObj[strPath])
-	if (isValueArray) { srcObj[strPath].push(val) } else {srcObj[strPath] = val} 
+		//console.log('path: ', strPath)
+		//console.log('objl: ', srcObj)
+	if (isValueArray) {
+	let testPath = putPathTagToValue(val, idx, strPath)
+		//srcObj[testPath] = val
+		//srcObj[testPath].push(val) 		
+
+		srcObj[strPath].push(val) 
+
+	} else {
+		srcObj[strPath] = val
+		} 
         })
 
         //console.log('strRemovedTag: ', strRemovedTag)
@@ -83,30 +96,52 @@ module.exports = {
     return targetObj
   }
   ,
-  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {	
+  makeKeyPathReturnSrc: function makeKeyPathReturnSrc(srcStr, keyArr, keyObj) {
+	  //console.log('keyObj at makeKeyPathReturnSrc: ', keyObj)
   //makeKeyPathReturnSrc: function makeKeyPathReturnSrc(targetObj, srcStr, keyArr, keyObj) {	
 	  //testTargetObj(targetObj)
 	  testTargetObj(keyObj)
 	  testArr(keyArr)
 	  testStr(srcStr)
 	let tEntries = Object.entries(keyObj)
+	  //console.log('tEntries: ', tEntries)
 	  tEntries.forEach( (arr, idx) => {
 	  //for (const [key, val] of Object.entries(keyObj)) {
-//    targetObj.forEach((val, idx) => {
-    //console.log(idx, val)
+    //console.log('makeKeyPathReturnSrc idx and arr: ', idx, arr)
       //let [splitedTag, splitedVal] = val.split('\t')
       let [splitedTag, splitedVal] = [arr[0], arr[1]]
       //let [splitedTag, splitedVal] = [key, val]
 	    , mark = '()'
+		  , tagMark = '[]'
       function logSplitedTag(splitedTag, splitedVal) {    
         console.log('splited Tag:', splitedTag)    
         console.log('splited value:', splitedVal)    
       }
       //logSplitedTag(splitedTag, splitedVal)    
-	 if (Array.isArray(splitedVal)) {splitedVal = splitedVal.join(' ') } else { splitedVal = lineFeedToMark(splitedVal, mark)}
+	 if (Array.isArray(splitedVal)) {
+		 let multiTag = ''
+		 , putMark = ''
+		 splitedVal.forEach((valu, indx) => {
+			 multiTag = multiTag + 'tag'
+			 putMark = splitedVal[indx + 1] ? putMark + valu + tagMark : putMark + valu
+//keyArr.push(putPathTagToValue(valu, indx, splitedTag))
+			 //console.log('pushed key: at makeKeyP: ', putPathTagToValue(valu, indx, splitedTag))
+		 })
+		 splitedTag = splitedTag + multiTag
+//keyArr.unshift(putPathTagToValue(valu, indx, splitedTag))
+keyArr.push(splitedTag)
+		splitedVal = putMark
+		 //splitedVal = splitedVal.join(' ') 
+	 } else { splitedVal = lineFeedToMark(splitedVal, mark)
       keyArr.push(splitedTag)
+		 //unshift for right order
+      //keyArr.unshift(splitedTag)
+			 //console.log('pushed key: at makeKeyP: ', splitedTag)
+	 }
+    //console.log('key arr after push : ', keyArr)
       //srcStr = addStrToSrc(targetObj[idx +1], srcStr, splitedVal) 
       srcStr = addStrToSrc(tEntries[idx +1], srcStr, splitedVal) 
+		  //console.log('srcStr: ', srcStr)
       testStr(srcStr)	    
       //targetObj[idx] = splitedVal
           return	  
@@ -119,7 +154,7 @@ module.exports = {
 	  testArr(targetArr)
 	  testTargetObj(keyObj)
 	  testArr(keyArr)
-    //	console.log('keyObj before function: ', keyObj)
+    	 //console.log('keyObj before function: ', keyObj)
     let lastNonTag = ''
     //console.log('targetArr after poping empty str: ', targetArr)
     //console.log('targetArr length after poping empty str: ', targetArr.length)
@@ -127,18 +162,15 @@ module.exports = {
     //console.log('idx at targetArr each: ', idx)
     //console.log('val at targetArr each: ', val)
     //console.log('key arr[idx] : ', keyArr[idx])
-	  if (keyArr[idx].includes('tag0')) { 
-        lastNonTag = keyArr[idx].replace('/tag0', '')
-        keyObj[lastNonTag] = [val]
-	  } else if (keyArr[idx].includes('tag') && !keyArr[idx].includes('tag0')) {
-      //push value
-          keyObj[lastNonTag] = Array.isArray(keyObj[lastNonTag]) ? [...keyObj[lastNonTag], val] : [keyObj[lastNonTag], val]
-	      //console.log('typeof keyObj[lastNonTag] :', typeof Object.values(keyObj[lastNonTag])[0])
-      //console.log('length of keyObj[lastNonTag] :', keyObj[lastNonTag].length)
-      //console.log('keyObj[lastNonTag] :', keyObj[lastNonTag])
-      } else {
-      }
+	    //values with tags do not have tag0 string
+	  if (keyArr[idx].includes('tag')) {
+		  //console.log('split me:' ,keyArr[idx])
+		  let testKey = keyArr[idx].replaceAll('tag', '')
+	 	let arrTranslated = targetArr[idx].split('[]')
+		  keyObj[testKey] = arrTranslated
+	  } else {
       keyObj[keyArr[idx]] = val	
+      }
       return	
     })
     //console.log('keyObj after function: ', keyObj)
@@ -151,17 +183,22 @@ module.exports = {
 	  testTagName(targetObjKey)
 	  testTargetObj(keyObj)
 	  testTargetObj(srcObj)
-
+	//console.log('keyObj: ', keyObj)
+	  //console.log('srcObj: ', srcObj)
+	  //console.log('targetObjKey : ', targetObjKey)
+	  
     Object.entries(targetObj).forEach(([key, value]) => {
+       //console.log('targetObj : ', targetObj, key)
       const strPath = makeStringPath(targetObjKey, key) 
 	    , typeofValue = typeof value
       testStr(strPath)  
-
+//console.log('strPath: ', strPath)
       switch(typeofValue) {
       case 'object': 
       // console.log('targetObj : ', targetObj, key)
+		  //console.log('objs value: ', value)
 	 targetObj[key] = {}
-        // console.log('after recursive: ', putStrIn(value, strPath, keyObj))
+         //console.log('after recursive: ', putStrIn(value, strPath, keyObj, srcObj))
         return targetObj[key] = putStrIn(value, strPath, keyObj, srcObj)
         break
 
@@ -172,8 +209,9 @@ module.exports = {
         //console.log(' value: ', value)
         //console.log('str path : ', strPath)
         //console.log('found value: ', keyObj[strPath])
+        //console.log('keyObj: ', keyObj)
 	    //console.log('type of each keyObj[strPath] :', typeof keyObj[strPath])
-        //console.log('scrObj: ', srcObj)
+        //console.log('scrObj: at 206 ', srcObj)
 	    //console.log('each keyObj[strPath] :', keyObj[strPath])
         if(isKeyObjArray) {
           keyObj[strPath].forEach((eachStr, keyObjIdx) => {
@@ -191,7 +229,7 @@ module.exports = {
           replaceTarget = srcObj[strPath]
           //console.log(srcObj)
           //console.log(strPath)
-          //console.log(replaceTarget)
+          //console.log('replaceTarget: ', replaceTarget)
 
 	  if(Array.isArray(replaceTarget)) {
 	  let tempArr = []

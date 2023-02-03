@@ -6,29 +6,27 @@ RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NC=$(tput sgr0)
 
-if [[ -e $@ ]]; then
-	  echo "${GREEN}Script started.${NC}" 
-	else
-          echo "${RED}File should be put.${NC} You can not execute this program without putting json file after .exe.sh." 
-	  echo "Example: ${RED}./exe.sh translate.json${NC}" 
+recursive()
+	{
+		var=$1
+	test1=$(echo -n $var)
 
-	  exit
+	if [[ -d $var ]]; then
+	echo It is a directory. : $var
+	for var2 in "$var"/*
+	do	
+		recursive $var2
+		echo dir
+	done	
+	continue
 
-fi
+	elif [[ ! $var =~ ".json" ]]; then
+		echo "it is not json format"
+	continue
 
-
-for var in "$@"
-	do
-
-	if [[ $var == *".json"* ]]; then
-	  echo $var will be translated into other language version $var.
-	else
-          echo "File format should have ${RED}.json${NC}." 
-	  echo "The file you put: ${RED}$var${NC}." 
-
-	  exit
-	fi
-
+	elif [[ $var =~ ".json" ]]; then
+	echo $var will be translated into other language version $var.
+	
 	num=0
 	
 	while [[ "$num" -le $LangNumber ]];
@@ -54,5 +52,14 @@ for var in "$@"
 
 	sleep 1
 
-done
+	fi
+}
+
+for var1 in "$@"
+do
+echo target is $@
+echo will execute function for $var1
+recursive $var1
+	
+done	
 echo "Script done."

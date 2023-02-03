@@ -19,7 +19,10 @@ module.exports= {
   },
   removeTagsInStr: function removeTagsInStr(value) {
     testStr(value)	  
-    return value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t').trim()
+	let removeTag =  value.replace(/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g, '\t')
+  ,remove2Tabs = removeTag.replace(/[\t]{2,}/g, '\t').trim()
+
+	  return remove2Tabs
   },
   isOnlySpace: function isOnlySpace(value) {
     testStr(value)	  
@@ -30,7 +33,8 @@ module.exports= {
     testStr(strPath)	  
     testIdx(idx)	  
     testStr(value)	  
-    return strPath + '/tag' + idx + '\t' + value + '\n'
+    return strPath + '/tag' + idx //+ '\t' + value + '\n'
+
   },
 
   lineFeedToMark: function(value, mark) {
